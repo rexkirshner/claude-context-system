@@ -7,6 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.7] - 2025-10-04
+
+### Changed
+- **COMPLETE REDESIGN: Step 4 is now general-purpose** - No longer hard-coded to specific blocks
+- Step 4 now compares entire system sections (like "Working with You")
+- Detects ANY change to template guidance, not just "When Debugging:" or config reference
+- Uses awk-based section extraction that handles both `##` and `###` headers flexibly
+
+### Added
+- Unified diff output showing all changes in context
+- Section-level comparison instead of block-level
+- Support for "Working with Rex" or "Working with You" variations
+
+### Fixed
+- Hard-coded block detection that missed other template improvements
+- Limited to only 2 specific markers (DEBUGGING_BLOCK_UPDATED, CONFIG_REF_UPDATED)
+- Template changes outside those blocks were never detected
+
+### How It Works Now
+1. Extract entire "Working with You" section from template (all subsections included)
+2. Extract same from project's CLAUDE.md
+3. Run diff to detect ANY differences
+4. Show unified diff with full context
+5. Ask user to review and approve
+6. Replace entire section if approved
+
+### Impact
+- **Any** future improvement to CLAUDE.template.md will be detected
+- No need to update Step 4 command when adding new guidance
+- True general-purpose template update system
+- User sees full context of what's changing
+
+### User Request
+User identified the fundamental flaw: "Right now it seems like updating the debug information is hard coded into step 4, but the goal isn't just to update the debugging code, update should be general purpose. whenever we make a change to claude.template.md (or any of the other template files) the /update-context-system command should try to integrate those changes"
+
+This release addresses that request completely.
+
 ## [1.2.6] - 2025-10-04
 
 ### Fixed
