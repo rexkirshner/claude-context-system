@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2025-10-04
+
+### Added
+- Step 0 working directory verification in /update-context-system
+- Checks for context/.context-config.json before proceeding
+- Detects if running from parent folder and suggests cd command
+- Clear error messages with pwd output
+
+### Fixed
+- Error when running /update-context-system from parent folder instead of project folder
+- Claude saying "file access issues" when really in wrong directory
+- Confusing error messages that didn't explain the root cause
+
 ## [1.2.0] - 2025-10-04
 
 ### Changed

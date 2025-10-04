@@ -56,6 +56,46 @@ Each bash code block in this file should be run using the Bash tool. This is an 
 
 ## Execution Steps
 
+### Step 0: Verify Working Directory
+
+**CRITICAL:** Ensure we're in the correct project directory before proceeding.
+
+```bash
+# Check if context/.context-config.json exists
+if [ ! -f "context/.context-config.json" ]; then
+  echo ""
+  echo "❌ ERROR: Not in correct project directory"
+  echo ""
+  echo "Current directory: $(pwd)"
+  echo ""
+  echo "This command must be run from the project root directory that contains:"
+  echo "  - context/.context-config.json"
+  echo "  - .claude/commands/"
+  echo ""
+  echo "Common issues:"
+  echo "  1. Running from parent folder instead of project folder"
+  echo "  2. Running from nested subdirectory"
+  echo ""
+
+  # Try to detect if we're in a parent folder
+  if [ -d "inevitable-eth/context" ] || [ -d "*/context" ]; then
+    echo "💡 Detected project in subdirectory!"
+    echo ""
+    echo "Try:"
+    echo "  cd inevitable-eth  (or whatever your project folder is)"
+    echo "  /update-context-system"
+  fi
+
+  echo ""
+  echo "Cancelled. Please cd to the project directory and try again."
+  exit 1
+fi
+
+echo "✅ Working directory verified"
+echo "Project: $(pwd)"
+echo ""
+```
+
 ### Step 1: Check Current Version and Download Latest
 
 **ACTION:** Use the Bash tool to execute this entire script as ONE command:
