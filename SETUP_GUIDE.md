@@ -1,0 +1,324 @@
+# Claude Context System - Setup Guide
+
+## Quick Start (New Project)
+
+### Step 1: Get the Toolkit
+```bash
+# Clone the repository
+git clone https://github.com/rexkirshner/claude-context-system.git
+
+# Or download just the .claude-commands folder from GitHub
+```
+
+### Step 2: Copy Files to Your Project
+```bash
+# From your new project root
+cp -r claude-context-system/.claude-commands .
+cp claude-context-system/config/.context-config.template.json .context-config.json
+```
+
+### Step 3: Initialize Context
+```
+/init-context
+```
+This creates:
+- `context/` folder with all meta-documentation
+- `.context-config.json` with your preferences
+- Initial project analysis and documentation
+
+### Step 4: Start Working
+```
+# At session start:
+/review-context  # Verify context is loaded
+
+# During work:
+/save-context    # Run periodically or before breaks
+
+# At session end:
+/save-context    # Capture final state
+```
+
+---
+
+## Detailed Setup Instructions
+
+### Prerequisites
+1. Have your claude-admin folder accessible
+2. Claude Code open in your project
+3. Project initialized (package.json exists for JS projects)
+
+### Installation Methods
+
+#### Method 1: Clone and Copy (Recommended)
+1. Clone the repository: `git clone https://github.com/rexkirshner/claude-context-system.git`
+2. Copy the `.claude-commands/` folder to your project root
+3. Copy and rename config: `cp config/.context-config.template.json .context-config.json`
+4. Run `/init-context` in Claude Code
+5. Review and customize `.context-config.json` if needed
+
+#### Method 2: Download and Copy
+1. Download the repository as ZIP from GitHub
+2. Extract and copy `.claude-commands/` to your project
+3. Copy and rename `.context-config.template.json`
+4. Run `/init-context`
+
+#### Method 3: Direct Reference
+If you have a local clone of the repo:
+1. Tell Claude: "Load commands from /path/to/claude-context-system/"
+2. Claude will read the command definitions
+3. Run `/init-context`
+
+---
+
+## Command Reference
+
+### `/init-context`
+**When:** Once, at project start
+
+**What it does:**
+- Creates `context/` folder structure
+- Generates all meta-documentation
+- Analyzes project and fills in known information
+- Creates `.context-config.json`
+
+**Expected output:**
+```
+✅ Created context/ directory
+✅ Generated 8 documentation files
+✅ Analyzed project structure
+✅ Created .context-config.json
+```
+
+### `/save-context`
+**When:** Frequently - after major work, before breaks, at session end
+
+**What it does:**
+- Updates all existing documentation
+- Captures current session state
+- Records decisions made
+- Updates task progress
+- Creates session log entries
+
+**Expected output:**
+```
+✅ Updated CLAUDE.md - Added critical path
+✅ Updated SESSIONS.md - Session 12 logged
+✅ Updated KNOWN_ISSUES.md - 2 issues resolved
+✅ Updated next-steps.md - 3 tasks completed
+```
+
+### `/review-context`
+**When:** At session start, before major decisions, when confused
+
+**What it does:**
+- Verifies documentation accuracy
+- Checks for inconsistencies
+- Confirms ability to resume work
+- Reports any gaps
+
+**Expected output:**
+```
+✅ All documentation current
+✅ No inconsistencies found
+✅ Ready to resume from: [specific task]
+⚠️ Note: SESSIONS.md shows incomplete task X
+```
+
+### `/code-review`
+**When:** After feature completion, before deployment, when quality matters
+
+**What it does:**
+- Comprehensive code audit
+- NO changes during review
+- Generates findings report
+- Suggests improvements
+
+**Expected output:**
+```
+Code Review Report - Grade: B+
+✅ No critical issues
+⚠️ 3 minor improvements suggested
+📋 See context/reviews/session-12-review.md
+```
+
+---
+
+## File Structure Created
+
+```
+your-project/
+├── context/                      # All context docs
+│   ├── .context-config.json     # Your preferences
+│   ├── CLAUDE.md                # Dev guide + your rules
+│   ├── PRD.md                   # Product requirements
+│   ├── ARCHITECTURE.md          # Technical design
+│   ├── DECISIONS.md             # Why we chose X over Y
+│   ├── CODE_STYLE.md            # Your coding standards
+│   ├── KNOWN_ISSUES.md          # Current problems
+│   ├── SESSIONS.md              # Detailed work log
+│   ├── tasks/
+│   │   ├── next-steps.md        # What to do next
+│   │   └── todo.md              # Current session tasks
+│   └── reviews/
+│       └── [session]-review.md  # Code review results
+```
+
+---
+
+## Typical Workflow
+
+### New Project Session
+```
+1. Create new project
+2. Copy .claude-commands folder
+3. Run: /init-context
+4. Start coding
+5. Run: /save-context (periodically)
+6. End: /save-context
+```
+
+### Continuing Project Session
+```
+1. Open project
+2. Run: /review-context
+3. Read SESSIONS.md last entry
+4. Continue from next-steps.md
+5. Run: /save-context (periodically)
+6. End: /save-context
+```
+
+### Pre-Deployment Session
+```
+1. Run: /save-context
+2. Run: /code-review
+3. Fix issues in separate session
+4. Run: /save-context
+5. Deploy
+```
+
+---
+
+## Troubleshooting
+
+### "Commands not recognized"
+- Make sure to load commands at session start
+- Check `.claude-commands/` folder exists
+- Try direct reference method
+
+### "Context seems stale"
+- Run `/save-context` immediately
+- Check SESSIONS.md for last update
+- Review git log for uncommitted changes
+
+### "Can't resume work"
+- Check context/SESSIONS.md for last state
+- Review context/tasks/todo.md for WIP
+- Look at git status for uncommitted work
+
+### "Documentation drift"
+- Run `/save-context` more frequently
+- Set reminder to update every hour
+- Check .context-config.json settings
+
+---
+
+## Best Practices
+
+1. **Always init on new projects** - Don't skip initialization
+2. **Save context before breaks** - Even 5-minute breaks
+3. **Review at session start** - Ensure continuity
+4. **Don't edit context manually** - Let commands handle it
+5. **Include in .gitignore if needed** - `echo "context/" >> .gitignore`
+6. **Update config per project** - Some projects need different settings
+
+---
+
+## Customization
+
+### Per-Project Overrides
+Edit `.context-config.json`:
+- Change documentation location
+- Adjust verbosity preferences
+- Enable/disable specific docs
+- Set custom templates path
+
+### Global Preferences
+Keep your master preferences in the cloned repo:
+`claude-context-system/config/.context-config.template.json`
+
+### Command Shortcuts
+Add to `.context-config.json`:
+```json
+"aliases": {
+  "/s": "/save-context",
+  "/r": "/review-context"
+}
+```
+
+---
+
+## Questions?
+
+If context seems lost or commands aren't working:
+1. Verify `.context-config.json` exists
+2. Check `context/` folder has all docs
+3. Run `/review-context` for diagnostic
+4. Manually tell Claude about your preferences if needed
+
+Remember: The goal is perfect session continuity. When in doubt, `/save-context`!
+
+---
+
+## Advanced Usage
+
+### Using with Git
+
+**Option 1: Track Context (Recommended for solo projects)**
+```bash
+# Context helps you and future you
+git add context/
+git commit -m "Update context documentation"
+```
+
+**Option 2: Ignore Context (For team projects)**
+```bash
+# Add to .gitignore
+echo "context/" >> .gitignore
+echo ".context-config.json" >> .gitignore
+```
+
+### Multiple Projects
+
+Keep a master command set:
+```bash
+# Clone once, then symlink to projects
+git clone https://github.com/rexkirshner/claude-context-system.git ~/claude-context-system
+
+# In each project, create symlink instead of copying
+ln -s ~/claude-context-system/.claude-commands .
+```
+
+### Backup Strategy
+
+Important context should be backed up:
+```bash
+# Manual backup
+cp -r context/ context.backup-$(date +%Y%m%d)/
+
+# Or use git (if tracked)
+git commit -m "Backup context before major changes"
+```
+
+---
+
+## Success Checklist
+
+After setup, verify:
+- [ ] `.claude-commands/` folder exists in project
+- [ ] `/init-context` successfully created `context/` folder
+- [ ] All 8 core documentation files present
+- [ ] `.context-config.json` configured correctly
+- [ ] `/review-context` reports "ready to work"
+- [ ] Can run `/save-context` without errors
+
+When all checked, you're ready to work with perfect context preservation!
