@@ -17,6 +17,47 @@ Initialize the complete context management system for this project. Run this onc
 
 ## Execution Steps
 
+### Step 0: Verify Working Directory and .claude Location
+
+**CRITICAL:** Check for multiple .claude directories in the path. This causes conflicts.
+
+```bash
+# Get absolute path to current directory
+CURRENT_DIR=$(pwd)
+echo "Working directory: $CURRENT_DIR"
+
+# Check for .claude directories in parent path
+CLAUDE_DIRS=$(find "$CURRENT_DIR" -maxdepth 0 -name ".claude" -o -path "*/.claude" | grep -c ".claude" || echo "0")
+
+# Also check parent directories up to 3 levels
+PARENT_CLAUDE=$(find "$CURRENT_DIR/.." -maxdepth 2 -name ".claude" 2>/dev/null | grep -v "$CURRENT_DIR/.claude" || echo "")
+
+if [ -n "$PARENT_CLAUDE" ]; then
+  echo ""
+  echo "⚠️  WARNING: Multiple .claude directories detected!"
+  echo ""
+  echo "Current project: $CURRENT_DIR/.claude"
+  echo "Parent folder(s): $PARENT_CLAUDE"
+  echo ""
+  echo "❌ PROBLEM: Claude Code may use the wrong .claude directory"
+  echo "This causes commands to be loaded from the parent instead of this project."
+  echo ""
+  echo "✅ SOLUTION: Only keep .claude in the actual project root"
+  echo "Remove .claude from parent folders that aren't projects themselves."
+  echo ""
+  echo "Recommended action:"
+  echo "  1. If parent folder is NOT a project: rm -rf <parent>/.claude"
+  echo "  2. If parent folder IS a project: Move this project out of it"
+  echo ""
+  read -p "Continue anyway? [y/N] " -n 1 -r
+  echo
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Cancelled. Please resolve .claude directory conflicts first."
+    exit 1
+  fi
+fi
+```
+
 ### Step 1: Check Existing Context
 
 ```

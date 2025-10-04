@@ -174,6 +174,55 @@ Tags make it easy to:
 
 ---
 
+## Critical: .claude Directory Location
+
+**IMPORTANT:** There should only be ONE `.claude` directory per project.
+
+### The Problem
+
+If a project is nested inside another folder that has a `.claude` directory:
+```
+parent-folder/
+├── .claude/            ← PROBLEM: Parent has .claude
+│   └── commands/
+└── my-project/
+    ├── .claude/        ← Project also has .claude
+    │   └── commands/
+    └── context/
+```
+
+**What happens:**
+- Claude Code may load commands from the parent folder instead of the project
+- Commands get out of sync
+- Updates don't work correctly
+- Very confusing experience
+
+### The Solution
+
+**Only keep `.claude` in the actual project root:**
+```
+parent-folder/          ← No .claude here (unless this IS a project)
+└── my-project/
+    ├── .claude/        ← Only here
+    │   └── commands/
+    └── context/
+```
+
+**Fix existing conflicts:**
+```bash
+# If parent folder is NOT a project itself:
+rm -rf parent-folder/.claude
+
+# If parent folder IS a project:
+# Move nested project out of it
+```
+
+### Verification
+
+Both `/init-context` and `/migrate-context` now check for this issue and warn you.
+
+---
+
 ## Remember
 
 **If you changed ANYTHING, increment the version.**

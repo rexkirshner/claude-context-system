@@ -348,6 +348,13 @@ Customize per project or use global defaults.
 
 ## Troubleshooting
 
+**Commands not working or loading wrong versions?**
+- ⚠️ **CRITICAL:** Check for multiple `.claude` directories
+- Claude Code may be loading commands from a parent folder
+- Run: `find .. -maxdepth 2 -name ".claude"`
+- **Solution:** Only keep `.claude` in the actual project root
+- Remove `.claude` from parent folders that aren't projects
+
 **Context feels stale?**
 - Run `/save-context` immediately
 - Check SESSIONS.md for last update
@@ -357,10 +364,10 @@ Customize per project or use global defaults.
 - Review SESSIONS.md last entry
 - Check git status
 
-**Commands not working?**
-- Verify `.claude/commands/` folder exists
-- Check command files have `.md` extension
-- Try loading commands manually
+**Commands missing after update?**
+- Check if there's a parent `.claude` directory
+- The update may have updated the wrong folder
+- Verify: `ls .claude/commands` shows all 9 commands
 
 See [SETUP_GUIDE.md](./SETUP_GUIDE.md) for detailed troubleshooting.
 

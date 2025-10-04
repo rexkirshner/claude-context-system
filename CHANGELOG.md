@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.3] - 2025-10-04
+
+### Added
+- Multiple .claude directory detection in /init-context and /migrate-context
+- Warning message when parent folders have .claude directories
+- Step 0 verification in both commands to check working directory
+- Documentation in VERSION_MANAGEMENT.md about .claude conflicts
+- Troubleshooting section in README.md for .claude directory issues
+
+### Fixed
+- Critical issue where nested projects load commands from parent .claude folder
+- Commands appearing out of sync or missing after updates
+- Confusing behavior when test/example projects are nested
+
 ## [1.1.2] - 2025-10-04
 
 ### Fixed
