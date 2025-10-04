@@ -13,6 +13,9 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 ## Working with Rex
 
+> **📋 Preferences:** All communication, workflow, and quality preferences are defined in `config/preferences.yaml`.
+> The settings below are derived from that source of truth.
+
 ### Communication Style
 
 **What Rex Prefers:**

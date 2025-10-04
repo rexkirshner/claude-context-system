@@ -326,6 +326,200 @@ In SESSIONS.md, explicitly note:
 - Mental model: Refresh tokens stored in httpOnly cookie, access tokens in memory
 ```
 
+### Step 5.5: Write Machine-Readable Artifacts
+
+**Purpose:** Create JSON files for fast agent loading and cross-session memory.
+
+**Write context/state.json:**
+
+Aggregate current project state for fast loading. Use schema at `config/state-schema.json`.
+
+```json
+{
+  "version": "1.0.0",
+  "lastUpdated": "2024-03-15T14:30:00Z",
+  "sessionNumber": 12,
+  "project": {
+    "name": "Project Name",
+    "phase": "Phase 2 - Feature Implementation",
+    "status": "One-sentence current status"
+  },
+  "currentFocus": {
+    "task": "Implementing JWT refresh logic",
+    "description": "Adding refresh token validation and rotation",
+    "approach": "Using jose library for JWT verification",
+    "nextAction": "Add refresh endpoint at app/api/auth/refresh/route.ts"
+  },
+  "workInProgress": {
+    "active": true,
+    "files": [
+      {
+        "path": "lib/auth.ts",
+        "lineNumber": 145,
+        "description": "Adding refresh token validation"
+      }
+    ],
+    "context": "Refresh tokens stored in httpOnly cookie, access tokens in memory"
+  },
+  "blockers": [],
+  "recentAccomplishments": [
+    {
+      "description": "Implemented user authentication system",
+      "sessionNumber": 12,
+      "files": ["lib/auth.ts", "app/api/auth/route.ts"]
+    }
+  ],
+  "nextSteps": [
+    {
+      "action": "Complete refresh token implementation",
+      "priority": "high",
+      "context": "Resume at lib/auth.ts:145"
+    }
+  ],
+  "keyFiles": [
+    {
+      "path": "lib/auth.ts",
+      "purpose": "Authentication utilities",
+      "lastModified": "2024-03-15T14:30:00Z"
+    }
+  ],
+  "recentDecisions": [
+    {
+      "decision": "Use jose library for JWT handling",
+      "date": "2024-03-15",
+      "rationale": "Better TypeScript support and Web Crypto API integration"
+    }
+  ],
+  "knownIssues": {
+    "blocking": 0,
+    "nonCritical": 1,
+    "minor": 2,
+    "topIssues": []
+  },
+  "technicalDebt": [],
+  "metadata": {
+    "createdAt": "2024-03-10T10:00:00Z",
+    "totalSessions": 12,
+    "projectAge": "5 days"
+  }
+}
+```
+
+**Write context/sessions/session-[N].json:**
+
+Create detailed session log. Use schema at `config/session-schema.json`.
+
+```json
+{
+  "version": "1.0.0",
+  "sessionNumber": 12,
+  "startTime": "2024-03-15T12:00:00Z",
+  "endTime": "2024-03-15T14:30:00Z",
+  "duration": {
+    "hours": 2.5,
+    "minutes": 150,
+    "humanReadable": "2.5 hours"
+  },
+  "focus": "Implementing authentication system",
+  "accomplishments": [
+    {
+      "description": "Created JWT token management utilities",
+      "files": ["lib/auth.ts"],
+      "lineReferences": [
+        {
+          "file": "lib/auth.ts",
+          "lines": "1-145",
+          "change": "Added token generation and validation"
+        }
+      ]
+    }
+  ],
+  "filesModified": [
+    {
+      "path": "lib/auth.ts",
+      "change": "Added JWT utilities",
+      "lineNumbers": "1-145",
+      "linesAdded": 145,
+      "linesRemoved": 0
+    }
+  ],
+  "filesCreated": [
+    {
+      "path": "app/api/auth/route.ts",
+      "purpose": "Authentication API endpoints",
+      "lines": 67
+    }
+  ],
+  "decisionsMade": [
+    {
+      "decision": "Use jose library instead of jsonwebtoken",
+      "rationale": "Better TypeScript support, Web Crypto API",
+      "alternatives": ["jsonwebtoken", "auth0/jwt"],
+      "documentedIn": "context/DECISIONS.md line 45"
+    }
+  ],
+  "issuesDiscovered": [],
+  "issuesResolved": [
+    {
+      "title": "CORS errors on auth endpoints",
+      "solution": "Added CORS headers to middleware",
+      "files": ["middleware.ts"]
+    }
+  ],
+  "commandsRun": [
+    {
+      "command": "npm install jose",
+      "purpose": "Add JWT library",
+      "result": "Success"
+    }
+  ],
+  "gitActivity": {
+    "commits": [
+      {
+        "hash": "abc123",
+        "message": "Add authentication system",
+        "filesChanged": 3
+      }
+    ],
+    "branch": "main",
+    "pushed": false
+  },
+  "workInProgress": {
+    "active": true,
+    "task": "Implementing JWT refresh logic in lib/auth.ts",
+    "files": [
+      {
+        "path": "lib/auth.ts",
+        "lineNumber": 145,
+        "description": "Adding refresh token validation"
+      }
+    ],
+    "approach": "Using jose library for JWT verification",
+    "nextAction": "Add refresh endpoint at app/api/auth/refresh/route.ts"
+  },
+  "nextSteps": [
+    {
+      "action": "Complete refresh token implementation",
+      "priority": "high"
+    }
+  ],
+  "notes": [
+    "Decided on httpOnly cookies for refresh tokens after security review"
+  ],
+  "metadata": {
+    "generatedBy": "/save-context",
+    "generatedAt": "2024-03-15T14:30:00Z"
+  }
+}
+```
+
+**Important:**
+- Create `context/sessions/` directory if it doesn't exist
+- Keep markdown files as primary human-readable source
+- JSON provides fast-loading cache for agents
+- Validate against schemas in `config/` directory
+- Use actual git data where available
+
 ### Step 6: Report Updates
 
 Provide clear summary:
