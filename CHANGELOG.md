@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.2] - 2025-10-04
+
+### Added
+- **Cleanup step for /init-context** - Step 6 removes installation files after initialization
+- **Cleanup step for /migrate-context** - Step 9 removes installation files after migration
+- Automatic removal of `claude-context-system/` directory
+- Automatic removal of `claude-context-system.zip` (if exists)
+
+### Changed
+- Both /init-context and /migrate-context now clean up after themselves
+- Projects are left clean without installation artifacts
+- Matches cleanup behavior from /update-context-system
+
+### Impact
+- ✅ No more leftover installation directories after init/migration
+- ✅ Cleaner project structure
+- ✅ Consistent cleanup across all commands
+- ✅ User doesn't need to manually remove installation files
+
+### User Request
+User noticed that post-migration, the `claude-context-system` folder remained in the parent directory. This release ensures both /init-context and /migrate-context clean up installation files, just like /update-context-system does.
+
 ## [1.3.1] - 2025-10-04
 
 ### Fixed

@@ -371,11 +371,50 @@ If errors occur:
 - Provide manual recovery steps
 - Never leave partial initialization
 
+### Step 6: Cleanup Installation Files
+
+**IMPORTANT:** Remove the installation files that were downloaded from GitHub to keep the project clean.
+
+**ACTION:** Use the Bash tool to remove installation directory:
+
+```bash
+# Check if we're in a nested installation (common pattern)
+if [ -d "../claude-context-system" ]; then
+  echo "🧹 Removing installation files..."
+  rm -rf ../claude-context-system
+  echo "✅ Installation files removed"
+elif [ -d "./claude-context-system" ]; then
+  echo "🧹 Removing installation files..."
+  rm -rf ./claude-context-system
+  echo "✅ Installation files removed"
+else
+  echo "⏭️  No installation files found (already clean)"
+fi
+
+# Also check for downloaded zip
+if [ -f "../claude-context-system.zip" ]; then
+  rm -f ../claude-context-system.zip
+  echo "✅ Removed installation zip"
+fi
+```
+
+**What gets removed:**
+- `claude-context-system/` directory (GitHub repo contents)
+- `claude-context-system.zip` (if exists)
+
+**What gets kept:**
+- `.claude/` directory (slash commands)
+- `context/` directory (all your documentation)
+- All project files
+
+**Result:** Clean project without installation artifacts.
+
 ## Success Criteria
 
 Command succeeds when:
 - All 9 files created
 - Configuration valid
 - Templates filled with available data
+- Installation files cleaned up
 - User can immediately run /save-context
 - Clear next steps provided
