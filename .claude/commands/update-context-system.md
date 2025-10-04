@@ -50,6 +50,14 @@ Update your project's Claude Context System to the latest version from GitHub. S
 
 Each bash code block in this file should be run using the Bash tool. This is an automated update process.
 
+**CRITICAL WORKING DIRECTORY RULE:**
+- User will run this command FROM the project directory
+- Do NOT try to cd into the project directory yourself
+- All paths in commands are relative to project root
+- If Step 0 fails, tell user to cd to correct directory
+- Do NOT attempt complex path escaping with spaces
+- Trust that user's current directory is correct when they run the command
+
 ## Important: Version Check First
 
 **CRITICAL:** This command compares version numbers. If local version matches GitHub version, the command MUST exit immediately without making ANY changes. Only proceed with updates if GitHub version is newer.
@@ -255,24 +263,25 @@ echo "🔍 Checking for template system section updates..."
 echo ""
 
 # Function to extract a section (handles both ## and ### headers)
+# Stops at the next section header of the same level
 extract_section() {
-  local file=$1
-  local section_name=$2
+  local file="$1"
+  local section_name="$2"
 
-  # Try ## header first, then ### header
   awk -v section="$section_name" '
-    BEGIN { found=0; }
+    BEGIN { found=0; level=""; }
+
     /^## / {
-      if (found) exit;
-      if ($0 ~ section) found=1;
-      next;
+      if (found == 1 && level == "##") exit;
+      if ($0 ~ section) { found=1; level="##"; next; }
     }
+
     /^### / {
-      if (!found && $0 ~ section) found=1;
-      else if (found) exit;
-      next;
+      if (found == 1 && level == "###") exit;
+      if (found == 0 && $0 ~ section) { found=1; level="###"; next; }
     }
-    found { print }
+
+    found == 1 { print }
   ' "$file"
 }
 
@@ -319,21 +328,30 @@ fi
 
 **If you see `WORKING_WITH_YOU_UPDATED` marker:**
 
-1. **Review the unified diff shown above** - It shows all changes to the system section
-2. **ACTION:** Ask user:
-   ```
-   The 'Working with You' section has updates from the template.
+**CRITICAL:** You MUST ask the user for approval. Do NOT make the decision yourself.
 
-   This section contains system guidance including:
+1. **Review the unified diff shown above** - It shows all changes to the system section
+2. **ACTION:** IMMEDIATELY ask user (DO NOT skip this step):
+   ```
+   📝 Template Update Available: 'Working with You' section
+
+   The template has updates to system guidance including:
    - Communication Style preferences
    - Core Development Methodology
    - Debugging guidance
    - Workflow preferences
 
-   A unified diff was shown above (lines with - are current, + are template).
+   A unified diff was shown above (- = current, + = template).
 
    Apply this section update to context/CLAUDE.md? [Y/n]
    ```
+
+**IMPORTANT:**
+- Always ask, even if the diff seems large
+- Do NOT decide "it's too different" and skip
+- Do NOT assume user wants to keep current version
+- User will review the diff and decide
+- If unsure, DEFAULT to asking
 
 3. **If user approves (Y or yes):**
    - **ACTION:** Use Read tool to read `/tmp/template-working.txt` (the template version)

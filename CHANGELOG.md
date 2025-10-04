@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.8] - 2025-10-04
+
+### Fixed
+- **CRITICAL: awk syntax error** - Fixed boolean comparisons that caused "illegal statement" errors
+- **CRITICAL: Section extraction** - Now stops at next `##` header correctly (was grabbing too many sections)
+- Changed from `!found` to `found == 0` (awk syntax requirement)
+- Changed from `found` to `found == 1` for consistency
+
+### Changed
+- Made "ask user" instruction absolutely mandatory with explicit warnings
+- Added "CRITICAL: You MUST ask the user for approval. Do NOT make the decision yourself"
+- Added working directory rules to prevent path escaping errors
+- Explicit instruction: "Do NOT try to cd into the project directory yourself"
+
+### Impact
+- **No more awk syntax errors during execution** ✅
+- **Extracts only the target section** (e.g., just "Working with You", not everything until "Commands")
+- **Claude will always ask user** instead of deciding "it's too different" and skipping
+- **Cleaner execution** with fewer parse errors
+
+### User Feedback
+User reported:
+1. "awk syntax errors" during execution
+2. "(eval):1: parse error near `)'" errors at start
+3. Claude made decision not to apply update without asking
+4. Section extraction grabbed too much content (102 lines vs 48 lines expected)
+
+All issues addressed in this release.
+
 ## [1.2.7] - 2025-10-04
 
 ### Changed
