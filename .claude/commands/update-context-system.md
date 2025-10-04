@@ -98,26 +98,31 @@ echo ""
 
 ### Step 1: Check Current Version and Download Latest
 
-**ACTION:** Use the Bash tool to execute this entire script as ONE command:
+**ACTION:** Use the Bash tool to execute these steps:
 
+**Step 1a: Get current version**
 ```bash
-# Step 1: Get current version
 CURRENT_VERSION=$(grep -m 1 '"version":' context/.context-config.json | sed 's/.*"version": "\([^"]*\)".*/\1/')
 echo "📦 Current version: $CURRENT_VERSION"
 echo "🔍 Checking for updates from GitHub..."
+```
 
-# Step 2: Download and extract latest
+**Step 1b: Download and extract latest**
+```bash
+rm -rf /tmp/claude-context-update
 mkdir -p /tmp/claude-context-update
-cd /tmp/claude-context-update
-curl -L https://github.com/rexkirshner/claude-context-system/archive/refs/heads/main.zip -o latest.zip
-unzip -q latest.zip
+curl -L https://github.com/rexkirshner/claude-context-system/archive/refs/heads/main.zip -o /tmp/claude-context-update/latest.zip
+unzip -q /tmp/claude-context-update/latest.zip -d /tmp/claude-context-update
+```
 
-# Step 3: Get latest version
-LATEST_VERSION=$(grep -m 1 '"version":' claude-context-system-main/config/.context-config.template.json | sed 's/.*"version": "\([^"]*\)".*/\1/')
+**Step 1c: Get latest version and compare**
+```bash
+LATEST_VERSION=$(grep -m 1 '"version":' /tmp/claude-context-update/claude-context-system-main/config/.context-config.template.json | sed 's/.*"version": "\([^"]*\)".*/\1/')
+CURRENT_VERSION=$(grep -m 1 '"version":' context/.context-config.json | sed 's/.*"version": "\([^"]*\)".*/\1/')
+
 echo "🔍 Latest version from GitHub: $LATEST_VERSION"
-
-# Step 4: Compare versions
 echo ""
+
 if [ "$CURRENT_VERSION" = "$LATEST_VERSION" ]; then
   echo "✅ Already Up to Date"
   echo ""
@@ -127,7 +132,6 @@ if [ "$CURRENT_VERSION" = "$LATEST_VERSION" ]; then
   echo "Your Claude Context System is already running the latest version."
   echo "No updates were performed. All commands are current."
 
-  # Clean up and exit
   rm -rf /tmp/claude-context-update
   echo "STOP_NO_UPDATE"
 else

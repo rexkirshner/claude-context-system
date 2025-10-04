@@ -1,5 +1,5 @@
 {
-  "version": "1.2.4",
+  "version": "1.2.5",
   "owner": "[Your Name]",
   "project": {
     "name": "[Project Name]",
@@ -175,7 +175,7 @@
   "metadata": {
     "createdAt": "[YYYY-MM-DD]",
     "lastUpdated": "[YYYY-MM-DD]",
-    "configVersion": "1.2.4",
+    "configVersion": "1.2.5",
     "notes": "Configuration for Claude Context System"
   }
 }

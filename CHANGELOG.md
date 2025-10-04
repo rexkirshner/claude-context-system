@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.5] - 2025-10-04
+
+### Fixed
+- **Step 1 shell parsing error** - Split complex single-command script into 3 separate steps
+- Removed `cd` command in middle of script that caused eval parse errors
+- Now uses absolute paths (`/tmp/claude-context-update/latest.zip`) instead of relative paths
+
+### Changed
+- Step 1 split into Step 1a (get current version), Step 1b (download), Step 1c (compare)
+- Each step is a separate bash command - more reliable execution
+- Clearer output showing which step is executing
+
+### Technical Details
+- Old: Single bash script with embedded `cd` caused: `(eval):1: parse error near )`
+- New: Three separate commands, no directory changes, absolute paths throughout
+- Variables still preserved across steps (CURRENT_VERSION, LATEST_VERSION)
+
 ## [1.2.4] - 2025-10-04
 
 ### Added
