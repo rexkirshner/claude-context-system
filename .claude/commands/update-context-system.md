@@ -224,27 +224,21 @@ Without this reload step, you'd be executing outdated Step 4 logic even though t
 
 ### Step 4: Detect Template Content Changes
 
-**IMPORTANT:** Compare entire system sections from template with current project files.
+**IMPORTANT:** Compare system guidance sections from template with current project files.
 
-This step uses **general-purpose section comparison** that detects ANY changes to system guidance sections in CLAUDE.md, not just specific hard-coded blocks.
+This step detects changes to system guidance in CLAUDE.md, handling cases where projects have restructured sections during migration (e.g., promoted subsections to top-level sections).
 
 **Approach:**
-1. Extract complete system sections from template (e.g., "Working with You")
-2. Extract same sections from project's CLAUDE.md
-3. Compare with diff to detect ANY content changes
-4. Show full unified diff to user
-5. Apply entire section if approved
+1. Check for key system content blocks (e.g., debugging guidance)
+2. Compare regardless of section structure differences
+3. Show changes to user for approval
+4. Apply updates while preserving project structure
 
-**System sections we track (CLAUDE.md):**
-- "Working with You" - Communication style, workflow, methodology
-- Handles both `## Working with You` and `### Working with You` (flexible header matching)
-- Includes all subsections: Communication Style, Core Development Methodology, etc.
-
-**Why this works:**
-- Detects ANY change to system guidance (new bullets, reworded text, new subsections)
-- Not limited to specific markers like "When Debugging:"
-- Shows full context so user can see exactly what changed
-- Works for both new projects and migrated projects with different structures
+**System content we track:**
+- Communication Style preferences
+- Core Development Methodology (including debugging guidance)
+- Workflow preferences
+- Quality principles
 
 **Never update (project-specific):**
 - Project Overview
@@ -259,113 +253,103 @@ This step uses **general-purpose section comparison** that detects ANY changes t
 ```bash
 cd /tmp/claude-context-update/claude-context-system-main
 
-echo "🔍 Checking for template system section updates..."
+echo "🔍 Checking for template content updates..."
 echo ""
 
-# Function to extract a section (handles both ## and ### headers)
-# Stops at the next section header of the same level
-extract_section() {
-  local file="$1"
-  local section_name="$2"
+# Extract debugging guidance from template
+TEMPLATE_DEBUG=$(awk '/\*\*When Debugging:/ { found=1; print; next } found && /^$/ { exit } found && /^\*\*[A-Z]/ { exit } found { print }' templates/CLAUDE.template.md)
 
-  awk -v section="$section_name" '
-    BEGIN { found=0; level=""; }
-
-    /^## / {
-      if (found == 1 && level == "##") exit;
-      if ($0 ~ section) { found=1; level="##"; next; }
-    }
-
-    /^### / {
-      if (found == 1 && level == "###") exit;
-      if (found == 0 && $0 ~ section) { found=1; level="###"; next; }
-    }
-
-    found == 1 { print }
-  ' "$file"
-}
-
-# Check "Working with You" section
-echo "Checking: 'Working with You' section..."
-
-extract_section "templates/CLAUDE.template.md" "Working with You" > /tmp/template-working.txt
+# Go back to project directory
 cd - > /dev/null
-extract_section "context/CLAUDE.md" "Working with [YR]" > /tmp/current-working.txt
 
-if [ -s /tmp/template-working.txt ]; then
-  if ! diff -q /tmp/template-working.txt /tmp/current-working.txt > /dev/null 2>&1; then
-    echo "  ✨ UPDATE AVAILABLE"
-    echo ""
-    echo "Changes detected in 'Working with You' section"
-    echo ""
-    echo "--- Unified Diff (- current, + template) ---"
-    diff --unified=5 /tmp/current-working.txt /tmp/template-working.txt || true
-    echo ""
-    echo "WORKING_WITH_YOU_UPDATED"
-  else
-    echo "  ✅ Up to date"
-  fi
+# Extract debugging guidance from current project
+CURRENT_DEBUG=$(awk '/\*\*When Debugging:/ { found=1; print; next } found && /^$/ { exit } found && /^\*\*[A-Z]/ { exit } found { print }' context/CLAUDE.md)
+
+# Check if debugging guidance differs
+if [ -n "$TEMPLATE_DEBUG" ] && [ "$TEMPLATE_DEBUG" != "$CURRENT_DEBUG" ]; then
+  echo "✨ Debugging guidance update available"
+  echo ""
+  echo "Template version:"
+  echo "$TEMPLATE_DEBUG"
+  echo ""
+  echo "Current version:"
+  echo "$CURRENT_DEBUG"
+  echo ""
+  echo "DEBUGGING_BLOCK_UPDATED"
+  UPDATE_AVAILABLE=true
 else
-  echo "  ⏭️  Section not found in template"
+  echo "✅ Debugging guidance is up to date"
+  UPDATE_AVAILABLE=false
 fi
 
 echo ""
 
+# Check for Core Development Methodology section structure
+# The template has it as ### under Working with You
+# Some projects have it as ## (separate top-level section)
+cd /tmp/claude-context-update/claude-context-system-main
+TEMPLATE_CORE_DEV=$(awk '/^### Core Development Methodology/,/^###/ { if (/^###/ && NR > 1) exit; print }' templates/CLAUDE.template.md | head -n 30)
+cd - > /dev/null
+
+if [ -n "$TEMPLATE_CORE_DEV" ]; then
+  # Check if project has Core Development as top-level section
+  if grep -q "^## Core Development Methodology" context/CLAUDE.md; then
+    echo "📝 Note: Your project has 'Core Development Methodology' as a top-level section"
+    echo "   Template has it as a subsection of 'Working with You'"
+    echo "   Updates will preserve your structure"
+    echo ""
+  fi
+fi
+
 # Summary
-if [ -f /tmp/template-working.txt ] && ! diff -q /tmp/template-working.txt /tmp/current-working.txt > /dev/null 2>&1; then
-  echo "📝 Template updates detected - review diff above"
+if [ "$UPDATE_AVAILABLE" = true ]; then
+  echo "📝 Template updates detected - review changes above"
   echo ""
-  echo "The 'Working with You' section has changes."
-  echo "This includes Communication Style, Core Development Methodology,"
-  echo "debugging guidance, and other system preferences."
+  echo "System guidance improvements are available."
+  echo "These updates will be applied while preserving your project's section structure."
 else
-  echo "✅ No template system section updates available"
+  echo "✅ No template content updates needed"
   echo "   Your CLAUDE.md contains the latest system guidance"
 fi
 ```
 
 **After the script completes, you MUST take these actions immediately:**
 
-**If you see `WORKING_WITH_YOU_UPDATED` marker:**
+**If you see `DEBUGGING_BLOCK_UPDATED` marker:**
 
 **CRITICAL:** You MUST ask the user for approval. Do NOT make the decision yourself.
 
-1. **Review the unified diff shown above** - It shows all changes to the system section
+1. **Review the changes shown above** - Compare template vs current debugging guidance
 2. **ACTION:** IMMEDIATELY ask user (DO NOT skip this step):
    ```
-   📝 Template Update Available: 'Working with You' section
+   📝 Template Update Available: Debugging Guidance
 
-   The template has updates to system guidance including:
-   - Communication Style preferences
-   - Core Development Methodology
-   - Debugging guidance
-   - Workflow preferences
+   The template has improved debugging guidance with detailed steps.
 
-   A unified diff was shown above (- = current, + = template).
+   Current: Single-line guidance
+   Template: 6 bullet points with specific debugging steps
 
-   Apply this section update to context/CLAUDE.md? [Y/n]
+   Apply this update to context/CLAUDE.md? [Y/n]
    ```
 
 **IMPORTANT:**
-- Always ask, even if the diff seems large
-- Do NOT decide "it's too different" and skip
-- Do NOT assume user wants to keep current version
-- User will review the diff and decide
-- If unsure, DEFAULT to asking
+- Always ask for approval
+- Do NOT skip asking even if changes seem minor
+- Do NOT assume user wants the update
+- User will review and decide
 
 3. **If user approves (Y or yes):**
-   - **ACTION:** Use Read tool to read `/tmp/template-working.txt` (the template version)
-   - **ACTION:** Use Read tool to read `context/CLAUDE.md` (to find the section to replace)
-   - **ACTION:** Use Edit tool to replace the entire "Working with You" section:
+   - **ACTION:** Use Read tool to read `context/CLAUDE.md`
+   - **ACTION:** Use Edit tool to replace the debugging block:
      ```
      file_path: context/CLAUDE.md
-     old_string: [entire current "Working with You" section from ## or ### to next ##]
-     new_string: [entire template section from /tmp/template-working.txt, maintaining header level]
+     old_string: [current debugging block including "**When Debugging:**" header and content]
+     new_string: [template debugging block with 6 bullet points]
      ```
-   - Report: "✅ Updated 'Working with You' section in context/CLAUDE.md with latest system guidance"
+   - Report: "✅ Updated debugging guidance in context/CLAUDE.md"
 
 4. **If user declines (n or no):**
-   - Report: "⏭️ Skipped 'Working with You' section update - keeping current version"
+   - Report: "⏭️ Skipped debugging guidance update - keeping current version"
 
 **If NO markers appear (script shows "No template system section updates available"):**
 

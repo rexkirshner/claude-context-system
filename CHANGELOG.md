@@ -7,6 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.9] - 2025-10-04
+
+### Fixed
+- **CRITICAL: Section structure mismatch** - Step 4 now detects updates even when projects have restructured sections
+- Debugging guidance updates weren't detected when "Core Development Methodology" was promoted to top-level section
+- Changed from section-based comparison to content-block comparison
+
+### Changed
+- Step 4 completely rewritten to use content-block detection instead of full section extraction
+- Now extracts specific blocks like "**When Debugging:**" regardless of section hierarchy
+- Handles migrated projects that promoted `### Core Development Methodology` to `## Core Development Methodology`
+
+### Technical Details
+- **Root Cause:** Projects migrated with /migrate-context sometimes restructure sections
+  - Template has: `## Working with You` > `### Core Development Methodology` > `**When Debugging:**`
+  - Migrated project had: `## Working with You` AND separate `## Core Development Methodology`
+  - Section extraction stopped at next `##`, missing the debugging content entirely
+- **Solution:** Extract specific content blocks (e.g., debugging guidance) directly
+  - Uses awk pattern matching on `**When Debugging:**` marker
+  - Compares actual content, not section structure
+  - Works regardless of section hierarchy differences
+
+### Impact
+- **Debugging updates will finally be detected** in migrated projects ✅
+- Step 4 now robust to section restructuring
+- Updates preserve project's chosen structure while updating content
+
+### User Report
+User found Step 4 reported "No template updates needed" even though debugging guidance differed:
+- Template had 6-bullet debugging steps
+- Project had single-line version
+- Caused by section structure mismatch preventing content comparison
+
 ## [1.2.8] - 2025-10-04
 
 ### Fixed
