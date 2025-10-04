@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.3] - 2025-10-04
+
+### Fixed
+- **CRITICAL FIX:** Step 4 template detection now works correctly
+- Rewrote Step 4 to use content-based detection instead of section-based
+- Now searches for specific markers like `**When Debugging:**` regardless of section structure
+- Works for both new projects and migrated projects with different section organization
+- Detects template improvements that were previously missed
+
+### Changed
+- Step 4 now uses grep to extract specific content blocks (e.g., "When Debugging" guidance)
+- Compares blocks directly, not entire sections
+- More surgical updates that preserve project-specific customizations
+
+### Technical Details
+- Old approach: `sed -n '/^## Section/,/^## /p'` - failed when section was `###` instead of `##`
+- New approach: `grep -A N '^**Marker:**'` - works regardless of section level
+- Handles migrated projects that restructured sections (e.g., "## Core Development Methodology" vs "### Core Development Methodology")
+
 ## [1.2.2] - 2025-10-04
 
 ### Changed
