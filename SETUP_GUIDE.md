@@ -56,8 +56,8 @@ The system is now installed and the clone is no longer needed. Future updates us
 /review-context  # Verify context is loaded
 
 # During work:
-/quick-save      # Every 15-30 minutes during active coding
-/save-context    # After completing major features
+/quick-save-context  # Every 15-30 minutes during active coding
+/save-context        # After completing major features
 
 # At session end:
 /save-context    # Capture final state
@@ -246,7 +246,7 @@ If you have a local clone of the repo:
 ✅ Updated 2 context sections
 ```
 
-### `/quick-save`
+### `/quick-save-context`
 **When:** During active coding - every 15-30 minutes
 
 **What it does:**
@@ -379,7 +379,7 @@ your-project/
 2. Run: /review-context
 3. Read SESSIONS.md last entry
 4. Continue from next-steps.md
-5. Run: /quick-save (every 15-30 minutes)
+5. Run: /quick-save-context (every 15-30 minutes)
 6. Run: /save-context (after major features)
 7. End: /save-context
 ```

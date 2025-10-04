@@ -25,7 +25,7 @@ Nine simple commands that preserve everything:
 
 **Maintenance:**
 - **`/save-context`** - Capture current state (frequently)
-- **`/quick-save`** - Fast checkpoint during active work (very frequently)
+- **`/quick-save-context`** - Fast checkpoint during active work (very frequently)
 - **`/review-context`** - Verify continuity (at session start)
 
 **Quality & Sharing:**
@@ -117,7 +117,7 @@ Migrates existing documentation to Claude Context System structure. Preserves AL
 
 Updates all documentation to match current state. Captures session activity, decisions, and progress. Full documentation regeneration. Your safety net.
 
-#### `/quick-save`
+#### `/quick-save-context`
 **Run during active work**
 
 Lightweight checkpoint that updates SESSIONS.md and tasks/ only. Fast (~5 seconds). Perfect for frequent saves every 15-30 minutes during active coding.
@@ -250,7 +250,7 @@ claude-context-system/
 │       ├── init-context.md
 │       ├── migrate-context.md
 │       ├── save-context.md
-│       ├── quick-save.md
+│       ├── quick-save-context.md
 │       ├── review-context.md
 │       ├── code-review.md
 │       ├── validate-context.md
@@ -295,7 +295,7 @@ claude-context-system/
 1. Open project
 2. /review-context
 3. Start coding
-4. /quick-save (every 15-30 minutes)
+4. /quick-save-context (every 15-30 minutes)
 5. /save-context (after major features)
 6. /save-context (at end of session)
 ```

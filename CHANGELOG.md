@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CHANGELOG.md to track version history
 - .gitignore template for context system files
 - Session number auto-increment in /save-context
-- /quick-save command for lightweight checkpoints
+- /quick-save-context command for lightweight checkpoints
 - Project type presets in /init-context
 - /export-context command to generate combined markdown
 - /validate-context command for template validation

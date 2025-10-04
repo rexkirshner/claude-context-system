@@ -1,9 +1,9 @@
 ---
-name: quick-save
+name: quick-save-context
 description: Quick checkpoint - updates SESSIONS.md and tasks only
 ---
 
-# /quick-save Command
+# /quick-save-context Command
 
 Lightweight checkpoint that captures current progress without full documentation regeneration. Perfect for frequent saves during active work.
 
@@ -150,9 +150,9 @@ Add lightweight entry at the top:
 💡 Tip: Run /save-context when you complete this feature for full documentation update.
 ```
 
-## Comparison: /quick-save vs /save-context
+## Comparison: /quick-save-context vs /save-context
 
-| Feature | /quick-save | /save-context |
+| Feature | /quick-save-context | /save-context |
 |---------|-------------|---------------|
 | **Speed** | ~5 seconds | ~30-60 seconds |
 | **Updates** | SESSIONS.md, tasks/ | All context docs |
@@ -167,28 +167,28 @@ Add lightweight entry at the top:
 ### During Active Development
 ```
 [15:00] Start working on feature
-[15:20] /quick-save  # First checkpoint
-[15:45] /quick-save  # Progress checkpoint
-[16:10] /quick-save  # Final checkpoint
+[15:20] /quick-save-context  # First checkpoint
+[15:45] /quick-save-context  # Progress checkpoint
+[16:10] /quick-save-context  # Final checkpoint
 [16:15] /save-context  # Feature complete, full save
 ```
 
 ### Bug Fix Session
 ```
-/quick-save  # Found the bug
-/quick-save  # Applied fix
-/quick-save  # Verified fix works
+/quick-save-context  # Found the bug
+/quick-save-context  # Applied fix
+/quick-save-context  # Verified fix works
 /save-context  # Bug fixed, update all docs
 ```
 
 ### Quick Context Switch
 ```
 # Working on Feature A
-/quick-save
+/quick-save-context
 
 # Quick detour to fix urgent bug
 [fix bug]
-/quick-save
+/quick-save-context
 
 # Back to Feature A
 [resume work]
