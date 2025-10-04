@@ -140,6 +140,38 @@ documentation:
     - "TROUBLESHOOTING.md"
 
 # =============================================================================
+# ARTIFACT STORAGE
+# =============================================================================
+
+artifacts:
+  # Where to store generated reports and outputs (NOT context docs)
+  location: "artifacts/"
+
+  # Subdirectories for different artifact types
+  subdirectories:
+    lighthouse: "lighthouse/"           # Lighthouse performance reports
+    code_reviews: "code-reviews/"       # Code review reports
+    performance: "performance/"         # Performance audit outputs
+    security: "security/"               # Security scan results
+    bundle_analysis: "bundle-analysis/" # Bundle size reports
+    coverage: "coverage/"               # Test coverage reports
+
+  # Naming conventions
+  naming:
+    include_timestamp: true             # Add timestamps to artifact filenames
+    include_session_number: true        # Add session number when applicable
+    format: "YYYY-MM-DD"               # Date format for timestamps
+
+  # Git tracking
+  git_ignore: false                     # Don't ignore artifacts by default (useful for tracking)
+
+  # Organization rules
+  organization:
+    keep_root_clean: true               # Never put artifacts in project root
+    auto_create_dirs: true              # Automatically create subdirectories as needed
+    archive_old: false                  # Don't auto-archive (manual cleanup preferred)
+
+# =============================================================================
 # CORE PRINCIPLES (Non-negotiable)
 # =============================================================================
 

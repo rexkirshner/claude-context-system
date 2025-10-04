@@ -385,7 +385,7 @@ Review each area systematically. **NO CHANGES - ONLY ANALYSIS**
 
 ### Step 6: Generate Comprehensive Report
 
-Create detailed report in `context/reviews/session-[N]-review.md`:
+Create detailed report in `artifacts/code-reviews/session-[N]-review.md`:
 
 ```markdown
 # Code Review Report - Session [N]
@@ -560,7 +560,7 @@ Create detailed report in `context/reviews/session-[N]-review.md`:
 ```
 ✅ Code Review Complete
 
-**Report saved to:** context/reviews/session-[N]-review.md
+**Report saved to:** artifacts/code-reviews/session-[N]-review.md
 
 **Summary:**
 - Grade: B+
@@ -575,7 +575,7 @@ Create detailed report in `context/reviews/session-[N]-review.md`:
 3. Refactor complex Dashboard component (MEDIUM)
 
 **Next Steps:**
-1. Review full report at context/reviews/session-[N]-review.md
+1. Review full report at artifacts/code-reviews/session-[N]-review.md
 2. Prioritize fixes with user
 3. Run /save-context
 4. Address issues in separate session
