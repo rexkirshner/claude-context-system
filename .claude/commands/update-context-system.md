@@ -224,146 +224,205 @@ Without this reload step, you'd be executing outdated Step 4 logic even though t
 
 ### Step 4: Detect Template Content Changes
 
-**IMPORTANT:** Compare system guidance sections from template with current project files.
+**IMPORTANT:** This is a general-purpose template synchronization system that compares ALL sections in template files against project files.
 
-This step detects changes to system guidance in CLAUDE.md, handling cases where projects have restructured sections during migration (e.g., promoted subsections to top-level sections).
+**Philosophy:**
+- Check every section in every template file
+- If section exists and is identical → Skip
+- If section exists but differs → Ask user to approve update
+- If section is missing from project → Ask user to approve adding it
+- **ALWAYS ask user for approval** - never auto-apply (safety first)
+- **Never touch project-specific sections** - use explicit blacklist
 
-**Approach:**
-1. Check for key system content blocks (e.g., debugging guidance)
-2. Compare regardless of section structure differences
-3. Show changes to user for approval
-4. Apply updates while preserving project structure
+**Template files to check:**
+1. `CLAUDE.template.md` → `context/CLAUDE.md`
+2. `CODE_STYLE.template.md` → `context/CODE_STYLE.md` (if exists)
+3. `ARCHITECTURE.template.md` → `context/ARCHITECTURE.md` (if exists)
 
-**System content we track:**
-- Communication Style preferences
-- Core Development Methodology (including debugging guidance)
-- Workflow preferences
-- Quality principles
+**Project-specific sections (NEVER update):**
+- CLAUDE.md: Project Overview, Commands, Architecture, Development Status, Important Notes, Critical Path, Examples from Past Sessions
+- CODE_STYLE.md: Project-specific rules, File Structure, Component Patterns, project examples
+- ARCHITECTURE.md: Overview, System Architecture, Data Flow, Components, Dependencies (anything describing actual project)
 
-**Never update (project-specific):**
-- Project Overview
-- Commands list
-- Architecture details
-- Examples from Past Sessions
-- Specific code examples
-- Critical Path
+**System sections (updatable with approval):**
+- CLAUDE.md: Working with You, Communication Style, Core Development Methodology
+- CODE_STYLE.md: General Principles, Code Quality Standards, Testing Requirements, Documentation Standards
+- ARCHITECTURE.md: Documentation Guidelines, Best Practices
 
 **ACTION:** Use the Bash tool to run this entire script as ONE command:
 
 ```bash
 cd /tmp/claude-context-update/claude-context-system-main
 
-echo "🔍 Checking for template content updates..."
+echo "🔍 Scanning template files for system section updates..."
 echo ""
 
-# Extract debugging guidance from template
-TEMPLATE_DEBUG=$(awk '/\*\*When Debugging:/ { found=1; print; next } found && /^$/ { exit } found && /^\*\*[A-Z]/ { exit } found { print }' templates/CLAUDE.template.md)
+# Project-specific section blacklist (regex patterns)
+BLACKLIST_CLAUDE="(Project Overview|Commands|Architecture|Development Status|Important Notes|Critical Path|Examples from Past Sessions)"
+BLACKLIST_CODE_STYLE="(File Structure|Component Patterns)"
+BLACKLIST_ARCHITECTURE="(Overview|System Architecture|Data Flow|Components|Dependencies)"
 
-# Go back to project directory
+# Function to extract all ## sections from a file
+get_sections() {
+  local file="$1"
+  grep '^## ' "$file" | sed 's/^## //'
+}
+
+# Function to extract a specific section (## to next ##)
+extract_section() {
+  local file="$1"
+  local section="$2"
+  awk -v section="$section" '
+    /^## / {
+      if (found == 1) exit;
+      if ($0 ~ "^## " section "$") { found=1; print; next; }
+    }
+    found == 1 { print }
+  ' "$file"
+}
+
+UPDATES_FOUND=0
+
+# Check CLAUDE.template.md
+echo "📄 Checking CLAUDE.template.md..."
 cd - > /dev/null
 
-# Extract debugging guidance from current project
-CURRENT_DEBUG=$(awk '/\*\*When Debugging:/ { found=1; print; next } found && /^$/ { exit } found && /^\*\*[A-Z]/ { exit } found { print }' context/CLAUDE.md)
+if [ -f "context/CLAUDE.md" ]; then
+  cd /tmp/claude-context-update/claude-context-system-main
+  TEMPLATE_SECTIONS=$(get_sections "templates/CLAUDE.template.md")
 
-# Check if debugging guidance differs
-if [ -n "$TEMPLATE_DEBUG" ] && [ "$TEMPLATE_DEBUG" != "$CURRENT_DEBUG" ]; then
-  echo "✨ Debugging guidance update available"
-  echo ""
-  echo "Template version:"
-  echo "$TEMPLATE_DEBUG"
-  echo ""
-  echo "Current version:"
-  echo "$CURRENT_DEBUG"
-  echo ""
-  echo "DEBUGGING_BLOCK_UPDATED"
-  UPDATE_AVAILABLE=true
-else
-  echo "✅ Debugging guidance is up to date"
-  UPDATE_AVAILABLE=false
+  while IFS= read -r section; do
+    # Skip if blacklisted (project-specific)
+    if echo "$section" | grep -qE "$BLACKLIST_CLAUDE"; then
+      continue
+    fi
+
+    cd - > /dev/null
+
+    # Check if section exists in project
+    if grep -q "^## $section$" context/CLAUDE.md; then
+      # Section exists - compare content
+      cd /tmp/claude-context-update/claude-context-system-main
+      TEMPLATE_CONTENT=$(extract_section "templates/CLAUDE.template.md" "$section")
+      cd - > /dev/null
+      CURRENT_CONTENT=$(extract_section "context/CLAUDE.md" "$section")
+
+      if [ "$TEMPLATE_CONTENT" != "$CURRENT_CONTENT" ]; then
+        echo "  ✨ CHANGED: $section"
+        UPDATES_FOUND=$((UPDATES_FOUND + 1))
+        echo "SECTION_CHANGED|CLAUDE.md|$section"
+      fi
+    else
+      # Section missing from project
+      echo "  ➕ MISSING: $section"
+      UPDATES_FOUND=$((UPDATES_FOUND + 1))
+      echo "SECTION_MISSING|CLAUDE.md|$section"
+    fi
+
+    cd /tmp/claude-context-update/claude-context-system-main
+  done <<< "$TEMPLATE_SECTIONS"
 fi
 
+cd - > /dev/null
 echo ""
-
-# Check for Core Development Methodology section structure
-# The template has it as ### under Working with You
-# Some projects have it as ## (separate top-level section)
-cd /tmp/claude-context-update/claude-context-system-main
-TEMPLATE_CORE_DEV=$(awk '/^### Core Development Methodology/,/^###/ { if (/^###/ && NR > 1) exit; print }' templates/CLAUDE.template.md | head -n 30)
-cd - > /dev/null
-
-if [ -n "$TEMPLATE_CORE_DEV" ]; then
-  # Check if project has Core Development as top-level section
-  if grep -q "^## Core Development Methodology" context/CLAUDE.md; then
-    echo "📝 Note: Your project has 'Core Development Methodology' as a top-level section"
-    echo "   Template has it as a subsection of 'Working with You'"
-    echo "   Updates will preserve your structure"
-    echo ""
-  fi
-fi
 
 # Summary
-if [ "$UPDATE_AVAILABLE" = true ]; then
-  echo "📝 Template updates detected - review changes above"
+if [ $UPDATES_FOUND -gt 0 ]; then
+  echo "📝 Found $UPDATES_FOUND section update(s) across template files"
   echo ""
-  echo "System guidance improvements are available."
-  echo "These updates will be applied while preserving your project's section structure."
+  echo "Markers output above (SECTION_CHANGED or SECTION_MISSING)"
+  echo "Claude will ask for approval for each change"
 else
-  echo "✅ No template content updates needed"
-  echo "   Your CLAUDE.md contains the latest system guidance"
+  echo "✅ All system sections are up to date"
 fi
 ```
 
 **After the script completes, you MUST take these actions immediately:**
 
-**If you see `DEBUGGING_BLOCK_UPDATED` marker:**
+**For EACH marker line (SECTION_CHANGED or SECTION_MISSING):**
 
-**CRITICAL:** You MUST ask the user for approval. Do NOT make the decision yourself.
+The marker format is: `SECTION_CHANGED|<filename>|<section name>` or `SECTION_MISSING|<filename>|<section name>`
 
-1. **Review the changes shown above** - Compare template vs current debugging guidance
-2. **ACTION:** IMMEDIATELY ask user (DO NOT skip this step):
+**CRITICAL:** You MUST ask the user for approval for EACH section update. Process them ONE AT A TIME.
+
+**For SECTION_CHANGED markers:**
+
+1. **Extract both versions for comparison:**
+   - **ACTION:** Use Read tool to read the template section:
+     ```bash
+     cd /tmp/claude-context-update/claude-context-system-main
+     awk -v section="<section name>" '/^## / { if (found == 1) exit; if ($0 ~ "^## " section "$") { found=1; print; next; } } found == 1 { print }' templates/CLAUDE.template.md > /tmp/template-section.txt
+     ```
+   - **ACTION:** Use Read tool to read the current project section:
+     ```bash
+     awk -v section="<section name>" '/^## / { if (found == 1) exit; if ($0 ~ "^## " section "$") { found=1; print; next; } } found == 1 { print }' context/CLAUDE.md > /tmp/current-section.txt
+     ```
+   - **ACTION:** Use Read tool to read both `/tmp/template-section.txt` and `/tmp/current-section.txt`
+
+2. **Show diff to user and ask for approval:**
    ```
-   📝 Template Update Available: Debugging Guidance
+   📝 Template Update: <section name> in <filename>
 
-   The template has improved debugging guidance with detailed steps.
+   The template version of this section has changed.
 
-   Current: Single-line guidance
-   Template: 6 bullet points with specific debugging steps
+   [Show both versions or key differences]
 
-   Apply this update to context/CLAUDE.md? [Y/n]
+   Apply this update? [Y/n]
+
+   Note: Your project-specific content will be preserved.
    ```
-
-**IMPORTANT:**
-- Always ask for approval
-- Do NOT skip asking even if changes seem minor
-- Do NOT assume user wants the update
-- User will review and decide
 
 3. **If user approves (Y or yes):**
-   - **ACTION:** Use Read tool to read `context/CLAUDE.md`
-   - **ACTION:** Use Edit tool to replace the debugging block:
+   - **ACTION:** Use Edit tool to replace the section:
      ```
-     file_path: context/CLAUDE.md
-     old_string: [current debugging block including "**When Debugging:**" header and content]
-     new_string: [template debugging block with 6 bullet points]
+     file_path: context/<filename>
+     old_string: [entire current section including "## <section name>" header]
+     new_string: [entire template section from /tmp/template-section.txt]
      ```
-   - Report: "✅ Updated debugging guidance in context/CLAUDE.md"
+   - Report: "✅ Updated '<section name>' in context/<filename>"
 
 4. **If user declines (n or no):**
-   - Report: "⏭️ Skipped debugging guidance update - keeping current version"
+   - Report: "⏭️ Skipped '<section name>' update - keeping current version"
 
-**If NO markers appear (script shows "No template system section updates available"):**
+**For SECTION_MISSING markers:**
+
+1. **Extract template section:**
+   - **ACTION:** Use Read tool to read `/tmp/template-section.txt` (from previous extraction)
+   - Or run extraction if not already done
+
+2. **Ask user for approval:**
+   ```
+   ➕ New Section Available: <section name> in <filename>
+
+   The template includes a system section that's missing from your project.
+
+   [Show section content preview]
+
+   Add this section to your project? [Y/n]
+   ```
+
+3. **If user approves (Y or yes):**
+   - **ACTION:** Determine best insertion point (after last ## section or at end)
+   - **ACTION:** Use Edit tool to add the section
+   - Report: "✅ Added '<section name>' to context/<filename>"
+
+4. **If user declines (n or no):**
+   - Report: "⏭️ Skipped adding '<section name>' - not needed for this project"
+
+**If NO markers appear (script shows "All system sections are up to date"):**
 
 Report:
 ```
-✅ No template system section updates available
-   Your CLAUDE.md contains the latest system guidance
+✅ All system sections are up to date
+   No template changes to apply
 ```
 
 **CRITICAL NOTES:**
-- Do not just describe what should be done - EXECUTE the Read and Edit tools
-- When replacing sections, preserve the project's header level (## vs ###)
-- The entire section is replaced, so all sub-guidance (debugging, workflow, etc.) updates at once
-- This is general-purpose: ANY change to the template section will be detected
+- Process markers sequentially - do not batch them
+- ALWAYS ask user before making changes
+- Show clear before/after or diff when possible
+- Never assume user wants the update
+- If unsure, ask for clarification
 
 ### Step 5: Detect Context File Template Changes
 

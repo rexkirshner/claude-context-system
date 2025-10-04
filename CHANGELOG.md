@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2025-10-04
+
+### Added
+- **General-purpose template synchronization system** - Step 4 now compares ALL sections in ALL template files
+- Section-by-section comparison for CLAUDE.template.md, CODE_STYLE.template.md, ARCHITECTURE.template.md
+- Detects three states: identical (skip), different (ask user), missing (ask user)
+- Explicit blacklist for project-specific sections that should never be updated
+- Support for adding missing system sections from templates
+
+### Changed
+- **BREAKING:** Step 4 completely redesigned from content-block detection to full section scanning
+- Now uses marker format: `SECTION_CHANGED|<filename>|<section name>` and `SECTION_MISSING|<filename>|<section name>`
+- Claude processes each section update individually with user approval
+- Always asks user for approval - never auto-applies changes (safety first)
+
+### Technical Details
+- **Philosophy:** Check every section, ask about every change, preserve all project-specific content
+- **Blacklist approach:** Explicitly list sections to never touch (Project Overview, Architecture, etc.)
+- **Template files checked:**
+  1. CLAUDE.template.md → context/CLAUDE.md
+  2. CODE_STYLE.template.md → context/CODE_STYLE.md (if exists)
+  3. ARCHITECTURE.template.md → context/ARCHITECTURE.md (if exists)
+- **Process:**
+  1. Extract all `##` sections from template
+  2. Skip blacklisted (project-specific) sections
+  3. For each remaining section: check if exists, compare content, output marker if different/missing
+  4. Claude reads markers and asks user approval for each one
+  5. Apply updates while preserving project structure
+
+### Impact
+- **ANY template improvement is now detected** - not limited to specific hard-coded blocks ✅
+- Works across all template files, not just CLAUDE.md
+- No need to update the command when templates improve
+- True general-purpose update system
+- User has full control - approves each change individually
+
+### User Request
+User identified the fundamental requirement: "we should redesign step 4 to check all blocks that exist in the template files against the project files. so every section in every template file should be checked."
+
+This release fully implements that vision.
+
 ## [1.2.9] - 2025-10-04
 
 ### Fixed
