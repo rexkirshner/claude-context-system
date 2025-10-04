@@ -175,6 +175,41 @@ ls .claude/commands/*.md | sed 's/.*\//  - /'
 - code-review.md
 - update-context-system.md (this command!)
 
+### Step 3.5: Reload This Command (Self-Update)
+
+**CRITICAL:** The update-context-system.md command file was just updated in Step 3. The newly downloaded version may have improved logic for detecting and applying template updates.
+
+To ensure we use the **LATEST** command logic for remaining steps, we must reload this command now.
+
+**ACTION:** Use the Read tool to read the newly updated command file:
+
+```
+Read file: .claude/commands/update-context-system.md
+```
+
+**After reading the new file:**
+
+1. **Check if Step 4 logic has changed** - Compare what you just read with the Step 4 instructions you were originally following
+2. **If Step 4 is different:** Continue execution using the **NEWLY READ** Step 4 instructions from the updated file
+3. **If Step 4 is the same:** Continue with current instructions (no functional change)
+
+**Example scenarios:**
+
+- **Scenario A:** Old Step 4 used section-based detection (`sed -n '/^## Section/'`), new Step 4 uses content-based detection (`grep -A N '^**Marker:**'`)
+  - **Action:** Use the new content-based approach for remaining execution
+
+- **Scenario B:** Step 4 logic is identical in both versions
+  - **Action:** Continue normally (no change needed)
+
+**Why this matters:**
+
+Without this reload step, you'd be executing outdated Step 4 logic even though the new file was downloaded. This reload ensures:
+- Bug fixes in Step 4 take effect immediately (don't need two runs)
+- New template detection features work on first run
+- Self-updating command actually updates its own behavior
+
+**After reload, proceed to Step 4 below** (using the version from the newly read file if different).
+
 ### Step 4: Detect Template Content Changes
 
 **IMPORTANT:** Compare specific content blocks from template with current project files.

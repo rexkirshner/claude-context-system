@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.4] - 2025-10-04
+
+### Added
+- **Step 3.5: Self-Reload** - Command now reloads itself mid-execution after downloading updates
+- Instructs Claude to read the newly updated command file before continuing to Step 4
+- Ensures latest Step 4 logic is used immediately (no need for second run)
+
+### Fixed
+- Bootstrapping problem where /update-context-system would execute old Step 4 logic even after downloading new version
+- Previously required two runs: first to download, second to execute new logic
+- Now works correctly in single run
+
+### Changed
+- After Step 3 (copy commands), explicitly read .claude/commands/update-context-system.md
+- Compare newly read Step 4 with original instructions
+- Switch to new instructions if different
+
+### Impact
+- v1.2.3 Step 4 fix now works on first run (previously needed two runs)
+- Any future Step 4 improvements take effect immediately
+- True self-updating command behavior
+
 ## [1.2.3] - 2025-10-04
 
 ### Fixed
