@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2025-10-04
+
+### Fixed
+- Improved version detection in /update-context-system
+- Added explicit bash commands for version extraction using grep + sed
+- Added clear exit logic when versions match (exit 0)
+- Now properly detects version differences and only updates when needed
+
 ## [1.1.0] - 2025-10-04
 
 ### Added

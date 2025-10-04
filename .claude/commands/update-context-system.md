@@ -54,7 +54,9 @@ Update your project's Claude Context System to the latest version from GitHub. S
 
 Read current version from config:
 ```bash
-grep -o '"version": "[^"]*"' context/.context-config.json
+# Extract current version from project config
+CURRENT_VERSION=$(grep -m 1 '"version":' context/.context-config.json | sed 's/.*"version": "\([^"]*\)".*/\1/')
+echo "Current version: $CURRENT_VERSION"
 ```
 
 Display to user:
@@ -81,24 +83,47 @@ cd claude-context-system-main
 
 Get latest version:
 ```bash
-grep -o '"version": "[^"]*"' config/.context-config.template.json
+# Extract version number from template
+LATEST_VERSION=$(grep -m 1 '"version":' config/.context-config.template.json | sed 's/.*"version": "\([^"]*\)".*/\1/')
+echo "Latest version from GitHub: $LATEST_VERSION"
 ```
 
 **Compare versions:**
-```
-If current == latest:
-  Report: "✅ Already up to date (v1.0.0)"
-  Report: "No updates available. All commands are current."
-  STOP - Exit immediately, do NOT proceed to Step 3
-  Do NOT update commands
-  Do NOT modify any files
+```bash
+# Compare versions
+echo "Comparing versions..."
+echo "  Current: $CURRENT_VERSION"
+echo "  Latest:  $LATEST_VERSION"
 
-If current < latest:
-  Report: "📦 Update available: v1.0.0 → v1.2.0"
-  Continue to Step 3
+if [ "$CURRENT_VERSION" = "$LATEST_VERSION" ]; then
+  echo ""
+  echo "✅ Already Up to Date"
+  echo ""
+  echo "Current version: $CURRENT_VERSION"
+  echo "Latest version: $LATEST_VERSION"
+  echo ""
+  echo "Your Claude Context System is already running the latest version."
+  echo "No updates were performed. All commands are current."
+
+  # Clean up temp directory
+  rm -rf /tmp/claude-context-update
+
+  # EXIT - Do NOT proceed to Step 3
+  exit 0
+fi
+
+# Versions differ - proceed with update
+echo ""
+echo "📦 Update Available"
+echo "  Current: $CURRENT_VERSION"
+echo "  Latest:  $LATEST_VERSION"
+echo ""
+echo "Proceeding with update..."
 ```
 
 **CRITICAL:** If versions match, exit BEFORE updating commands. Do not download, do not copy files, do not modify anything. Only proceed if latest > current.
+
+The version check MUST use string comparison (`[ "$CURRENT_VERSION" = "$LATEST_VERSION" ]`) and exit immediately if they match.
 
 ### Step 3: Update Slash Commands
 
