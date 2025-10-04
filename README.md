@@ -181,9 +181,9 @@ What happened when. Includes:
 - Files modified
 - Decisions made
 
-## Rex's Workflow Integration
+## Workflow Integration
 
-This system is built around specific workflow principles:
+This system is built around solid workflow principles:
 
 ### Core Methodology
 1. Plan first, execute second
@@ -325,7 +325,7 @@ See [SETUP_GUIDE.md](./SETUP_GUIDE.md) for detailed troubleshooting.
 
 ## Contributing
 
-This is a personal workflow system built for Rex's specific needs. You're welcome to:
+This is a workflow system you can adapt to your needs. You're welcome to:
 - Fork and adapt for your preferences
 - Suggest improvements
 - Share your adaptations

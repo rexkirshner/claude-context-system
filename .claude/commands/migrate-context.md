@@ -145,7 +145,7 @@ Check if "Core Development Methodology" heading exists:
 grep -n "Core Development Methodology" context/CLAUDE.md
 ```
 
-If NOT found, use Edit tool to add after the "Working with Rex" section (or after Communication Style/Workflow Preferences):
+If NOT found, use Edit tool to add after the "Working with You" section (or after Communication Style/Workflow Preferences):
 
 ```markdown
 ## Core Development Methodology
@@ -174,7 +174,7 @@ Check if config reference exists:
 grep -n "context/.context-config.json" context/CLAUDE.md
 ```
 
-If NOT found, use Edit tool to add at the beginning of "Working with Rex" section (or first preferences section):
+If NOT found, use Edit tool to add at the beginning of "Working with You" section (or first preferences section):
 
 ```markdown
 > **📋 Preferences:** All communication, workflow, and quality preferences are defined in `context/.context-config.json`.
@@ -296,7 +296,7 @@ Use ARCHITECTURE.template.md to create comprehensive overview.
 Use CODE_STYLE.template.md and fill in:
 - Language (from package.json)
 - Framework patterns
-- Rex's principles (from config)
+- Core development principles (from config)
 
 #### Create context/SESSIONS.md (if missing)
 
@@ -345,7 +345,7 @@ Create `context/.context-config.json`:
 ```json
 {
   "version": "1.0.0",
-  "owner": "Rex Kirshner",
+  "owner": "[Your Name]",
   "project": {
     "name": "[PROJECT_NAME]",
     "type": "[PROJECT_TYPE]",

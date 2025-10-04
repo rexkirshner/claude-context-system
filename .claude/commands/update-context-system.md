@@ -299,7 +299,7 @@ These are the "system" sections we can safely update:
 
 ### context/CODE_STYLE.md
 **Safe to update (system sections):**
-- Rex's core principles
+- Core development principles
 - Anti-patterns
 - Git workflow rules
 

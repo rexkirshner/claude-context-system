@@ -11,14 +11,14 @@ This file provides guidance to Claude Code when working with code in this reposi
 - Repository: [GitHub URL]
 - Documentation: [Docs URL if exists]
 
-## Working with Rex
+## Working with You
 
 > **📋 Preferences:** All communication, workflow, and quality preferences are defined in `config/preferences.yaml`.
 > The settings below are derived from that source of truth.
 
 ### Communication Style
 
-**What Rex Prefers:**
+**What You Prefer:**
 - Direct, concise responses without preamble
 - High-level summaries of changes made (e.g., "Changed X to Y in file.ts:123")
 - Clear indication when waiting for approval vs. when work is complete
@@ -147,7 +147,7 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 ## Project-Specific Overrides
 
-[Use this section to override or extend Rex's general preferences for this specific project]
+[Use this section to override or extend general preferences for this specific project]
 
 **Custom Workflow:**
 - [Any project-specific workflow requirements]

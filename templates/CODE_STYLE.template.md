@@ -277,7 +277,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 - One feature/fix per PR
 - Include description of changes
 - Link related issues
-- **NEVER push without explicit approval from Rex**
+- **NEVER push without explicit approval**
 
 ## Performance
 

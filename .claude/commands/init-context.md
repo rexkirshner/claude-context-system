@@ -76,7 +76,7 @@ Create all documentation files from templates. Fill in as much as possible from 
 - Tech stack (from package analysis)
 - Commands (from package.json scripts or Makefile)
 - Architecture (inferred from folder structure)
-- Include Rex's communication preferences and workflow rules
+- Include communication preferences and workflow rules
 - Include "Core Development Methodology" section
 
 **context/PRD.md** - Product requirements
@@ -98,7 +98,7 @@ Create all documentation files from templates. Fill in as much as possible from 
 - Dependencies chosen (from package files)
 
 **context/CODE_STYLE.md** - Coding standards
-- Rex's principles (simplicity, root causes, no lazy coding)
+- Core development principles (simplicity, root causes, no lazy coding)
 - Language-specific conventions (from project type)
 - Testing requirements
 - Git workflow rules
@@ -121,12 +121,12 @@ Create all documentation files from templates. Fill in as much as possible from 
 
 ### Step 5: Create Configuration
 
-Create `.context-config.json` in the context/ folder with Rex's preferences:
+Create `.context-config.json` in the context/ folder with default preferences:
 
 ```json
 {
   "version": "1.0.0",
-  "owner": "Rex Kirshner",
+  "owner": "[Your Name]",
   "preferences": {
     "documentation": {
       "location": "context/",
@@ -207,11 +207,11 @@ When filling templates, use this priority:
 1. **From project files**: Use actual data from package.json, README, git
 2. **Inferred from structure**: Make educated guesses from folder layout
 3. **Generic placeholders**: Use `[TODO: Add ...]` for unknown info
-4. **Rex's defaults**: Always include his preferences and workflow rules
+4. **Smart defaults**: Always include standard preferences and workflow rules
 
 ## Important Notes
 
-- Always include Rex's workflow preferences in CLAUDE.md
+- Always include workflow preferences in CLAUDE.md
 - CODE_STYLE.md must include his "no lazy coding" and "simplicity first" rules
 - Configuration must enforce "no push without approval"
 - Documentation should be scannable in 5 minutes per file
