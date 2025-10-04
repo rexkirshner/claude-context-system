@@ -28,7 +28,7 @@ Six simple commands that preserve everything:
 ## Quick Start
 
 ```bash
-# 1. Clone the repo (or download .claude/commands folder)
+# 1. Clone the repo
 git clone https://github.com/rexkirshner/claude-context-system.git
 
 # 2. Copy commands to your project
@@ -37,7 +37,10 @@ cp -r claude-context-system/.claude/commands /path/to/your/project/.claude/
 # 3. In Claude Code, initialize
 /init-context
 
-# 4. Start working
+# 4. Clean up (after init completes)
+rm -rf claude-context-system
+
+# 5. Start working
 /save-context  # Run this often!
 ```
 

@@ -42,7 +42,15 @@ This creates:
 - `.context-config.json` with your preferences
 - Initial project analysis and documentation
 
-### Step 4: Start Working
+### Step 4: Clean Up
+```bash
+# After /init-context completes successfully, clean up the clone
+rm -rf claude-context-system
+```
+
+The system is now installed and the clone is no longer needed. Future updates use `/update-context-system` which downloads fresh from GitHub.
+
+### Step 5: Start Working
 ```
 # At session start:
 /review-context  # Verify context is loaded
@@ -85,7 +93,15 @@ This will:
 - Create missing documentation
 - Preserve ALL existing content
 
-### Step 4: Verify Migration
+### Step 4: Clean Up
+```bash
+# After /migrate-context completes successfully, clean up the clone
+rm -rf claude-context-system
+```
+
+The system is now installed and the clone is no longer needed. Future updates use `/update-context-system` which downloads fresh from GitHub.
+
+### Step 5: Verify Migration
 ```
 # Review the migration report
 # Check context/ folder structure
@@ -109,13 +125,15 @@ This will:
 2. Copy the `.claude/commands/` folder to your project: `mkdir -p .claude && cp -r claude-context-system/.claude/commands .claude/`
 3. Copy and rename config: `cp config/.context-config.template.json .context-config.json`
 4. Run `/init-context` in Claude Code
-5. Review and customize `.context-config.json` if needed
+5. Clean up: `rm -rf claude-context-system`
+6. Review and customize `.context-config.json` if needed
 
 #### Method 2: Download and Copy
 1. Download the repository as ZIP from GitHub
 2. Extract and copy `.claude/commands/` to your project
 3. Copy and rename `.context-config.template.json`
 4. Run `/init-context`
+5. Clean up: Delete the extracted folder
 
 #### Method 3: Direct Reference
 If you have a local clone of the repo:
