@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2025-10-04
+
+### Changed
+- **BREAKING IMPROVEMENT:** Rewrote Step 4 of /update-context-system to be general-purpose
+- Now uses diff-based approach to detect ANY content changes in system sections
+- Compares template sections to current sections using sed + diff
+- Shows unified diff of changes before applying
+- Works for all future template updates, not just "Rex" references
+
+### Added
+- Extract and compare mechanism for system sections
+- Interactive diff review with unified output
+- Support for detecting renamed sections (e.g., "Working with Rex" → "Working with You")
+- Clear distinction between system sections (updatable) and project sections (never touch)
+
+### Improved
+- Step 4 now catches wording improvements, restructured content, new best practices
+- More maintainable - no hard-coded text replacements
+- Better user experience - see exactly what will change
+
 ## [1.1.4] - 2025-10-04
 
 ### Added

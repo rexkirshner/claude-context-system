@@ -135,48 +135,104 @@ ls .claude/commands/*.md | sed 's/.*\//  - /'
 - code-review.md
 - update-context-system.md (this command!)
 
-### Step 4: Check for Personal References to Update
+### Step 4: Detect Template Content Changes
 
-**IMPORTANT:** Check if project has old personal references that should be universalized.
+**IMPORTANT:** Compare template sections with current project files to find content updates.
 
-**ACTION:** Use the Bash tool and Read tool:
+This step detects changes to the **content** of system sections (not just new sections).
 
+**System sections we can update (CLAUDE.md):**
+- "Working with You" / "Communication Style"
+- "Core Development Methodology"
+- Config reference block
+
+**System sections we can update (CODE_STYLE.md):**
+- "Core Principles" / "Core Development Principles"
+- "Git Workflow" section
+
+**Never update (project-specific):**
+- Project Overview
+- Commands list
+- Architecture details
+- Examples from Past Sessions
+- Specific code examples
+
+**ACTION:** Compare template sections to current sections:
+
+1. **Extract system sections from template:**
 ```bash
-# Check for "Rex" references in CLAUDE.md
-if grep -q "Rex" context/CLAUDE.md 2>/dev/null; then
-  echo "⚠️  Found personal references in CLAUDE.md"
-  grep -n "Rex" context/CLAUDE.md | head -5
+cd /tmp/claude-context-update/claude-context-system-main
+
+# Extract "Working with You" section from template
+sed -n '/^## Working with You/,/^## /p' templates/CLAUDE.template.md > /tmp/template-working.txt
+
+# Extract "Core Development Methodology" section
+sed -n '/^## Core Development Methodology/,/^## /p' templates/CLAUDE.template.md > /tmp/template-methodology.txt
+```
+
+2. **Extract same sections from current project:**
+```bash
+cd - > /dev/null
+
+# Extract from current CLAUDE.md (may have "Working with Rex" or "Working with You")
+sed -n '/^## Working with [YR]/,/^## /p' context/CLAUDE.md > /tmp/current-working.txt 2>/dev/null || echo "" > /tmp/current-working.txt
+
+# Extract methodology section
+sed -n '/^## Core Development Methodology/,/^## /p' context/CLAUDE.md > /tmp/current-methodology.txt 2>/dev/null || echo "" > /tmp/current-methodology.txt
+```
+
+3. **Compare sections and show differences:**
+```bash
+# Check if "Working with You" section differs
+if ! diff -q /tmp/template-working.txt /tmp/current-working.txt > /dev/null 2>&1; then
+  echo ""
+  echo "📝 Template Update Available: 'Working with You' section"
+  echo ""
+  echo "The template has updated content for this section."
+  echo ""
+
+  # Show brief diff
+  diff --unified=3 /tmp/current-working.txt /tmp/template-working.txt | head -20
+
+  echo ""
+  read -p "Apply this update to CLAUDE.md? [Y/n] " -n 1 -r
+  echo
+
+  if [[ $REPLY =~ ^[Yy]$ ]] || [[ -z $REPLY ]]; then
+    # Use Read tool to get current CLAUDE.md
+    # Use Edit tool to replace the section
+    echo "UPDATE_WORKING_SECTION"
+  fi
 fi
 
-# Check for "Rex" in CODE_STYLE.md
-if grep -q "Rex" context/CODE_STYLE.md 2>/dev/null; then
-  echo "⚠️  Found personal references in CODE_STYLE.md"
-  grep -n "Rex" context/CODE_STYLE.md | head -5
+# Repeat for Core Development Methodology
+if ! diff -q /tmp/template-methodology.txt /tmp/current-methodology.txt > /dev/null 2>&1; then
+  echo ""
+  echo "📝 Template Update Available: 'Core Development Methodology' section"
+  # Same process...
+  echo "UPDATE_METHODOLOGY_SECTION"
 fi
 ```
 
-**If personal references found, offer to update:**
+4. **Apply updates if approved:**
 
-Use the Edit tool to replace:
-- `## Working with Rex` → `## Working with You`
-- `**What Rex Prefers:**` → `**What You Prefer:**`
-- Any other "Rex" references → generic equivalents
+If user approved, use the Edit tool to replace the entire section:
+- Read the current CLAUDE.md
+- Find the old section (e.g., `## Working with Rex` or `## Working with You`)
+- Replace with the template version
+- Preserve all project-specific content around it
 
-Show the user what will change and ask for confirmation:
+**Important:** This approach detects ANY content changes to system sections, not just specific text like "Rex". It will catch:
+- Wording improvements
+- Added/removed guidelines
+- Restructured content
+- New best practices
+
+**If no differences found:**
 ```
-Found personalized references in CLAUDE.md:
-  Line 14: ## Working with Rex
-  Line 54: **What Rex Prefers:**
-
-Update to universal language?
-  - "Working with Rex" → "Working with You"
-  - "What Rex Prefers:" → "What You Prefer:"
-
-Apply these updates? [Y/n]
+✅ All system sections up to date
+No template content changes detected
 ```
-
-If Y: Use Edit tool to apply each change
-If n: Skip, note in report
 
 ### Step 5: Detect Context File Template Changes
 
