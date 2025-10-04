@@ -188,21 +188,24 @@ If NOT found, use Edit tool to add after the "Working with You" section (or afte
 ```markdown
 ## Core Development Methodology
 
-**The Golden Rule: Simplicity First**
-Make every task and code change as simple as possible. Avoid massive or complex changes. Every change should impact as little code as possible.
+1. **Plan First:** Read codebase, think through problem, write plan to `context/tasks/todo.md`
+2. **Track Progress:** Create todo items that can be checked off during work
+3. **Verify Plan:** Check in with user before starting implementation
+4. **Work Incrementally:** Complete todos one by one, marking complete as you go
+5. **Communicate Clearly:** Provide high-level explanation of changes at each step
+6. **Simplicity Above All:** Every change should impact minimal code
+7. **Document Results:** Add review section to todo.md with summary
+8. **No Lazy Coding:** Always look for root causes, never apply band-aids
+9. **Minimal Impact:** Changes affect only necessary code, nothing else
+10. **Full Tracing:** Debug by tracing ENTIRE code flow - no assumptions
 
 **When Debugging:**
-Trace through the ENTIRE code flow step by step. No assumptions. No shortcuts. Follow the data from entry point to the issue.
-
-**Code Quality Standards:**
-- DO NOT BE LAZY. NEVER BE LAZY.
-- Find root causes, not symptoms
-- NO TEMPORARY FIXES
-- Think like a senior developer
-- Impact only necessary code relevant to the task
-
-**Impact Minimization:**
-Make all fixes and code changes as simple as humanly possible. They should only impact necessary code relevant to the task and nothing else. Goal: not introduce any bugs.
+- Trace through the ENTIRE code flow step by step
+- No assumptions - verify what you think you know
+- No shortcuts - follow the data from entry to issue
+- Use breakpoints or logging at each step
+- Check inputs, outputs, and state at every layer
+- Document the flow as you trace it
 ```
 
 **Step 4: Add config reference**

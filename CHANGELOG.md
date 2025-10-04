@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 2025-10-04
+
+### Fixed
+- **Consistency issue in /migrate-context** - Updated Core Development Methodology section to match template
+- Old single-line debugging guidance replaced with 6-bullet detailed version
+- Added 10-step development methodology to migration augmentation
+
+### Changed
+- /migrate-context now adds the same improved guidance that's in CLAUDE.template.md
+- Ensures migrated projects get latest best practices immediately
+- No need to run /update-context-system right after migration
+
+### Impact
+- ✅ New migrations get latest debugging guidance automatically
+- ✅ Consistency between /init-context, /migrate-context, and templates
+- ✅ Better first-time migration experience
+
 ## [1.3.0] - 2025-10-04
 
 ### Added
