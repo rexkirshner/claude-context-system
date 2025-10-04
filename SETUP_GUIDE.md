@@ -1,5 +1,20 @@
 # Claude Context System - Setup Guide
 
+## Which Setup Command Do I Use?
+
+### Use `/init-context` for:
+- ✅ **New projects** with no documentation yet
+- ✅ Fresh scaffolded projects (npx create-next-app, etc.)
+- ✅ Projects where you want Claude to create docs from scratch
+
+### Use `/migrate-context` for:
+- ✅ **Existing projects** with documentation already
+- ✅ Projects with CLAUDE.md, PRD.md, etc. in root directory
+- ✅ Projects with scattered artifacts (lighthouse reports, code reviews)
+- ✅ Want to preserve ALL existing content while adopting the system
+
+---
+
 ## Quick Start (New Project)
 
 ### Step 1: Get the Toolkit
@@ -41,6 +56,45 @@ This creates:
 
 ---
 
+## Quick Start (Existing Project with Docs)
+
+### Step 1: Get the Toolkit
+```bash
+# Clone the repository
+git clone https://github.com/rexkirshner/claude-context-system.git
+
+# Or download just the .claude/commands folder from GitHub
+```
+
+### Step 2: Copy Commands to Your Project
+```bash
+# From your existing project root
+mkdir -p .claude
+cp -r claude-context-system/.claude/commands .claude/
+```
+
+### Step 3: Migrate Existing Documentation
+```
+/migrate-context
+```
+This will:
+- Scan existing docs (CLAUDE.md, PRD.md, etc.)
+- Move them to `context/` folder
+- Move artifacts (lighthouse reports, code reviews) to `artifacts/`
+- Augment existing docs with new sections
+- Create missing documentation
+- Preserve ALL existing content
+
+### Step 4: Verify Migration
+```
+# Review the migration report
+# Check context/ folder structure
+# Run save-context to capture current state
+/save-context
+```
+
+---
+
 ## Detailed Setup Instructions
 
 ### Prerequisites
@@ -74,11 +128,11 @@ If you have a local clone of the repo:
 ## Command Reference
 
 ### `/init-context`
-**When:** Once, at project start
+**When:** Once, for NEW projects with no documentation
 
 **What it does:**
 - Creates `context/` folder structure
-- Generates all meta-documentation
+- Generates all meta-documentation from scratch
 - Analyzes project and fills in known information
 - Creates `.context-config.json`
 
@@ -88,6 +142,27 @@ If you have a local clone of the repo:
 ✅ Generated 8 documentation files
 ✅ Analyzed project structure
 ✅ Created .context-config.json
+```
+
+### `/migrate-context`
+**When:** Once, for EXISTING projects with documentation
+
+**What it does:**
+- Scans for existing docs and artifacts
+- Moves docs to `context/` folder
+- Moves artifacts to `artifacts/` folder
+- Augments existing docs with new sections
+- Creates missing documentation
+- Preserves ALL existing content
+
+**Expected output:**
+```
+✅ Migration Complete
+📁 Moved 5 docs to context/
+📁 Moved 4 lighthouse reports to artifacts/
+📝 Augmented CLAUDE.md with Core Methodology
+⭐ Created ARCHITECTURE.md, CODE_STYLE.md, SESSIONS.md
+✅ All existing content preserved
 ```
 
 ### `/save-context`
@@ -176,6 +251,17 @@ your-project/
 4. Start coding
 5. Run: /save-context (periodically)
 6. End: /save-context
+```
+
+### Existing Project Migration
+```
+1. Open existing project with docs
+2. Copy .claude/commands folder
+3. Run: /migrate-context
+4. Review migration report
+5. Verify context/ and artifacts/ folders
+6. Run: /save-context
+7. Continue working
 ```
 
 ### Continuing Project Session
@@ -338,9 +424,10 @@ git commit -m "Backup context before major changes"
 
 After setup, verify:
 - [ ] `.claude/commands/` folder exists with .md files in project
-- [ ] `/init-context` successfully created `context/` folder
-- [ ] All 8 core documentation files present
-- [ ] `.context-config.json` configured correctly
+- [ ] `/init-context` or `/migrate-context` successfully created `context/` folder
+- [ ] All 8 core documentation files present in `context/`
+- [ ] `artifacts/` subdirectories created (if using /migrate-context)
+- [ ] `context/.context-config.json` configured correctly
 - [ ] `/review-context` reports "ready to work"
 - [ ] Can run `/save-context` without errors
 

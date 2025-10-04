@@ -17,8 +17,9 @@ When working with Claude Code:
 
 ## The Solution
 
-Four simple commands that preserve everything:
+Five simple commands that preserve everything:
 - **`/init-context`** - Set up context system in new project (once)
+- **`/migrate-context`** - Migrate existing project with documentation (once)
 - **`/save-context`** - Capture current state (frequently)
 - **`/review-context`** - Verify continuity (at session start)
 - **`/code-review`** - Quality audit without breaking things (when needed)
@@ -83,9 +84,14 @@ your-project/
 ## Core Commands
 
 ### `/init-context`
-**Run once per project**
+**Run once for NEW projects**
 
-Creates complete documentation structure and configuration. Analyzes your project and fills in what it can.
+Creates complete documentation structure and configuration. Analyzes your project and fills in what it can. Use this when starting fresh.
+
+### `/migrate-context`
+**Run once for EXISTING projects with docs**
+
+Migrates existing documentation to Claude Context System structure. Preserves ALL existing content while organizing into context/ and artifacts/ folders. Augments existing docs with new sections. Use this when you already have CLAUDE.md, PRD.md, etc.
 
 ### `/save-context`
 **Run frequently**
@@ -101,6 +107,26 @@ Verifies documentation is current and accurate. Reports any gaps or issues. Conf
 **Run when quality matters**
 
 Comprehensive code audit with NO changes during review. Identifies issues and suggests improvements in a separate session. Takes its time to be thorough.
+
+## Choosing Your Setup Command
+
+### Use `/init-context` when:
+- ✅ Starting a brand new project
+- ✅ Project has basic setup (package.json) but no docs yet
+- ✅ No existing CLAUDE.md or context documentation
+- ✅ You want Claude to create everything from scratch
+
+### Use `/migrate-context` when:
+- ✅ Project already has documentation (CLAUDE.md, PRD.md, etc.)
+- ✅ Docs are scattered in root directory or old structure
+- ✅ You have artifacts (lighthouse reports, code reviews) to organize
+- ✅ Want to preserve ALL existing content while adopting the system
+
+**Examples:**
+- `npx create-next-app` → Use `/init-context`
+- Mature project with CLAUDE.md in root → Use `/migrate-context`
+- Fresh clone with no docs → Use `/init-context`
+- Project with tasks/ folder and multiple docs → Use `/migrate-context`
 
 ## Documentation Files
 
@@ -179,6 +205,7 @@ claude-context-system/
 ├── .claude/
 │   └── commands/               # Custom slash commands
 │   ├── init-context.md
+│   ├── migrate-context.md
 │   ├── save-context.md
 │   ├── review-context.md
 │   └── code-review.md
@@ -205,6 +232,15 @@ claude-context-system/
 2. /init-context
 3. Start coding
 4. /save-context (often)
+```
+
+### Existing Project Migration
+```
+1. Copy .claude/commands to project
+2. /migrate-context
+3. Review migration report
+4. /save-context
+5. Continue working
 ```
 
 ### Daily Work
