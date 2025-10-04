@@ -200,6 +200,33 @@ If you have a local clone of the repo:
 ⚠️ Note: SESSIONS.md shows incomplete task X
 ```
 
+### `/update-context-system`
+**When:** Periodically to get latest improvements
+
+**What it does:**
+- Fetches latest version from GitHub
+- Updates all slash commands automatically
+- Detects context file template changes
+- Optionally updates system sections in CLAUDE.md, CODE_STYLE.md
+- Reports everything that changed
+
+**Usage:**
+```
+# Interactive mode (shows diffs, asks for approval)
+/update-context-system
+
+# Auto-accept all updates
+/update-context-system --accept-all
+```
+
+**Expected output:**
+```
+✅ Claude Context System Updated
+📦 Version: 1.0.0 → 1.2.0
+✅ Updated 5 commands
+✅ Updated 2 context sections
+```
+
 ### `/code-review`
 **When:** After feature completion, before deployment, when quality matters
 

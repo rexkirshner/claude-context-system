@@ -17,9 +17,10 @@ When working with Claude Code:
 
 ## The Solution
 
-Five simple commands that preserve everything:
+Six simple commands that preserve everything:
 - **`/init-context`** - Set up context system in new project (once)
 - **`/migrate-context`** - Migrate existing project with documentation (once)
+- **`/update-context-system`** - Update to latest version from GitHub (periodically)
 - **`/save-context`** - Capture current state (frequently)
 - **`/review-context`** - Verify continuity (at session start)
 - **`/code-review`** - Quality audit without breaking things (when needed)
@@ -102,6 +103,11 @@ Updates all documentation to match current state. Captures session activity, dec
 **Run at session start**
 
 Verifies documentation is current and accurate. Reports any gaps or issues. Confirms you can resume exactly where you left off.
+
+### `/update-context-system`
+**Run periodically to get latest improvements**
+
+Updates slash commands and optionally updates context file templates from GitHub. Interactive mode shows diffs, or use `--accept-all` for automatic updates.
 
 ### `/code-review`
 **Run when quality matters**
@@ -206,6 +212,7 @@ claude-context-system/
 │   └── commands/               # Custom slash commands
 │   ├── init-context.md
 │   ├── migrate-context.md
+│   ├── update-context-system.md
 │   ├── save-context.md
 │   ├── review-context.md
 │   └── code-review.md
