@@ -1,4 +1,5 @@
 ---
+name: code-review
 description: Comprehensive code quality audit without making any changes
 ---
 

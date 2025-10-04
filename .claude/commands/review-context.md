@@ -1,4 +1,5 @@
 ---
+name: review-context
 description: Verify context documentation accuracy and session continuity readiness
 ---
 

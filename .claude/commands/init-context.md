@@ -1,4 +1,5 @@
 ---
+name: init-context
 description: Initialize Claude Context System for this project
 ---
 
@@ -58,7 +59,12 @@ Create the complete context directory structure:
 
 ```bash
 mkdir -p context/tasks
-mkdir -p context/reviews
+mkdir -p artifacts/code-reviews
+mkdir -p artifacts/lighthouse
+mkdir -p artifacts/performance
+mkdir -p artifacts/security
+mkdir -p artifacts/bundle-analysis
+mkdir -p artifacts/coverage
 ```
 
 ### Step 4: Generate Documentation Files

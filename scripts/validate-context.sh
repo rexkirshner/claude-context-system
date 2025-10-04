@@ -231,10 +231,10 @@ echo ""
 echo "⚡ Checking slash commands..."
 
 COMMANDS=(
-  ".claude-commands/init-context.md"
-  ".claude-commands/save-context.md"
-  ".claude-commands/review-context.md"
-  ".claude-commands/code-review.md"
+  ".claude/commands/init-context.md"
+  ".claude/commands/save-context.md"
+  ".claude/commands/review-context.md"
+  ".claude/commands/code-review.md"
 )
 
 for cmd in "${COMMANDS[@]}"; do

@@ -7,13 +7,14 @@
 # Clone the repository
 git clone https://github.com/rexkirshner/claude-context-system.git
 
-# Or download just the .claude-commands folder from GitHub
+# Or download just the .claude/commands folder from GitHub
 ```
 
 ### Step 2: Copy Files to Your Project
 ```bash
 # From your new project root
-cp -r claude-context-system/.claude-commands .
+mkdir -p .claude
+cp -r claude-context-system/.claude/commands .claude/
 cp claude-context-system/config/.context-config.template.json .context-config.json
 ```
 
@@ -51,14 +52,14 @@ This creates:
 
 #### Method 1: Clone and Copy (Recommended)
 1. Clone the repository: `git clone https://github.com/rexkirshner/claude-context-system.git`
-2. Copy the `.claude-commands/` folder to your project root
+2. Copy the `.claude/commands/` folder to your project: `mkdir -p .claude && cp -r claude-context-system/.claude/commands .claude/`
 3. Copy and rename config: `cp config/.context-config.template.json .context-config.json`
 4. Run `/init-context` in Claude Code
 5. Review and customize `.context-config.json` if needed
 
 #### Method 2: Download and Copy
 1. Download the repository as ZIP from GitHub
-2. Extract and copy `.claude-commands/` to your project
+2. Extract and copy `.claude/commands/` to your project
 3. Copy and rename `.context-config.template.json`
 4. Run `/init-context`
 
@@ -138,7 +139,7 @@ If you have a local clone of the repo:
 Code Review Report - Grade: B+
 ✅ No critical issues
 ⚠️ 3 minor improvements suggested
-📋 See context/reviews/session-12-review.md
+📋 See artifacts/code-reviews/session-12-review.md
 ```
 
 ---
@@ -170,7 +171,7 @@ your-project/
 ### New Project Session
 ```
 1. Create new project
-2. Copy .claude-commands folder
+2. Copy .claude/commands folder
 3. Run: /init-context
 4. Start coding
 5. Run: /save-context (periodically)
@@ -200,10 +201,31 @@ your-project/
 
 ## Troubleshooting
 
+### "Unknown slash command: init-context" (or other commands)
+**Cause:** Command files missing `name` field in frontmatter
+
+**Fix:** Ensure each `.md` file in `.claude/commands/` has this format:
+```yaml
+---
+name: command-name
+description: Command description
+---
+```
+
+**Example:**
+```yaml
+---
+name: init-context
+description: Initialize Claude Context System for this project
+---
+```
+
+If you downloaded an older version, the files may only have `description`. Add the `name` field to fix.
+
 ### "Commands not recognized"
 - Make sure to load commands at session start
-- Check `.claude-commands/` folder exists
-- Try direct reference method
+- Check `.claude/commands/` folder exists with .md files
+- Restart Claude Code conversation to reload commands
 
 ### "Context seems stale"
 - Run `/save-context` immediately
@@ -295,7 +317,8 @@ Keep a master command set:
 git clone https://github.com/rexkirshner/claude-context-system.git ~/claude-context-system
 
 # In each project, create symlink instead of copying
-ln -s ~/claude-context-system/.claude-commands .
+mkdir -p .claude
+ln -s ~/claude-context-system/.claude/commands .claude/commands
 ```
 
 ### Backup Strategy
@@ -314,7 +337,7 @@ git commit -m "Backup context before major changes"
 ## Success Checklist
 
 After setup, verify:
-- [ ] `.claude-commands/` folder exists in project
+- [ ] `.claude/commands/` folder exists with .md files in project
 - [ ] `/init-context` successfully created `context/` folder
 - [ ] All 8 core documentation files present
 - [ ] `.context-config.json` configured correctly

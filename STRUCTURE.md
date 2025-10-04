@@ -9,7 +9,7 @@ Complete file organization for the Claude Context System.
 - **PRD.md** - Complete product requirements document
 - **SETUP_GUIDE.md** - How to install and use the system
 
-## .claude-commands/
+## .claude/commands/
 
 Slash command definitions that can be loaded into any project.
 
@@ -48,12 +48,12 @@ Configuration files for the context system.
    # Clone the repo
    git clone https://github.com/rexkirshner/claude-context-system.git
 
-   # Or download just the .claude-commands folder
+   # Or download just the .claude/commands folder
    ```
 
 2. **Copy commands to your project:**
    ```bash
-   cp -r claude-context-system/.claude-commands /path/to/your/project/
+   mkdir -p .claude && cp -r claude-context-system/.claude/commands .claude/
    ```
 
 3. **Initialize context:**
@@ -108,7 +108,7 @@ project-root/
 - Validates against schema
 
 **`/code-review`** creates:
-- New review file in context/reviews/
+- New review file in artifacts/code-reviews/
 - Based on CODE_STYLE.md standards
 
 ### How Templates Work
@@ -156,7 +156,7 @@ context/
 - Keep documentation current
 
 ### Extending the System
-- Add new command .md files to `.claude-commands/`
+- Add new command .md files to `.claude/commands/`
 - Add new templates to `templates/`
 - Update schema when adding config options
 - Document new patterns directly in templates
@@ -176,14 +176,14 @@ context/
 **Most Important Files:**
 1. `README.md` - Start here
 2. `SETUP_GUIDE.md` - How to use
-3. `.claude-commands/` - The actual commands
+3. `.claude/commands/` - The actual commands
 4. `templates/CLAUDE.template.md` - Core workflow and communication
 5. `templates/CODE_STYLE.template.md` - Coding principles
 
 **For New Users:**
 1. Read README.md
-2. Clone from GitHub or download .claude-commands/
-3. Copy .claude-commands/ to your project
+2. Clone from GitHub or download .claude/commands/
+3. Copy .claude/commands/ to your project (.claude/ directory)
 4. Run /init-context
 5. Read SETUP_GUIDE.md for details
 

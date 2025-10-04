@@ -26,11 +26,11 @@ Four simple commands that preserve everything:
 ## Quick Start
 
 ```bash
-# 1. Clone the repo (or download .claude-commands folder)
+# 1. Clone the repo (or download .claude/commands folder)
 git clone https://github.com/rexkirshner/claude-context-system.git
 
 # 2. Copy commands to your project
-cp -r claude-context-system/.claude-commands /path/to/your/project/
+cp -r claude-context-system/.claude/commands /path/to/your/project/.claude/
 
 # 3. In Claude Code, initialize
 /init-context
@@ -176,7 +176,8 @@ claude-context-system/
 ├── PRD.md                      # System requirements
 ├── SETUP_GUIDE.md              # How to install and use
 ├── STRUCTURE.md                # Complete file organization guide
-├── .claude-commands/           # Command definitions
+├── .claude/
+│   └── commands/               # Custom slash commands
 │   ├── init-context.md
 │   ├── save-context.md
 │   ├── review-context.md
@@ -264,7 +265,7 @@ Customize per project or use global defaults.
 - Check git status
 
 **Commands not working?**
-- Verify `.claude-commands/` folder exists
+- Verify `.claude/commands/` folder exists
 - Check command files have `.md` extension
 - Try loading commands manually
 
