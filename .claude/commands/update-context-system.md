@@ -135,7 +135,50 @@ ls .claude/commands/*.md | sed 's/.*\//  - /'
 - code-review.md
 - update-context-system.md (this command!)
 
-### Step 4: Detect Context File Template Changes
+### Step 4: Check for Personal References to Update
+
+**IMPORTANT:** Check if project has old personal references that should be universalized.
+
+**ACTION:** Use the Bash tool and Read tool:
+
+```bash
+# Check for "Rex" references in CLAUDE.md
+if grep -q "Rex" context/CLAUDE.md 2>/dev/null; then
+  echo "⚠️  Found personal references in CLAUDE.md"
+  grep -n "Rex" context/CLAUDE.md | head -5
+fi
+
+# Check for "Rex" in CODE_STYLE.md
+if grep -q "Rex" context/CODE_STYLE.md 2>/dev/null; then
+  echo "⚠️  Found personal references in CODE_STYLE.md"
+  grep -n "Rex" context/CODE_STYLE.md | head -5
+fi
+```
+
+**If personal references found, offer to update:**
+
+Use the Edit tool to replace:
+- `## Working with Rex` → `## Working with You`
+- `**What Rex Prefers:**` → `**What You Prefer:**`
+- Any other "Rex" references → generic equivalents
+
+Show the user what will change and ask for confirmation:
+```
+Found personalized references in CLAUDE.md:
+  Line 14: ## Working with Rex
+  Line 54: **What Rex Prefers:**
+
+Update to universal language?
+  - "Working with Rex" → "Working with You"
+  - "What Rex Prefers:" → "What You Prefer:"
+
+Apply these updates? [Y/n]
+```
+
+If Y: Use Edit tool to apply each change
+If n: Skip, note in report
+
+### Step 5: Detect Context File Template Changes
 
 Check which templates have changed:
 
@@ -169,7 +212,7 @@ Available template updates:
 - templates/: 2 new templates available
 ```
 
-### Step 5: Detect User Modifications (Conflict Check)
+### Step 6: Detect User Modifications (Conflict Check)
 
 **Before applying updates, check if user has customized system sections:**
 
@@ -236,7 +279,7 @@ Choose action:
 Your choice [1/2/3/4]:
 ```
 
-### Step 6: Apply Updates (Based on Mode)
+### Step 7: Apply Updates (Based on Mode)
 
 #### If `--accept-all` flag:
 
@@ -311,7 +354,7 @@ User response: Y
 5. If n: Skip, note in report
 6. If diff: Show full diff, then ask again
 
-### Step 6: Update Version in Config
+### Step 8: Update Version in Config
 
 **ACTION:** Use the Edit tool to update the version in context/.context-config.json
 
@@ -327,7 +370,7 @@ Then report:
 ✅ Updated version: 1.0.0 → 1.1.1
 ```
 
-### Step 7: Cleanup
+### Step 9: Cleanup
 
 **ACTION:** Use the Bash tool to clean up:
 
@@ -341,7 +384,7 @@ rm -rf .claude/commands.backup
 echo "✅ Cleanup complete"
 ```
 
-### Step 8: Generate Update Report
+### Step 10: Generate Update Report
 
 Provide clear summary:
 

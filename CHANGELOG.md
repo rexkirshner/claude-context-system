@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.4] - 2025-10-04
+
+### Added
+- Step 4 in /update-context-system to detect and update personal references
+- Checks for "Rex" references in CLAUDE.md and CODE_STYLE.md
+- Offers to update "Working with Rex" → "Working with You"
+- Offers to update "What Rex Prefers" → "What You Prefer"
+- Interactive confirmation before applying changes
+
+### Fixed
+- Personal references not being updated when system was made universal
+- Migrated projects keeping old "Rex" references after update
+- Gap where /migrate-context preserves content but /update-context-system doesn't modernize it
+
 ## [1.1.3] - 2025-10-04
 
 ### Added
