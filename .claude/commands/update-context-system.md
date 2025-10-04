@@ -44,59 +44,41 @@ Update your project's Claude Context System to the latest version from GitHub. S
 - Fast, fully automated
 - Use when you trust all updates
 
+## Important: How to Execute This Command
+
+**CRITICAL:** You MUST use the Bash tool to execute all commands in this file. Do NOT describe the commands to the user - EXECUTE them.
+
+Each bash code block in this file should be run using the Bash tool. This is an automated update process.
+
 ## Important: Version Check First
 
 **CRITICAL:** This command compares version numbers. If local version matches GitHub version, the command MUST exit immediately without making ANY changes. Only proceed with updates if GitHub version is newer.
 
 ## Execution Steps
 
-### Step 1: Check Current Version
+### Step 1: Check Current Version and Download Latest
 
-Read current version from config:
+**ACTION:** Use the Bash tool to execute this entire script as ONE command:
+
 ```bash
-# Extract current version from project config
+# Step 1: Get current version
 CURRENT_VERSION=$(grep -m 1 '"version":' context/.context-config.json | sed 's/.*"version": "\([^"]*\)".*/\1/')
-echo "Current version: $CURRENT_VERSION"
-```
+echo "📦 Current version: $CURRENT_VERSION"
+echo "🔍 Checking for updates from GitHub..."
 
-Display to user:
-```
-📦 Current version: 1.0.0
-🔍 Checking for updates from GitHub...
-```
-
-### Step 2: Fetch Latest Version from GitHub
-
-Download latest release info:
-```bash
-# Create temp directory
+# Step 2: Download and extract latest
 mkdir -p /tmp/claude-context-update
 cd /tmp/claude-context-update
-
-# Download latest from GitHub
 curl -L https://github.com/rexkirshner/claude-context-system/archive/refs/heads/main.zip -o latest.zip
-
-# Extract
 unzip -q latest.zip
-cd claude-context-system-main
-```
 
-Get latest version:
-```bash
-# Extract version number from template
-LATEST_VERSION=$(grep -m 1 '"version":' config/.context-config.template.json | sed 's/.*"version": "\([^"]*\)".*/\1/')
-echo "Latest version from GitHub: $LATEST_VERSION"
-```
+# Step 3: Get latest version
+LATEST_VERSION=$(grep -m 1 '"version":' claude-context-system-main/config/.context-config.template.json | sed 's/.*"version": "\([^"]*\)".*/\1/')
+echo "🔍 Latest version from GitHub: $LATEST_VERSION"
 
-**Compare versions:**
-```bash
-# Compare versions
-echo "Comparing versions..."
-echo "  Current: $CURRENT_VERSION"
-echo "  Latest:  $LATEST_VERSION"
-
+# Step 4: Compare versions
+echo ""
 if [ "$CURRENT_VERSION" = "$LATEST_VERSION" ]; then
-  echo ""
   echo "✅ Already Up to Date"
   echo ""
   echo "Current version: $CURRENT_VERSION"
@@ -105,21 +87,22 @@ if [ "$CURRENT_VERSION" = "$LATEST_VERSION" ]; then
   echo "Your Claude Context System is already running the latest version."
   echo "No updates were performed. All commands are current."
 
-  # Clean up temp directory
+  # Clean up and exit
   rm -rf /tmp/claude-context-update
-
-  # EXIT - Do NOT proceed to Step 3
-  exit 0
+  echo "STOP_NO_UPDATE"
+else
+  echo "📦 Update Available"
+  echo "  Current: $CURRENT_VERSION"
+  echo "  Latest:  $LATEST_VERSION"
+  echo ""
+  echo "Proceeding with update..."
+  echo "PROCEED_WITH_UPDATE"
 fi
-
-# Versions differ - proceed with update
-echo ""
-echo "📦 Update Available"
-echo "  Current: $CURRENT_VERSION"
-echo "  Latest:  $LATEST_VERSION"
-echo ""
-echo "Proceeding with update..."
 ```
+
+**After running the above:**
+- If output contains "STOP_NO_UPDATE": Exit immediately, do not proceed to Step 3
+- If output contains "PROCEED_WITH_UPDATE": Continue to Step 3
 
 **CRITICAL:** If versions match, exit BEFORE updating commands. Do not download, do not copy files, do not modify anything. Only proceed if latest > current.
 
@@ -127,9 +110,12 @@ The version check MUST use string comparison (`[ "$CURRENT_VERSION" = "$LATEST_V
 
 ### Step 3: Update Slash Commands
 
-Commands are safe to overwrite (no project-specific content):
+**ACTION:** Use the Bash tool to update the commands:
 
 ```bash
+# Navigate back to project root
+cd - > /dev/null
+
 # Backup existing commands
 cp -r .claude/commands .claude/commands.backup
 
@@ -327,20 +313,23 @@ User response: Y
 
 ### Step 6: Update Version in Config
 
-After all updates applied:
+**ACTION:** Use the Edit tool to update the version in context/.context-config.json
 
-```bash
-# Update version number
-# Use Edit tool to update context/.context-config.json
+After determining LATEST_VERSION from Step 1, use the Edit tool:
+```
+file_path: context/.context-config.json
+old_string: "version": "1.0.0"  (or whatever CURRENT_VERSION was)
+new_string: "version": "1.1.1"  (or whatever LATEST_VERSION is)
 ```
 
-Example edit:
+Then report:
 ```
-old_string: "version": "1.0.0"
-new_string: "version": "1.2.0"
+✅ Updated version: 1.0.0 → 1.1.1
 ```
 
 ### Step 7: Cleanup
+
+**ACTION:** Use the Bash tool to clean up:
 
 ```bash
 # Remove temp directory
@@ -348,6 +337,8 @@ rm -rf /tmp/claude-context-update
 
 # Remove command backup if successful
 rm -rf .claude/commands.backup
+
+echo "✅ Cleanup complete"
 ```
 
 ### Step 8: Generate Update Report

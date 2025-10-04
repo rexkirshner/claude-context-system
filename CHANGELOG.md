@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2] - 2025-10-04
+
+### Fixed
+- Added explicit ACTION instructions to /update-context-system
+- Consolidated Steps 1-2 into single bash script to preserve variables
+- Added "Use the Bash tool" instructions throughout command
+- Simplified command execution with clear "STOP_NO_UPDATE" / "PROCEED_WITH_UPDATE" markers
+- Now actually executes bash commands instead of just describing them
+
 ## [1.1.1] - 2025-10-04
 
 ### Fixed
