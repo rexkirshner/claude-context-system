@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.2] - 2025-10-04
+
+### Changed
+- Fixed config reference in CLAUDE.template.md (config/preferences.yaml → context/.context-config.json)
+- Enhanced debugging guidance with detailed bullet points instead of single line
+- Improved "No Lazy Coding" principle wording for clarity
+
+### Improved
+- **Working with You section:**
+  - Now references correct config location
+  - Expanded debugging section with 6 specific steps
+  - Changed "Find root causes" to "Always look for root causes" for emphasis
+
 ## [1.2.1] - 2025-10-04
 
 ### Added

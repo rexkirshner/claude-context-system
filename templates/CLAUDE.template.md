@@ -13,7 +13,7 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 ## Working with You
 
-> **📋 Preferences:** All communication, workflow, and quality preferences are defined in `config/preferences.yaml`.
+> **📋 Preferences:** All communication, workflow, and quality preferences are defined in `context/.context-config.json`.
 > The settings below are derived from that source of truth.
 
 ### Communication Style
@@ -48,11 +48,17 @@ This file provides guidance to Claude Code when working with code in this reposi
 5. **Communicate Clearly:** Provide high-level explanation of changes at each step
 6. **Simplicity Above All:** Every change should impact minimal code
 7. **Document Results:** Add review section to todo.md with summary
-8. **No Lazy Coding:** Find root causes, never apply band-aids
+8. **No Lazy Coding:** Always look for root causes, never apply band-aids
 9. **Minimal Impact:** Changes affect only necessary code, nothing else
 10. **Full Tracing:** Debug by tracing ENTIRE code flow - no assumptions
 
-**CRITICAL:** When debugging, trace through the ENTIRE code flow step by step. No assumptions. No shortcuts.
+**When Debugging:**
+- Trace through the ENTIRE code flow step by step
+- No assumptions - verify what you think you know
+- No shortcuts - follow the data from entry to issue
+- Use breakpoints or logging at each step
+- Check inputs, outputs, and state at every layer
+- Document the flow as you trace it
 
 ## Commands
 
