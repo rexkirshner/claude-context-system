@@ -44,6 +44,10 @@ Update your project's Claude Context System to the latest version from GitHub. S
 - Fast, fully automated
 - Use when you trust all updates
 
+## Important: Version Check First
+
+**CRITICAL:** This command compares version numbers. If local version matches GitHub version, the command MUST exit immediately without making ANY changes. Only proceed with updates if GitHub version is newer.
+
 ## Execution Steps
 
 ### Step 1: Check Current Version
@@ -84,12 +88,17 @@ grep -o '"version": "[^"]*"' config/.context-config.template.json
 ```
 If current == latest:
   Report: "✅ Already up to date (v1.0.0)"
-  Exit
+  Report: "No updates available. All commands are current."
+  STOP - Exit immediately, do NOT proceed to Step 3
+  Do NOT update commands
+  Do NOT modify any files
 
 If current < latest:
   Report: "📦 Update available: v1.0.0 → v1.2.0"
-  Continue
+  Continue to Step 3
 ```
+
+**CRITICAL:** If versions match, exit BEFORE updating commands. Do not download, do not copy files, do not modify anything. Only proceed if latest > current.
 
 ### Step 3: Update Slash Commands
 
@@ -507,8 +516,13 @@ If already up to date:
 ```
 /update-context-system
 
-> ✅ Already up to date (v1.2.0)
-> No updates available.
+> ✅ Already Up to Date
+>
+> Current version: 1.2.0
+> Latest version: 1.2.0
+>
+> Your Claude Context System is already running the latest version.
+> No updates were performed. All commands are current.
 ```
 
 ## Success Criteria
