@@ -221,6 +221,14 @@ Add new session entry:
 
 #### context/SESSIONS.md Updates
 
+**Auto-detect session number:**
+```bash
+# Count existing sessions to determine next number
+LAST_SESSION=$(grep -c "^## Session" context/SESSIONS.md)
+NEXT_SESSION=$((LAST_SESSION + 1))
+echo "Creating Session $NEXT_SESSION entry"
+```
+
 **Always add detailed entry:**
 ```markdown
 ## Session [N] - YYYY-MM-DD HH:MM

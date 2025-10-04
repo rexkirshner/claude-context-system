@@ -149,11 +149,93 @@ Available template updates:
 - templates/: 2 new templates available
 ```
 
-### Step 5: Apply Updates (Based on Mode)
+### Step 5: Detect User Modifications (Conflict Check)
+
+**Before applying updates, check if user has customized system sections:**
+
+```bash
+# For each section we want to update, check if it's been modified
+cd /tmp/claude-context-update/claude-context-system-main
+
+# Extract Core Development Methodology from template
+TEMPLATE_HASH=$(sed -n '/^## Core Development Methodology/,/^## /p' templates/CLAUDE.template.md | md5sum | cut -d' ' -f1)
+
+# Extract from current project (if exists)
+if grep -q "^## Core Development Methodology" context/CLAUDE.md 2>/dev/null; then
+  CURRENT_HASH=$(sed -n '/^## Core Development Methodology/,/^## /p' context/CLAUDE.md | md5sum | cut -d' ' -f1)
+
+  # Compare with original v1.0.0 template hash
+  ORIGINAL_HASH="[known hash for v1.0.0]"
+
+  if [ "$CURRENT_HASH" != "$ORIGINAL_HASH" ] && [ "$CURRENT_HASH" != "$TEMPLATE_HASH" ]; then
+    echo "⚠️  CUSTOMIZATION DETECTED"
+    echo "You've modified Core Development Methodology section"
+    echo "Template has also been updated"
+    echo ""
+    echo "Options:"
+    echo "1. Keep your customizations (skip update)"
+    echo "2. Apply template update (overwrite customizations)"
+    echo "3. Merge manually (show both versions)"
+  fi
+fi
+```
+
+**Conflict scenarios:**
+
+1. **No conflict:** Current matches original template → Safe to update
+2. **User customized:** Current differs from original → Warn before updating
+3. **Both changed:** User customized AND template updated → Require manual merge
+
+**Handle conflicts:**
+
+```
+⚠️  Conflict Detected in context/CLAUDE.md
+
+Section: Core Development Methodology
+Status: You've customized this section, and template has updates
+
+--- YOUR VERSION ---
+**When Debugging:**
+Trace code flows carefully. Use debugger breakpoints.
+Always check database state.
+
+--- TEMPLATE UPDATE ---
+**When Debugging:**
+Trace through the ENTIRE code flow step by step. No assumptions. No shortcuts. Follow the data from entry point to the issue.
+
+--- RECOMMENDATION ---
+Your version includes custom debugging steps (database state check).
+Template update adds emphasis on thoroughness.
+
+Choose action:
+1. Keep yours (recommended if you've added project-specific guidance)
+2. Use template (recommended if you want latest best practices)
+3. Merge both (manually combine in next step)
+4. Show full diff
+
+Your choice [1/2/3/4]:
+```
+
+### Step 6: Apply Updates (Based on Mode)
 
 #### If `--accept-all` flag:
 
-**Auto-apply all updates:**
+**Check for conflicts first:**
+- If conflicts detected: Show warning, require manual resolution
+- If no conflicts: Proceed with auto-apply
+
+```
+⚠️  Cannot use --accept-all with conflicts
+
+Conflicts detected in:
+- context/CLAUDE.md (Core Development Methodology customized)
+- context/CODE_STYLE.md (Git workflow customized)
+
+Please run without --accept-all to resolve conflicts interactively.
+Or resolve manually and re-run.
+```
+
+**If no conflicts, auto-apply all updates:**
 1. Add/update Core Development Methodology in context/CLAUDE.md
 2. Add/update system sections in context/CODE_STYLE.md
 3. Update context/.context-config.json version

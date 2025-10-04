@@ -17,13 +17,24 @@ When working with Claude Code:
 
 ## The Solution
 
-Six simple commands that preserve everything:
-- **`/init-context`** - Set up context system in new project (once)
-- **`/migrate-context`** - Migrate existing project with documentation (once)
-- **`/update-context-system`** - Update to latest version from GitHub (periodically)
+Nine simple commands that preserve everything:
+
+**Setup (run once):**
+- **`/init-context`** - Set up context system in new project
+- **`/migrate-context`** - Migrate existing project with documentation
+
+**Maintenance:**
 - **`/save-context`** - Capture current state (frequently)
+- **`/quick-save`** - Fast checkpoint during active work (very frequently)
 - **`/review-context`** - Verify continuity (at session start)
-- **`/code-review`** - Quality audit without breaking things (when needed)
+
+**Quality & Sharing:**
+- **`/code-review`** - Quality audit without breaking things
+- **`/validate-context`** - Check documentation completeness
+- **`/export-context`** - Generate single file for sharing/backup
+
+**Updates:**
+- **`/update-context-system`** - Update to latest version from GitHub
 
 ## Quick Start
 
@@ -87,35 +98,58 @@ your-project/
 
 ## Core Commands
 
-### `/init-context`
-**Run once for NEW projects**
+### Setup Commands (Run Once)
+
+#### `/init-context`
+**For NEW projects**
 
 Creates complete documentation structure and configuration. Analyzes your project and fills in what it can. Use this when starting fresh.
 
-### `/migrate-context`
-**Run once for EXISTING projects with docs**
+#### `/migrate-context`
+**For EXISTING projects with docs**
 
 Migrates existing documentation to Claude Context System structure. Preserves ALL existing content while organizing into context/ and artifacts/ folders. Augments existing docs with new sections. Use this when you already have CLAUDE.md, PRD.md, etc.
 
-### `/save-context`
-**Run frequently**
+### Maintenance Commands (Run Frequently)
 
-Updates all documentation to match current state. Captures session activity, decisions, and progress. This is your safety net.
+#### `/save-context`
+**Run after major work**
 
-### `/review-context`
+Updates all documentation to match current state. Captures session activity, decisions, and progress. Full documentation regeneration. Your safety net.
+
+#### `/quick-save`
+**Run during active work**
+
+Lightweight checkpoint that updates SESSIONS.md and tasks/ only. Fast (~5 seconds). Perfect for frequent saves every 15-30 minutes during active coding.
+
+#### `/review-context`
 **Run at session start**
 
 Verifies documentation is current and accurate. Reports any gaps or issues. Confirms you can resume exactly where you left off.
 
-### `/update-context-system`
-**Run periodically to get latest improvements**
+### Quality & Sharing Commands
 
-Updates slash commands and optionally updates context file templates from GitHub. Interactive mode shows diffs, or use `--accept-all` for automatic updates.
-
-### `/code-review`
+#### `/code-review`
 **Run when quality matters**
 
 Comprehensive code audit with NO changes during review. Identifies issues and suggests improvements in a separate session. Takes its time to be thorough.
+
+#### `/validate-context`
+**Run to check documentation health**
+
+Validates all context files follow expected structure. Flags missing sections, unfilled placeholders, and configuration issues. Reports health score and actionable recommendations.
+
+#### `/export-context`
+**Run to share or backup**
+
+Combines all context documentation into single markdown file with table of contents. Perfect for team handoffs, backups, or offline reference.
+
+### Update Commands
+
+#### `/update-context-system`
+**Run periodically to get latest improvements**
+
+Updates slash commands and optionally updates context file templates from GitHub. Interactive mode shows diffs, or use `--accept-all` for automatic updates.
 
 ## Choosing Your Setup Command
 
@@ -212,13 +246,16 @@ claude-context-system/
 ├── SETUP_GUIDE.md              # How to install and use
 ├── STRUCTURE.md                # Complete file organization guide
 ├── .claude/
-│   └── commands/               # Custom slash commands
-│   ├── init-context.md
-│   ├── migrate-context.md
-│   ├── update-context-system.md
-│   ├── save-context.md
-│   ├── review-context.md
-│   └── code-review.md
+│   └── commands/               # Custom slash commands (9 total)
+│       ├── init-context.md
+│       ├── migrate-context.md
+│       ├── save-context.md
+│       ├── quick-save.md
+│       ├── review-context.md
+│       ├── code-review.md
+│       ├── validate-context.md
+│       ├── export-context.md
+│       └── update-context-system.md
 ├── templates/                  # Doc templates
 │   ├── CLAUDE.template.md
 │   ├── PRD.template.md
@@ -257,17 +294,27 @@ claude-context-system/
 ```
 1. Open project
 2. /review-context
-3. Continue working
-4. /save-context (often)
-5. /save-context (at end)
+3. Start coding
+4. /quick-save (every 15-30 minutes)
+5. /save-context (after major features)
+6. /save-context (at end of session)
 ```
 
 ### Quality Check
 ```
 1. /save-context
-2. /code-review
-3. Review report
-4. Fix in new session
+2. /validate-context (check docs health)
+3. /code-review (thorough audit)
+4. Review reports
+5. Fix in new session
+```
+
+### Team Handoff
+```
+1. /save-context
+2. /validate-context
+3. /export-context
+4. Share export file with team
 ```
 
 ## Success Metrics

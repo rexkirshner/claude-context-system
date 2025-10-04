@@ -47,6 +47,16 @@ Gather information about the project:
 - Read requirements.txt for Python projects
 - Identify framework (Next.js, React, Express, etc.)
 
+**Detect Project Type:**
+Based on analysis, classify as one of:
+1. **Web App** (Next.js, React, Vue, Angular)
+2. **API** (Express, FastAPI, Rails API)
+3. **CLI Tool** (Node CLI, Rust binary, Go CLI)
+4. **Library/Package** (npm package, Rust crate, Python package)
+5. **Full Stack** (Monorepo with frontend + backend)
+6. **Mobile App** (React Native, Flutter)
+7. **Desktop App** (Electron, Tauri)
+
 **Project Structure:**
 - Identify src/ or app/ or lib/ directories
 - Look for test/ or tests/ directories
@@ -118,6 +128,100 @@ Create all documentation files from templates. Fill in as much as possible from 
 
 **context/tasks/todo.md** - Current session
 - Empty template ready for use
+
+### Step 4.5: Apply Project Type Presets
+
+Based on detected project type, apply relevant presets to documentation:
+
+#### Web App Preset
+**ARCHITECTURE.md additions:**
+- Frontend architecture (components, pages, routing)
+- State management approach
+- API integration patterns
+- Build and deployment pipeline
+
+**CODE_STYLE.md additions:**
+- Component structure conventions
+- CSS/styling approach
+- Asset optimization
+- Accessibility standards
+
+**Next steps:**
+- SEO optimization
+- Performance monitoring setup
+- Browser compatibility testing
+
+#### API Preset
+**ARCHITECTURE.md additions:**
+- API design (REST/GraphQL/gRPC)
+- Authentication/authorization flow
+- Database schema
+- Middleware stack
+
+**CODE_STYLE.md additions:**
+- Endpoint naming conventions
+- Error handling patterns
+- Request/response formats
+- API versioning strategy
+
+**Next steps:**
+- API documentation (OpenAPI/Swagger)
+- Rate limiting implementation
+- Monitoring and logging
+
+#### CLI Tool Preset
+**ARCHITECTURE.md additions:**
+- Command structure
+- Argument parsing
+- Configuration management
+- Output formatting
+
+**CODE_STYLE.md additions:**
+- Command naming conventions
+- Help text standards
+- Exit code conventions
+- Error message formatting
+
+**Next steps:**
+- Man page/help documentation
+- Installation scripts
+- Cross-platform testing
+
+#### Library/Package Preset
+**ARCHITECTURE.md additions:**
+- Public API surface
+- Internal vs external modules
+- Dependency management
+- Build targets
+
+**CODE_STYLE.md additions:**
+- API design principles
+- Backward compatibility rules
+- Deprecation policy
+- Documentation standards
+
+**Next steps:**
+- API documentation generation
+- Example/demo projects
+- Versioning strategy
+
+#### Full Stack Preset
+**ARCHITECTURE.md additions:**
+- Monorepo structure
+- Frontend + backend integration
+- Shared code/types
+- Development workflow
+
+**CODE_STYLE.md additions:**
+- Cross-stack conventions
+- API contract management
+- Database migrations
+- End-to-end testing
+
+**Next steps:**
+- CI/CD pipeline
+- Environment management
+- Full stack testing strategy
 
 ### Step 5: Create Configuration
 

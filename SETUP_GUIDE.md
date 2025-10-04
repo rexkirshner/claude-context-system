@@ -56,7 +56,8 @@ The system is now installed and the clone is no longer needed. Future updates us
 /review-context  # Verify context is loaded
 
 # During work:
-/save-context    # Run periodically or before breaks
+/quick-save      # Every 15-30 minutes during active coding
+/save-context    # After completing major features
 
 # At session end:
 /save-context    # Capture final state
@@ -245,6 +246,24 @@ If you have a local clone of the repo:
 ✅ Updated 2 context sections
 ```
 
+### `/quick-save`
+**When:** During active coding - every 15-30 minutes
+
+**What it does:**
+- Lightweight checkpoint (~5 seconds)
+- Updates SESSIONS.md with brief entry
+- Updates task files (next-steps.md, todo.md)
+- Captures git state
+- Skips full documentation regeneration
+
+**Expected output:**
+```
+✅ Quick Save Complete - Session 23
+📝 Session checkpoint in SESSIONS.md
+✅ Task updates in next-steps.md
+⏱️ Time since last save: 23 minutes
+```
+
 ### `/code-review`
 **When:** After feature completion, before deployment, when quality matters
 
@@ -260,6 +279,51 @@ Code Review Report - Grade: B+
 ✅ No critical issues
 ⚠️ 3 minor improvements suggested
 📋 See artifacts/code-reviews/session-12-review.md
+```
+
+### `/validate-context`
+**When:** After setup, before export, periodically for health checks
+
+**What it does:**
+- Validates all required files exist
+- Checks for required sections in each doc
+- Flags unfilled placeholders
+- Validates .context-config.json
+- Calculates health score (0-100)
+- Provides actionable recommendations
+
+**Expected output:**
+```
+# Context Validation Report
+Overall Health Score: 82/100 (Good)
+
+⚠️ Found 5 unfilled placeholders
+⚠️ ARCHITECTURE.md seems sparse (18 lines)
+✅ All required sections present
+
+Recommendations:
+1. Fill in owner name in .context-config.json
+2. Expand ARCHITECTURE.md with more detail
+3. Address 5 TODO markers
+```
+
+### `/export-context`
+**When:** Before sharing, for backups, for offline reference
+
+**What it does:**
+- Combines all context/*.md files into one document
+- Generates table of contents
+- Adds metadata (version, date, statistics)
+- Outputs to `context-export-[DATE].md`
+
+**Expected output:**
+```
+✅ Context Export Complete
+
+Output File: context-export-20251004-143022.md
+File size: 156 KB
+Sections: 9 core + 2 additional
+Session count: 23
 ```
 
 ---
@@ -315,17 +379,27 @@ your-project/
 2. Run: /review-context
 3. Read SESSIONS.md last entry
 4. Continue from next-steps.md
-5. Run: /save-context (periodically)
-6. End: /save-context
+5. Run: /quick-save (every 15-30 minutes)
+6. Run: /save-context (after major features)
+7. End: /save-context
 ```
 
 ### Pre-Deployment Session
 ```
 1. Run: /save-context
-2. Run: /code-review
-3. Fix issues in separate session
-4. Run: /save-context
-5. Deploy
+2. Run: /validate-context (check docs health)
+3. Run: /code-review (thorough audit)
+4. Fix issues in separate session
+5. Run: /save-context
+6. Deploy
+```
+
+### Team Handoff Session
+```
+1. Run: /save-context
+2. Run: /validate-context (ensure quality)
+3. Run: /export-context (generate single file)
+4. Share export file with team
 ```
 
 ---
