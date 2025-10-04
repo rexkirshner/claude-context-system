@@ -319,23 +319,42 @@ else
 fi
 ```
 
-**After the script completes:**
+**After the script completes, you MUST take these actions immediately:**
 
-If you see `DEBUGGING_BLOCK_UPDATED` or `CONFIG_REF_UPDATED` markers:
+**If you see `DEBUGGING_BLOCK_UPDATED` marker:**
 
-1. **Read context/CLAUDE.md** to get current content
-2. **Show the diff to the user** (already displayed by script)
-3. **Ask for approval:** "Apply this update to context/CLAUDE.md? [Y/n]"
-4. **If approved:** Use Edit tool to replace the old block with template version
-5. **Report:** "✅ Updated 'When Debugging' block in context/CLAUDE.md"
+1. **ACTION:** Use Read tool to read context/CLAUDE.md
+2. The diff was already shown by the bash script above
+3. **ACTION:** Ask user: "Apply debugging guidance update to context/CLAUDE.md? [Y/n]"
+4. **If user approves (Y or yes):**
+   - **ACTION:** Use Edit tool:
+     ```
+     file_path: context/CLAUDE.md
+     old_string: [the current single-line "When Debugging:" block shown in diff]
+     new_string: [the new 6-bullet "When Debugging:" block from template]
+     ```
+   - Report: "✅ Updated 'When Debugging' guidance in context/CLAUDE.md"
+5. **If user declines:** Report: "⏭️ Skipped debugging guidance update"
 
-**Important:** Only update the specific content blocks that changed, not entire sections. This preserves all project-specific customizations.
+**If you see `CONFIG_REF_UPDATED` marker:**
 
-**If no markers found:**
+1. **ACTION:** Use Read tool to read context/CLAUDE.md
+2. The diff was already shown by the bash script above
+3. **ACTION:** Ask user: "Apply config reference update to context/CLAUDE.md? [Y/n]"
+4. **If user approves:**
+   - **ACTION:** Use Edit tool to replace the config reference block
+   - Report: "✅ Updated config reference in context/CLAUDE.md"
+5. **If user declines:** Report: "⏭️ Skipped config reference update"
+
+**If NO markers appear (script output shows "No template content updates available"):**
+
+Report:
 ```
 ✅ No template content updates available
    Your CLAUDE.md contains the latest system guidance
 ```
+
+**CRITICAL:** Do not just describe what should be done - EXECUTE the Read and Edit tools when updates are detected.
 
 ### Step 5: Detect Context File Template Changes
 
@@ -529,21 +548,7 @@ Then report:
 ✅ Updated version: 1.0.0 → 1.1.1
 ```
 
-### Step 9: Cleanup
-
-**ACTION:** Use the Bash tool to clean up:
-
-```bash
-# Remove temp directory
-rm -rf /tmp/claude-context-update
-
-# Remove command backup if successful
-rm -rf .claude/commands.backup
-
-echo "✅ Cleanup complete"
-```
-
-### Step 10: Generate Update Report
+### Step 9: Generate Update Report
 
 Provide clear summary:
 
@@ -587,6 +592,27 @@ None
 
 📚 Full changelog: https://github.com/rexkirshner/claude-context-system/releases
 ```
+
+### Step 10: Cleanup
+
+**CRITICAL:** This MUST be the final step. Do not run cleanup before template detection steps.
+
+**ACTION:** Use the Bash tool to clean up:
+
+```bash
+# Remove temp directory (contains downloaded templates)
+rm -rf /tmp/claude-context-update
+
+# Remove command backup if successful
+rm -rf .claude/commands.backup
+
+echo "✅ Cleanup complete"
+```
+
+**Why cleanup is last:**
+- Steps 4-7 need /tmp/claude-context-update to access template files
+- Running cleanup earlier causes template detection to fail (directory not found)
+- This was a critical bug in v1.2.5 and earlier
 
 ## Template Section Mapping
 

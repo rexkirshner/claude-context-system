@@ -7,6 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.6] - 2025-10-04
+
+### Fixed
+- **CRITICAL: Cleanup step order** - Moved cleanup from Step 9 to Step 10 (final step)
+- Cleanup was deleting /tmp/claude-context-update BEFORE Step 4 could access templates
+- This is why template updates were never detected or applied in v1.2.5 and earlier
+- Step 4 explicitly instructs Claude to EXECUTE Edit tool, not just describe it
+
+### Changed
+- Step 9: Generate Update Report (moved from Step 10)
+- Step 10: Cleanup (moved from Step 9, now runs LAST)
+- Step 4: Added explicit ACTION instructions to read CLAUDE.md and use Edit tool when updates detected
+- Step 4: Changed from passive "should do" to active "MUST take these actions immediately"
+
+### Root Cause Analysis
+**Why template updates never worked:**
+1. Step 3: Downloaded templates to /tmp/claude-context-update ✅
+2. Step 9: Deleted /tmp/claude-context-update ❌ (TOO EARLY)
+3. Step 4: Tried to cd /tmp/claude-context-update → directory not found
+4. Bash script couldn't run, no updates detected
+5. CLAUDE.md never updated with template improvements
+
+**Fixed in v1.2.6:**
+- Cleanup runs LAST (Step 10)
+- Step 4 can access /tmp/claude-context-update successfully
+- Template detection works correctly
+- Edit tool explicitly executed when updates found
+
+### Impact
+- Template improvements (like v1.2.2 debugging guidance) will now be detected and applied
+- Users will actually receive system updates via /update-context-system
+- Self-updating command now fully functional
+
 ## [1.2.5] - 2025-10-04
 
 ### Fixed
