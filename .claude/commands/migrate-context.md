@@ -124,13 +124,28 @@ For each existing doc, add missing sections from templates while preserving all 
 
 #### Augment context/CLAUDE.md
 
-**Check for missing sections:**
-- [ ] "Core Development Methodology" section
-- [ ] Reference to .context-config.json
-- [ ] Proper frontmatter/intro
-- [ ] Commands section up to date
+This is critical - CLAUDE.md must be properly augmented with new sections.
 
-**If missing Core Development Methodology, add after "Working with Rex" section:**
+**Step 1: Read entire CLAUDE.md**
+```bash
+# Read the file to understand current structure
+cat context/CLAUDE.md
+```
+
+**Step 2: Check for missing sections:**
+- [ ] "Core Development Methodology" section
+- [ ] Reference to context/.context-config.json
+- [ ] Task file paths use context/tasks/
+- [ ] Commands section references correct paths
+
+**Step 3: Add Core Development Methodology section**
+
+Check if "Core Development Methodology" heading exists:
+```bash
+grep -n "Core Development Methodology" context/CLAUDE.md
+```
+
+If NOT found, use Edit tool to add after the "Working with Rex" section (or after Communication Style/Workflow Preferences):
 
 ```markdown
 ## Core Development Methodology
@@ -152,16 +167,57 @@ Trace through the ENTIRE code flow step by step. No assumptions. No shortcuts. F
 Make all fixes and code changes as simple as humanly possible. They should only impact necessary code relevant to the task and nothing else. Goal: not introduce any bugs.
 ```
 
-**Add reference to config at top of "Working with Rex":**
+**Step 4: Add config reference**
+
+Check if config reference exists:
+```bash
+grep -n "context/.context-config.json" context/CLAUDE.md
+```
+
+If NOT found, use Edit tool to add at the beginning of "Working with Rex" section (or first preferences section):
 
 ```markdown
 > **📋 Preferences:** All communication, workflow, and quality preferences are defined in `context/.context-config.json`.
 > The settings below are derived from that source of truth.
 ```
 
-**Update task file references:**
-- Change `tasks/todo.md` → `context/tasks/todo.md`
-- Change `tasks/next-steps.md` → `context/tasks/next-steps.md`
+**Step 5: Update task file path references**
+
+Find all task file references:
+```bash
+grep -n "tasks/todo.md\|tasks/next-steps.md" context/CLAUDE.md
+```
+
+For EACH occurrence found, use Edit tool to update the path:
+
+**Example Edit #1:**
+```
+old_string: "Write a plan to `tasks/todo.md`"
+new_string: "Write a plan to `context/tasks/todo.md`"
+```
+
+**Example Edit #2:**
+```
+old_string: "1. Write a plan to `tasks/todo.md`"
+new_string: "1. Write a plan to `context/tasks/todo.md`"
+```
+
+**Example Edit #3:**
+```
+old_string: "Continue from next-steps.md"
+new_string: "Continue from context/tasks/next-steps.md"
+```
+
+**Process:**
+1. Find each occurrence with grep
+2. Read surrounding context with Read tool
+3. Use Edit tool with exact old_string and new_string
+4. Repeat for ALL occurrences (may be 3-5 references)
+
+**CRITICAL:**
+- Use Edit tool for EACH occurrence (multiple edits, not one big replacement)
+- Copy exact strings including backticks, quotes, punctuation
+- Verify each edit completes successfully before next one
 
 #### Augment context/PRD.md
 
@@ -377,7 +433,24 @@ Create `context/.context-config.json`:
 }
 ```
 
-### Step 7: Generate Migration Report
+### Step 7: Verify Augmentations
+
+Before generating the report, verify all augmentations were completed:
+
+```bash
+# Check CLAUDE.md augmentations
+echo "Checking CLAUDE.md augmentations..."
+grep -q "Core Development Methodology" context/CLAUDE.md && echo "✅ Core Methodology added" || echo "❌ MISSING: Core Methodology"
+grep -q "context/.context-config.json" context/CLAUDE.md && echo "✅ Config reference added" || echo "❌ MISSING: Config reference"
+grep -q "context/tasks/todo.md" context/CLAUDE.md && echo "✅ Task paths updated" || echo "❌ MISSING: Task path updates"
+```
+
+**If any checks fail:**
+- Go back to Step 4 and complete the missing augmentations
+- Do NOT proceed to report until all augmentations are done
+- This is critical for system integrity
+
+### Step 8: Generate Migration Report
 
 Create comprehensive report of what was done:
 
@@ -414,10 +487,13 @@ Create comprehensive report of what was done:
 
 ## Files Augmented
 
-- context/CLAUDE.md: Added Core Development Methodology, config reference
-- context/PRD.md: Added Progress Log structure
-- context/DECISIONS.md: Added proper formatting
-- context/KNOWN_ISSUES.md: Added categorization
+- context/CLAUDE.md:
+  - ✅ Added Core Development Methodology section
+  - ✅ Added config reference (context/.context-config.json)
+  - ✅ Updated task paths (tasks/ → context/tasks/)
+- context/PRD.md: Added Progress Log structure (if needed)
+- context/DECISIONS.md: Added proper formatting (if needed)
+- context/KNOWN_ISSUES.md: Added categorization (if needed)
 
 ## Structure After Migration
 
