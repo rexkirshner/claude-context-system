@@ -7,12 +7,15 @@ description: Update Claude Context System to latest version from GitHub
 
 Update your project's Claude Context System to the latest version from GitHub. Safely updates commands and optionally updates context file templates.
 
+**Full guide:** `.claude/docs/update-guide.md` - Philosophy, troubleshooting, best practices
+
 ## When to Use This Command
 
-- You want the latest slash commands and features
-- System templates have been updated (CLAUDE.md, CODE_STYLE.md guidelines)
-- New features or improvements released
-- Bug fixes in command logic
+- Periodically (monthly) to get latest improvements
+- When new features or bug fixes are released
+- Before initializing new projects (get latest templates)
+
+**See:** `.claude/docs/update-guide.md` - "When To Update"
 
 **Run periodically** to stay up to date with improvements.
 

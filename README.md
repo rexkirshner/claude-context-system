@@ -1,6 +1,6 @@
 # Claude Context System
 
-**Version 1.5.0**
+**Version 1.6.0**
 
 > Perfect session continuity for Claude Code projects
 
@@ -263,7 +263,9 @@ claude-context-system/
 │   │   ├── command-philosophy.md
 │   │   ├── code-review-guide.md
 │   │   ├── save-context-guide.md
-│   │   └── review-context-guide.md
+│   │   ├── review-context-guide.md
+│   │   ├── update-guide.md
+│   │   └── usage-examples.md
 │   └── checklists/             # Specialized review criteria
 │       ├── accessibility.md
 │       ├── security.md
@@ -386,7 +388,7 @@ See [SETUP_GUIDE.md](./SETUP_GUIDE.md) for detailed troubleshooting.
 
 ## Version
 
-**Current Version:** 1.5.0
+**Current Version:** 1.6.0
 **Status:** Active Development
 **Last Updated:** 2025-10-04
 

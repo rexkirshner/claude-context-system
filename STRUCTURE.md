@@ -41,6 +41,8 @@ Commands focus on WHAT TO DO (execution steps). Docs explain WHY and HOW (philos
 - **code-review-guide.md** - Complete review methodology, grading rubric, examples
 - **save-context-guide.md** - Safety net principle, WIP importance, file-by-file update guide
 - **review-context-guide.md** - Trust but verify, confidence scoring, verification strategies
+- **update-guide.md** - Update system philosophy, version management, troubleshooting
+- **usage-examples.md** - Real-world workflows and common scenarios
 
 **When to use:**
 - Learning a command for the first time
