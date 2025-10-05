@@ -113,7 +113,7 @@ echo ""
 
 **Step 1a: Get current version**
 ```bash
-CURRENT_VERSION=$(grep -m 1 '"version":' context/.context-config.json | sed 's/.*"version": "\([^"]*\)".*/\1/')
+CURRENT_VERSION=$(grep -m 1 '"version":' context/.context-config.json | cut -d'"' -f4)
 echo "📦 Current version: $CURRENT_VERSION"
 echo "🔍 Checking for updates from GitHub..."
 ```
@@ -136,8 +136,8 @@ unzip -q /tmp/claude-context-update/latest.zip -d /tmp/claude-context-update
 
 **Step 1c: Get latest version and compare**
 ```bash
-LATEST_VERSION=$(grep -m 1 '"version":' /tmp/claude-context-update/claude-context-system-main/config/.context-config.template.json | sed 's/.*"version": "\([^"]*\)".*/\1/')
-CURRENT_VERSION=$(grep -m 1 '"version":' context/.context-config.json | sed 's/.*"version": "\([^"]*\)".*/\1/')
+LATEST_VERSION=$(grep -m 1 '"version":' /tmp/claude-context-update/claude-context-system-main/config/.context-config.template.json | cut -d'"' -f4)
+CURRENT_VERSION=$(grep -m 1 '"version":' context/.context-config.json | cut -d'"' -f4)
 
 echo "🔍 Latest version from GitHub: $LATEST_VERSION"
 echo ""
@@ -179,18 +179,25 @@ The version check MUST use string comparison (`[ "$CURRENT_VERSION" = "$LATEST_V
 # Capture project root before any directory changes
 PROJECT_ROOT=$(pwd)
 
-# Backup existing commands
-cp -r .claude/commands .claude/commands.backup
+# Check if .claude/commands/ exists (local installation)
+if [ -d ".claude/commands" ]; then
+  # Backup existing commands
+  cp -r .claude/commands .claude/commands.backup
 
-# Update with latest (using absolute path)
-cp /tmp/claude-context-update/claude-context-system-main/.claude/commands/* "$PROJECT_ROOT/.claude/commands/"
+  # Update with latest
+  cp /tmp/claude-context-update/claude-context-system-main/.claude/commands/* .claude/commands/
 
-# Return to project root (deterministic)
-cd "$PROJECT_ROOT"
-
-# Report
-echo "✅ Updated commands:"
-ls .claude/commands/*.md | sed 's/.*\//  - /'
+  # Report
+  echo "✅ Updated local commands:"
+  ls .claude/commands/*.md | sed 's/.*\//  - /'
+else
+  # Commands are managed globally
+  echo "📝 Note: This project uses global .claude/commands/ directory"
+  echo "   Slash commands are managed globally by Claude Code"
+  echo "   Commands will be updated from the claude-context-system home directory"
+  echo ""
+  echo "✅ Proceeding with version and template updates..."
+fi
 ```
 
 **Commands updated:**
@@ -698,8 +705,11 @@ If upgrading to v1.7.0 (from 1.6.2 or earlier), add this note:
 # Remove temp directory (contains downloaded templates)
 rm -rf /tmp/claude-context-update
 
-# Remove command backup if successful
-rm -rf .claude/commands.backup
+# Remove command backup if it exists
+if [ -d ".claude/commands.backup" ]; then
+  rm -rf .claude/commands.backup
+  echo "✅ Removed command backup"
+fi
 
 echo "✅ Cleanup complete"
 ```
