@@ -632,41 +632,54 @@ Then report:
 
 ### Step 9: Generate Update Report
 
-Provide clear summary:
+Provide clear summary (dynamically generate based on actual changes):
 
 ```
 ✅ Claude Context System Updated
 
 ## Version
-1.0.0 → 1.2.0
+[CURRENT_VERSION] → [LATEST_VERSION]
 
-## Commands Updated (5)
-- ✅ init-context.md
-- ✅ migrate-context.md
-- ✅ save-context.md
-- ✅ review-context.md
-- ✅ code-review.md
+## Commands Updated ([count])
+[List all updated command files dynamically from Step 3]
 
-## Context Files Updated (2)
-- ✅ context/CLAUDE.md
-  - Core Development Methodology section updated
-  - Communication preferences clarified
-- ✅ context/CODE_STYLE.md
-  - Added new anti-patterns section
+## Context Files Updated ([count])
+[List files that were actually updated in Step 4]
 
-## Context Files Skipped (1)
-- ⏭️ context/ARCHITECTURE.md (no template updates)
+## Context Files Skipped ([count])
+[List files that were skipped or had no changes]
 
-## New Features
-- Added /update-context-system command (this one!)
-- Improved /migrate-context with augmentation verification
-- Enhanced /code-review with SEO section
+## What's New in [LATEST_VERSION]
+[Check if this is a major upgrade and show relevant info]
+```
 
-## Breaking Changes
-None
+**Special messaging for v1.7.0 upgrades:**
 
+If upgrading to v1.7.0 (from 1.6.2 or earlier), add this note:
+
+```
+📋 Important Changes in v1.7.0:
+
+**Progressive Enhancement Approach:**
+- /init-context now creates minimal setup (3 files) for NEW projects
+- /init-context-full added for comprehensive setup (old behavior)
+- /save-context now intelligent (updates what changed, not everything)
+- Your existing project is unaffected - all files remain intact
+
+**What this means for you:**
+- Your current 8-file setup continues to work perfectly
+- /save-context will be smarter (updates only what changed)
+- New command /init-context-full available if needed
+- See CHANGELOG: Real-world feedback drove these improvements
+
+**No action required** - your project continues with its current structure.
+```
+
+**For all updates, end with:**
+
+```
 ## Next Steps
-1. Review updated sections in context/CLAUDE.md
+1. Review updated sections in context docs
 2. Run /save-context to capture the update
 3. Continue working with latest system!
 

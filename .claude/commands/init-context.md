@@ -5,17 +5,36 @@ description: Initialize Claude Context System for this project
 
 # /init-context Command
 
-Initialize the complete context management system for this project. Run this once when starting a new project to set up comprehensive documentation and session continuity.
+Initialize a **minimal, focused** context system for this project. Starts with just the essentials (CLAUDE.md, SESSIONS.md, tasks/), then grows naturally as your project needs more documentation.
 
-**See also:** `.claude/docs/command-philosophy.md` for core principles
+**Philosophy:** Start simple, add complexity only when needed.
+
+**See also:**
+- `.claude/docs/command-philosophy.md` for core principles
+- `/init-context-full` for comprehensive 8-file setup (complex projects only)
 
 ## What This Command Does
 
-1. Creates `context/` folder structure
-2. Analyzes current project state
-3. Generates all meta-documentation from templates
-4. Creates configuration file
-5. Sets up task tracking system
+Creates **3 core files** that provide 80% of the value:
+1. **CLAUDE.md** - Project context + your preferences (the "how to work with this project" guide)
+2. **SESSIONS.md** - Session history (what happened when)
+3. **tasks/** - Action tracking (what's next, what's in progress)
+
+Other files (ARCHITECTURE.md, DECISIONS.md, etc.) can be added later when needed.
+
+## Why Start Minimal?
+
+**Real-world feedback shows:**
+- SESSIONS.md and CLAUDE.md provide most of the value
+- Creating 8 files upfront feels like overhead for simple projects
+- Better to grow documentation as complexity grows
+- Avoids "documentation for documentation's sake"
+
+**You can always:**
+- Add PRD.md when product vision gets complex
+- Add ARCHITECTURE.md when technical design needs documenting
+- Add DECISIONS.md when tracking rationale becomes important
+- Run `/init-context-full` if you need everything now
 
 ## Execution Steps
 
@@ -90,25 +109,9 @@ Gather information about the project:
 - Read requirements.txt for Python projects
 - Identify framework (Next.js, React, Express, etc.)
 
-**Detect Project Type:**
-Based on analysis, classify as one of:
-1. **Web App** (Next.js, React, Vue, Angular)
-2. **API** (Express, FastAPI, Rails API)
-3. **CLI Tool** (Node CLI, Rust binary, Go CLI)
-4. **Library/Package** (npm package, Rust crate, Python package)
-5. **Full Stack** (Monorepo with frontend + backend)
-6. **Mobile App** (React Native, Flutter)
-7. **Desktop App** (Electron, Tauri)
+### Step 3: Create Minimal Folder Structure
 
-**Project Structure:**
-- Identify src/ or app/ or lib/ directories
-- Look for test/ or tests/ directories
-- Check for build/dist/out directories
-- Find documentation directories
-
-### Step 3: Create Folder Structure
-
-Create the complete context directory structure:
+Create only what we need right now:
 
 ```bash
 mkdir -p context/tasks
@@ -120,45 +123,18 @@ mkdir -p artifacts/bundle-analysis
 mkdir -p artifacts/coverage
 ```
 
-### Step 4: Generate Documentation Files
+### Step 4: Generate Core Documentation Files
 
-Create all documentation files from templates. Fill in as much as possible from project analysis:
+Create the **3 essential files** from templates:
 
 **context/CLAUDE.md** - Developer guide
 - Project overview (from README or git description)
 - Tech stack (from package analysis)
 - Commands (from package.json scripts or Makefile)
-- Architecture (inferred from folder structure)
-- Include communication preferences and workflow rules
-- Include "Core Development Methodology" section
-
-**context/PRD.md** - Product requirements
-- Executive summary (from README or create placeholder)
-- Current status (Phase 1 - Initial Setup)
-- Tech stack (from analysis)
-- Implementation plan (create initial phases)
-- Progress log (first entry: "Project initialized")
-
-**context/ARCHITECTURE.md** - Technical design
-- High-level overview (inferred from structure)
-- Key directories and purposes
-- Technology choices (from analysis)
-- Design patterns (identify from code if possible)
-
-**context/DECISIONS.md** - Technical decisions
-- Framework choice (why this framework)
-- Initial architectural decisions
-- Dependencies chosen (from package files)
-
-**context/CODE_STYLE.md** - Coding standards
-- Core development principles (simplicity, root causes, no lazy coding)
-- Language-specific conventions (from project type)
-- Testing requirements
-- Git workflow rules
-
-**context/KNOWN_ISSUES.md** - Current issues
-- Start empty or with placeholders
-- Categories: Blocking, Non-Critical, Limitations, Future Work
+- Architecture basics (inferred from folder structure)
+- **Communication preferences and workflow rules**
+- **"Core Development Methodology" section**
+- Current status and next steps
 
 **context/SESSIONS.md** - Session history
 - First entry documenting initialization
@@ -171,100 +147,6 @@ Create all documentation files from templates. Fill in as much as possible from 
 
 **context/tasks/todo.md** - Current session
 - Empty template ready for use
-
-### Step 4.5: Apply Project Type Presets
-
-Based on detected project type, apply relevant presets to documentation:
-
-#### Web App Preset
-**ARCHITECTURE.md additions:**
-- Frontend architecture (components, pages, routing)
-- State management approach
-- API integration patterns
-- Build and deployment pipeline
-
-**CODE_STYLE.md additions:**
-- Component structure conventions
-- CSS/styling approach
-- Asset optimization
-- Accessibility standards
-
-**Next steps:**
-- SEO optimization
-- Performance monitoring setup
-- Browser compatibility testing
-
-#### API Preset
-**ARCHITECTURE.md additions:**
-- API design (REST/GraphQL/gRPC)
-- Authentication/authorization flow
-- Database schema
-- Middleware stack
-
-**CODE_STYLE.md additions:**
-- Endpoint naming conventions
-- Error handling patterns
-- Request/response formats
-- API versioning strategy
-
-**Next steps:**
-- API documentation (OpenAPI/Swagger)
-- Rate limiting implementation
-- Monitoring and logging
-
-#### CLI Tool Preset
-**ARCHITECTURE.md additions:**
-- Command structure
-- Argument parsing
-- Configuration management
-- Output formatting
-
-**CODE_STYLE.md additions:**
-- Command naming conventions
-- Help text standards
-- Exit code conventions
-- Error message formatting
-
-**Next steps:**
-- Man page/help documentation
-- Installation scripts
-- Cross-platform testing
-
-#### Library/Package Preset
-**ARCHITECTURE.md additions:**
-- Public API surface
-- Internal vs external modules
-- Dependency management
-- Build targets
-
-**CODE_STYLE.md additions:**
-- API design principles
-- Backward compatibility rules
-- Deprecation policy
-- Documentation standards
-
-**Next steps:**
-- API documentation generation
-- Example/demo projects
-- Versioning strategy
-
-#### Full Stack Preset
-**ARCHITECTURE.md additions:**
-- Monorepo structure
-- Frontend + backend integration
-- Shared code/types
-- Development workflow
-
-**CODE_STYLE.md additions:**
-- Cross-stack conventions
-- API contract management
-- Database migrations
-- End-to-end testing
-
-**Next steps:**
-- CI/CD pipeline
-- Environment management
-- Full stack testing strategy
 
 ### Step 5: Create Configuration
 
@@ -284,71 +166,48 @@ curl -sL https://raw.githubusercontent.com/rexkirshner/claude-context-system/mai
    - `[Your Name]` → actual owner name
    - `[Project Name]` → actual project name
    - `[web-app|cli|library|api]` → actual project type
-   - `[YYYY-MM-DD]` → today's date (2025-10-04)
+   - `[YYYY-MM-DD]` → today's date
 
-This ensures the config includes ALL current keys (commands, git policy, notifications, metadata) from the template.
+### Step 6: Explain Progressive Enhancement
 
-### Step 6: Report Completion
-
-Provide clear summary:
+After initialization, explain to the user:
 
 ```
-✅ Context System Initialized
+✅ Context System Initialized (Minimal Mode)
 
-Created:
-- context/ folder structure
-- 8 documentation files
-- Configuration file
-
-Files created:
-- context/CLAUDE.md - Developer guide
-- context/PRD.md - Product requirements
-- context/ARCHITECTURE.md - Technical design
-- context/DECISIONS.md - Decision log
-- context/CODE_STYLE.md - Coding standards
-- context/KNOWN_ISSUES.md - Issue tracking
+Created 3 essential files:
+- context/CLAUDE.md - Project guide + your preferences
 - context/SESSIONS.md - Session history
 - context/tasks/next-steps.md - Action items
 - context/tasks/todo.md - Current tasks
 - context/.context-config.json - Configuration
 
-Project Type: [Detected type]
-Tech Stack: [Detected stack]
+📊 Why only 3 files?
+Real-world usage shows SESSIONS.md + CLAUDE.md provide 80% of value.
+Other documentation grows naturally as your project needs it.
+
+📈 Growing Your Documentation:
+
+As your project evolves, I'll suggest creating additional files when helpful:
+
+- **PRD.md** → When product vision gets complex
+- **ARCHITECTURE.md** → When technical design needs documenting
+- **DECISIONS.md** → When tracking rationale becomes important
+- **CODE_STYLE.md** → When coding standards need formalizing
+- **KNOWN_ISSUES.md** → When bugs/limitations need tracking
+
+I'll ask you before creating these. No overhead unless you need it.
+
+💡 Need everything now?
+Run `/init-context-full` for comprehensive 8-file setup.
 
 Next Steps:
 1. Review context/CLAUDE.md for accuracy
-2. Update context/PRD.md with project goals
-3. Run /save-context after making changes
-4. Start coding!
+2. Run /save-context after making changes
+3. Start coding!
 ```
 
-## Template Content Guidelines
-
-When filling templates, use this priority:
-
-1. **From project files**: Use actual data from package.json, README, git
-2. **Inferred from structure**: Make educated guesses from folder layout
-3. **Generic placeholders**: Use `[TODO: Add ...]` for unknown info
-4. **Smart defaults**: Always include standard preferences and workflow rules
-
-## Important Notes
-
-- Always include workflow preferences in CLAUDE.md
-- CODE_STYLE.md must include his "no lazy coding" and "simplicity first" rules
-- Configuration must enforce "no push without approval"
-- Documentation should be scannable in 5 minutes per file
-- Use bullet points and clear headings
-- Link between related documents
-
-## Error Handling
-
-If errors occur:
-- Report what failed clearly
-- Show what was successfully created
-- Provide manual recovery steps
-- Never leave partial initialization
-
-### Step 6: Cleanup Installation Files
+### Step 7: Cleanup Installation Files
 
 **IMPORTANT:** Remove the installation files that were downloaded from GitHub to keep the project clean.
 
@@ -375,23 +234,68 @@ if [ -f "../claude-context-system.zip" ]; then
 fi
 ```
 
-**What gets removed:**
-- `claude-context-system/` directory (GitHub repo contents)
-- `claude-context-system.zip` (if exists)
+## Template Content Guidelines
 
-**What gets kept:**
-- `.claude/` directory (slash commands)
-- `context/` directory (all your documentation)
-- All project files
+When filling templates, use this priority:
 
-**Result:** Clean project without installation artifacts.
+1. **From project files**: Use actual data from package.json, README, git
+2. **Inferred from structure**: Make educated guesses from folder layout
+3. **Generic placeholders**: Use `[TODO: Add ...]` for unknown info
+4. **Smart defaults**: Always include standard preferences and workflow rules
+
+## On-Demand File Creation
+
+When `/save-context` runs, it should check if additional documentation is needed:
+
+**Check for ARCHITECTURE.md need:**
+- Project has >20 files in src/
+- Multiple directories with different purposes
+- Complex dependency relationships
+- Ask: "Your architecture is getting complex. Should I create ARCHITECTURE.md to document it?"
+
+**Check for DECISIONS.md need:**
+- Made 3+ significant technical decisions this session
+- Discussed tradeoffs or alternatives
+- Ask: "We've made several important technical decisions. Should I create DECISIONS.md to track them?"
+
+**Check for CODE_STYLE.md need:**
+- User mentioned code quality standards multiple times
+- Inconsistencies in code style observed
+- Ask: "You've mentioned code quality standards. Should I create CODE_STYLE.md to formalize them?"
+
+**Check for KNOWN_ISSUES.md need:**
+- Tracking 3+ bugs or limitations
+- Issues mentioned across multiple sessions
+- Ask: "We're tracking several bugs. Should I create KNOWN_ISSUES.md?"
+
+**Check for PRD.md need:**
+- Product vision discussed multiple times
+- Feature roadmap getting complex
+- Ask: "Product scope is expanding. Should I create PRD.md to document vision and roadmap?"
+
+## Important Notes
+
+- Always include workflow preferences in CLAUDE.md
+- CLAUDE.md must include "no lazy coding" and "simplicity first" rules
+- Configuration must enforce "no push without approval"
+- Documentation should be scannable in 5 minutes per file
+- Use bullet points and clear headings
+- Start minimal, grow naturally
+
+## Error Handling
+
+If errors occur:
+- Report what failed clearly
+- Show what was successfully created
+- Provide manual recovery steps
+- Never leave partial initialization
 
 ## Success Criteria
 
 Command succeeds when:
-- All 9 files created
+- Core 3 files created and filled with available data
 - Configuration valid
-- Templates filled with available data
 - Installation files cleaned up
+- User understands progressive enhancement approach
 - User can immediately run /save-context
 - Clear next steps provided

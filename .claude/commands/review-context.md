@@ -41,8 +41,62 @@ If context/ folder missing:
 - Stop execution
 
 If context/ exists:
-- Proceed to load all documentation
+- Proceed to Step 1.5
 ```
+
+### Step 1.5: Check for System Updates
+
+**Check if newer version available on GitHub:**
+
+**ACTION:** Use the Bash tool to check version:
+
+```bash
+# Get current version
+CURRENT_VERSION=$(grep -m 1 '"version":' context/.context-config.json | sed 's/.*"version": "\([^"]*\)".*/\1/')
+
+# Fetch latest version from GitHub (silently)
+LATEST_VERSION=$(curl -sL https://raw.githubusercontent.com/rexkirshner/claude-context-system/main/config/.context-config.template.json | grep -m 1 '"version":' | sed 's/.*"version": "\([^"]*\)".*/\1/')
+
+# Compare versions
+if [ -n "$LATEST_VERSION" ] && [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
+  echo "UPDATE_AVAILABLE|$CURRENT_VERSION|$LATEST_VERSION"
+else
+  echo "UP_TO_DATE|$CURRENT_VERSION"
+fi
+```
+
+**After running the check:**
+
+**If output contains "UPDATE_AVAILABLE":**
+
+Parse the versions and ask user:
+
+```
+📦 Update Available
+
+Your Claude Context System: v[CURRENT_VERSION]
+Latest on GitHub: v[LATEST_VERSION]
+
+Would you like to update now? [Y/n]
+
+(This will run /update-context-system)
+```
+
+**If user responds Y or yes:**
+- Report: "Running /update-context-system..."
+- **ACTION:** Execute the /update-context-system command
+- After update completes, resume from Step 2 of this command
+
+**If user responds n or no:**
+- Report: "⏭️ Skipping update - continuing with context review"
+- Note in final report: "System update available (v[LATEST_VERSION])"
+- Continue to Step 2
+
+**If output contains "UP_TO_DATE":**
+- Silently continue to Step 2 (no message needed)
+
+**If version check fails (network issue, etc.):**
+- Silently continue to Step 2 (don't block review on network)
 
 ### Step 2: Load All Documentation
 
@@ -323,6 +377,10 @@ Provide comprehensive report:
 
 **Confidence Score: [X]/100** - [Level]
 
+[If update was available but skipped in Step 1.5]
+📦 **System Update Available:** v[CURRENT] → v[LATEST]
+   Run /update-context-system when convenient
+
 ✅ **Accurate Documentation:**
 - CLAUDE.md - All commands verified
 - PRD.md - Progress matches git history
@@ -356,6 +414,7 @@ Provide comprehensive report:
 - [If issues found] Update KNOWN_ISSUES.md to remove fixed items
 - [If decisions missing] Document JWT library decision
 - [If WIP unclear] Check git status and recent commits
+- [If update available] Run /update-context-system to get latest improvements
 ```
 
 ### Step 9: Load Context into Working Memory

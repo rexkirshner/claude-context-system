@@ -1,6 +1,18 @@
 # Save Context Guide
 
-Comprehensive guide for using `/save-context` to maintain perfect session continuity.
+**This is a reference guide, not a checklist.**
+
+Real-world feedback (v1.6.2): Users found the 50-step checklist approach bureaucratic. The new approach (v1.7.0+) is simple:
+
+**"Write a good session summary. Update what matters. Grow documentation when complexity demands it."**
+
+This guide provides:
+- **Philosophy** - Why save-context exists and how to think about it
+- **Examples** - What good session documentation looks like
+- **Best Practices** - Patterns that work in real projects
+- **Anti-patterns** - What to avoid
+
+**Not a checklist to follow rigidly.** Use this as a resource when you need guidance, not a process you must execute.
 
 ## Philosophy
 

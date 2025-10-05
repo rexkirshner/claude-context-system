@@ -7,6 +7,92 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.0] - 2025-10-05
+
+### Changed
+
+**Progressive Enhancement (Phase 4) - Real-World Feedback Integration:**
+
+User feedback revealed the comprehensive 8-file approach felt overengineered:
+- ✅ SESSIONS.md + CLAUDE.md provided 80% of value
+- ❌ Other files felt like "documentation for documentation's sake"
+- ❌ 50-step /save-context process felt bureaucratic
+
+**Response: Start Simple, Grow Naturally**
+
+1. **/init-context now minimal by default** (.claude/commands/init-context.md)
+   - Creates only 3 core files: CLAUDE.md, SESSIONS.md, tasks/
+   - Explains progressive enhancement to users
+   - Additional files suggested when complexity demands it
+   - 80% of value, 20% of overhead
+
+2. **/init-context-full added for comprehensive mode** (.claude/commands/init-context-full.md)
+   - Creates all 8 documentation files (old /init-context behavior)
+   - Use when complexity is known from day one
+   - Most projects should start with /init-context instead
+
+3. **/save-context now intelligent** (.claude/commands/save-context.md)
+   - **Updates only what changed**, not everything
+   - Suggests creating new files when complexity demands it
+   - Focus on "write good session summary" not "follow 50 steps"
+   - No bureaucratic process - just smart documentation
+
+4. **save-context-guide.md repositioned as reference** (.claude/docs/save-context-guide.md)
+   - Added header: "This is a reference guide, not a checklist"
+   - Explains v1.7.0 philosophy: "Write a good session summary. Update what matters."
+   - Guidance when needed, not process to execute rigidly
+
+5. **Documentation updates**
+   - README.md: Progressive enhancement philosophy, new tagline
+   - SETUP_GUIDE.md: Updated for minimal/full modes
+   - PRD.md: v1.7.0 philosophy shift section
+   - All version references: 1.6.2 → 1.7.0
+
+### Added
+
+- `/init-context-full` command for comprehensive 8-file setup
+- On-demand file creation logic in /save-context:
+  - ARCHITECTURE.md → When 20+ files, 5+ directories
+  - DECISIONS.md → When 3+ technical decisions made
+  - CODE_STYLE.md → When standards mentioned multiple times
+  - KNOWN_ISSUES.md → When tracking 3+ bugs
+  - PRD.md → When product scope expanding
+- Progressive enhancement explanation in /init-context output
+
+### Philosophy
+
+**What Changed:**
+```
+OLD (v1.6.2): Create comprehensive system → Force all projects to use it
+NEW (v1.7.0): Start minimal → Grow naturally when complexity demands it
+```
+
+**Core Learning:**
+Real-world usage validated the concept (session continuity, WIP capture, preferences) but showed execution was overengineered. v1.7.0 keeps what worked while removing overhead.
+
+**80/20 Principle:**
+- 80% of value came from SESSIONS.md + CLAUDE.md
+- Other files useful when needed, overhead when not
+- Let complexity emerge naturally, don't impose it
+
+### Impact
+
+**Before Phase 4:**
+- New projects got 8 files whether needed or not
+- /save-context updated everything every time
+- Process felt bureaucratic
+- "Documentation for documentation's sake"
+
+**After Phase 4:**
+- New projects start minimal (3 files)
+- Additional docs suggested when helpful
+- /save-context intelligent (updates what changed)
+- "Document what matters"
+
+**Quality:** Architecture improved based on real-world validation
+**User Experience:** Dramatically simplified without losing value
+**Philosophy:** Progressive enhancement over comprehensive upfront
+
 ## [1.6.2] - 2025-10-04
 
 ### Fixed

@@ -1,11 +1,20 @@
 # Claude Context System - Setup Guide
 
+**Version 1.7.0** - Progressive Enhancement Approach
+
 ## Which Setup Command Do I Use?
 
 ### Use `/init-context` for:
-- ✅ **New projects** with no documentation yet
+- ✅ **New projects** with no documentation yet (RECOMMENDED)
 - ✅ Fresh scaffolded projects (npx create-next-app, etc.)
-- ✅ Projects where you want Claude to create docs from scratch
+- ✅ Start minimal (3 files), grow naturally as complexity demands
+- ✅ 80% of value, 20% of overhead
+
+### Use `/init-context-full` for:
+- ✅ **Complex projects** that need comprehensive docs from day one
+- ✅ You know you need all 8 documentation files upfront
+- ✅ Team projects with strict documentation requirements
+- ⚠️ Most projects should use `/init-context` instead
 
 ### Use `/migrate-context` for:
 - ✅ **Existing projects** with documentation already
@@ -152,18 +161,44 @@ If you have a local clone of the repo:
 ## Command Reference
 
 ### `/init-context`
-**When:** Once, for NEW projects with no documentation
+**When:** Once, for NEW projects with no documentation (MINIMAL MODE)
 
 **What it does:**
 - Creates `context/` folder structure
-- Generates all meta-documentation from scratch
+- Generates **3 core files** (CLAUDE.md, SESSIONS.md, tasks/)
 - Analyzes project and fills in known information
 - Creates `.context-config.json`
+- Explains progressive enhancement (other files added on-demand)
 
 **Expected output:**
 ```
-✅ Created context/ directory
-✅ Generated 8 documentation files
+✅ Context System Initialized (Minimal Mode)
+
+Created 3 essential files:
+- context/CLAUDE.md - Project guide + preferences
+- context/SESSIONS.md - Session history
+- context/tasks/ - Action tracking
+
+📊 Why only 3 files?
+Real-world usage shows SESSIONS.md + CLAUDE.md provide 80% of value.
+
+📈 Growing Your Documentation:
+Additional files (PRD.md, ARCHITECTURE.md, etc.) will be suggested
+when your project complexity demands it.
+```
+
+### `/init-context-full`
+**When:** Once, for COMPLEX projects (COMPREHENSIVE MODE)
+
+**What it does:**
+- Creates all 8 documentation files upfront
+- Same as old `/init-context` behavior
+- Use when you know you need comprehensive docs from day one
+
+**Expected output:**
+```
+✅ Context System Initialized (Full Mode)
+✅ Created 8 documentation files
 ✅ Analyzed project structure
 ✅ Created .context-config.json
 ```
@@ -192,19 +227,27 @@ If you have a local clone of the repo:
 ### `/save-context`
 **When:** Frequently - after major work, before breaks, at session end
 
-**What it does:**
-- Updates all existing documentation
-- Captures current session state
-- Records decisions made
-- Updates task progress
-- Creates session log entries
+**What it does (v1.7.0 - Intelligent Updates):**
+- **Writes a good session summary** (SESSIONS.md - always)
+- **Updates what changed** (not everything)
+- **Suggests new files** when complexity demands it
+- Preserves work-in-progress state
+- No bureaucratic process - just smart documentation
 
 **Expected output:**
 ```
-✅ Updated CLAUDE.md - Added critical path
-✅ Updated SESSIONS.md - Session 12 logged
-✅ Updated KNOWN_ISSUES.md - 2 issues resolved
-✅ Updated next-steps.md - 3 tasks completed
+✅ Context Updated - Session [N]
+
+**Core Updates:**
+- SESSIONS.md - Complete session log with WIP state
+- CLAUDE.md - Updated critical path
+- next-steps.md - 3 completed, 2 new actions
+
+**Optional Updates:**
+- DECISIONS.md - Documented [decision] (created on-demand)
+
+**Current Status:** [One-sentence project status]
+**Next Session:** [What to do next]
 ```
 
 ### `/review-context`
