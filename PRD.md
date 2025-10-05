@@ -3,10 +3,10 @@
 ## Executive Summary
 
 **Product Name:** Claude Context System
-**Version:** 1.0.0
+**Version:** 1.3.4
 **Owner:** Rex Kirshner
-**Status:** Planning Phase
-**Last Updated:** 2025-10-03
+**Status:** Active Development
+**Last Updated:** 2025-10-04
 
 ### Problem Statement
 
@@ -58,21 +58,37 @@ A systematic context management system that:
 
 #### 1. Command System
 
-The system provides four slash commands available in every project:
+The system provides nine slash commands available in every project:
+
+**Setup Commands (run once):**
 
 **`/init-context`**
-- Creates context/ folder structure
+- Creates context/ folder structure for new projects
 - Generates all documentation templates
 - Analyzes existing project
 - Creates configuration file
 - One-time setup per project
+
+**`/migrate-context`**
+- Migrates existing projects with documentation
+- Preserves all existing content
+- Organizes into context/ and artifacts/ folders
+- Augments existing docs with new sections
+
+**Maintenance Commands (run frequently):**
 
 **`/save-context`**
 - Updates all documentation to current state
 - Captures session activity
 - Records decisions and changes
 - Preserves work-in-progress
-- Run frequently during work
+- Run after major work
+
+**`/quick-save-context`**
+- Lightweight checkpoint for active work
+- Updates SESSIONS.md and tasks/ only
+- Fast (~5 seconds)
+- Run every 15-30 minutes during coding
 
 **`/review-context`**
 - Verifies documentation accuracy
@@ -81,12 +97,33 @@ The system provides four slash commands available in every project:
 - Reports gaps or issues
 - Run at session start
 
+**Quality & Sharing Commands:**
+
 **`/code-review`**
 - Comprehensive code quality audit
 - NO changes during review
 - Generates detailed report
 - Suggests improvements separately
 - Run when quality matters
+
+**`/validate-context`**
+- Validates documentation structure
+- Flags missing sections and placeholders
+- Reports health score
+- Run to check documentation health
+
+**`/export-context`**
+- Combines all context docs into single file
+- Generates table of contents
+- Perfect for team handoffs or backups
+
+**Update Commands:**
+
+**`/update-context-system`**
+- Updates slash commands from GitHub
+- Optionally updates context file templates
+- Interactive or automatic mode
+- Run periodically for latest improvements
 
 #### 2. Documentation System
 

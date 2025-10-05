@@ -30,7 +30,6 @@ git clone https://github.com/rexkirshner/claude-context-system.git
 # From your new project root
 mkdir -p .claude
 cp -r claude-context-system/.claude/commands .claude/
-cp claude-context-system/config/.context-config.template.json .context-config.json
 ```
 
 ### Step 3: Initialize Context
@@ -39,8 +38,10 @@ cp claude-context-system/config/.context-config.template.json .context-config.js
 ```
 This creates:
 - `context/` folder with all meta-documentation
-- `.context-config.json` with your preferences
+- `context/.context-config.json` with your preferences
 - Initial project analysis and documentation
+
+**Note:** `/init-context` automatically creates the config file, so you don't need to copy it manually.
 
 ### Step 4: Clean Up
 ```bash
@@ -124,17 +125,15 @@ The system is now installed and the clone is no longer needed. Future updates us
 #### Method 1: Clone and Copy (Recommended)
 1. Clone the repository: `git clone https://github.com/rexkirshner/claude-context-system.git`
 2. Copy the `.claude/commands/` folder to your project: `mkdir -p .claude && cp -r claude-context-system/.claude/commands .claude/`
-3. Copy and rename config: `cp config/.context-config.template.json .context-config.json`
-4. Run `/init-context` in Claude Code
-5. Clean up: `rm -rf claude-context-system`
-6. Review and customize `.context-config.json` if needed
+3. Run `/init-context` in Claude Code (creates `context/.context-config.json` automatically)
+4. Clean up: `rm -rf claude-context-system`
+5. Review and customize `context/.context-config.json` if needed
 
 #### Method 2: Download and Copy
 1. Download the repository as ZIP from GitHub
 2. Extract and copy `.claude/commands/` to your project
-3. Copy and rename `.context-config.template.json`
-4. Run `/init-context`
-5. Clean up: Delete the extracted folder
+3. Run `/init-context` (creates config automatically)
+4. Clean up: Delete the extracted folder
 
 #### Method 3: Direct Reference
 If you have a local clone of the repo:

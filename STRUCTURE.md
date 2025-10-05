@@ -13,10 +13,22 @@ Complete file organization for the Claude Context System.
 
 Slash command definitions that can be loaded into any project.
 
-- **init-context.md** - Initialize context system for a project
-- **save-context.md** - Save current state and update documentation
+**Setup Commands (run once):**
+- **init-context.md** - Initialize context system for new projects
+- **migrate-context.md** - Migrate existing projects with documentation
+
+**Maintenance Commands (run frequently):**
+- **save-context.md** - Save current state and update all documentation
+- **quick-save-context.md** - Lightweight checkpoint for active work
 - **review-context.md** - Verify documentation accuracy and continuity
+
+**Quality & Sharing Commands:**
 - **code-review.md** - Comprehensive code quality audit (no changes)
+- **validate-context.md** - Validate documentation structure and health
+- **export-context.md** - Export all context docs to single file
+
+**Update Commands:**
+- **update-context-system.md** - Update commands and templates from GitHub
 
 ## templates/
 
@@ -36,8 +48,11 @@ Documentation templates used by /init-context command.
 
 Configuration files for the context system.
 
-- **.context-config.template.json** - Master configuration template with Rex's preferences
+- **.context-config.template.json** - Master configuration template with workflow preferences
 - **context-config-schema.json** - JSON Schema for configuration validation
+- **preferences.yaml** - Centralized preferences (single source of truth)
+- **state-schema.json** - Schema for current project state artifacts
+- **session-schema.json** - Schema for session activity log artifacts
 
 ## Usage
 

@@ -266,50 +266,25 @@ Based on detected project type, apply relevant presets to documentation:
 
 ### Step 5: Create Configuration
 
-Create `.context-config.json` in the context/ folder with default preferences:
+**ACTION:** Use the Bash tool to copy the template config and update placeholders:
 
-```json
-{
-  "version": "1.0.0",
-  "owner": "[Your Name]",
-  "preferences": {
-    "documentation": {
-      "location": "context/",
-      "autoCreate": true,
-      "updateFrequency": "every-session",
-      "includeTimestamps": true,
-      "gitTracking": true
-    },
-    "workflow": {
-      "requirePlanApproval": true,
-      "requirePushApproval": true,
-      "preferSimpleChanges": true,
-      "noTemporaryFixes": true,
-      "fullCodeFlowTracing": true,
-      "testBeforeCommit": true
-    },
-    "communication": {
-      "summaryStyle": "high-level",
-      "verbosity": "concise",
-      "includeLineNumbers": true,
-      "skipPreamble": true,
-      "useEmojis": false
-    },
-    "codeReview": {
-      "thoroughnessLevel": "comprehensive",
-      "makeNoChanges": true,
-      "timeConstraintWarning": true,
-      "separateFixSession": true
-    },
-    "sessionManagement": {
-      "autoSaveInterval": null,
-      "captureCommandHistory": true,
-      "trackFileChanges": true,
-      "preserveWIPState": true
-    }
-  }
-}
+```bash
+# Download the latest config template from GitHub
+curl -sL https://raw.githubusercontent.com/rexkirshner/claude-context-system/main/config/.context-config.template.json -o context/.context-config.json
+
+# Update placeholders (project name, owner, dates)
+# Use Read tool to get current config, then Edit tool to replace placeholders with actual values
 ```
+
+**IMPORTANT:** You MUST:
+1. Use Read tool to read `context/.context-config.json`
+2. Use Edit tool to replace ALL placeholders:
+   - `[Your Name]` → actual owner name
+   - `[Project Name]` → actual project name
+   - `[web-app|cli|library|api]` → actual project type
+   - `[YYYY-MM-DD]` → today's date (2025-10-04)
+
+This ensures the config includes ALL current keys (commands, git policy, notifications, metadata) from the template.
 
 ### Step 6: Report Completion
 

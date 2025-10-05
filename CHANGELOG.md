@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.4] - 2025-10-04
+
+### Fixed
+- **Documentation metadata drift** - All docs now show consistent v1.3.4
+- **README.md version conflict** - Line 378 now matches line 3 (was 1.0.0 vs 1.3.3)
+- **PRD.md outdated info** - Version, status, and command catalog updated
+- **STRUCTURE.md incomplete listings** - All 9 commands and config files documented
+- **SETUP_GUIDE.md config location** - Clarified context/.context-config.json (not root)
+- **init-context.md hardcoded config** - Now downloads latest template from GitHub
+- **CHANGELOG.md version history** - Added all versions from 1.1.0 to 1.3.3
+
+### Changed
+- **README.md:** Version 1.0.0 → 1.3.4, Status "Implementation Phase" → "Active Development"
+- **PRD.md:** Command catalog expanded from 4 to 9 commands with categories
+- **STRUCTURE.md:** Complete command listing and config directory documentation
+- **SETUP_GUIDE.md:** Removed manual config copy (init-context creates it automatically)
+- **.claude/commands/init-context.md:** Step 5 now uses curl to fetch template, Edit tool for placeholders
+
+### Technical Details
+This was a pure documentation consistency update addressing external code review feedback. No functional changes to commands or templates.
+
+**Issues Fixed:**
+1. Version conflicts (1.3.3 vs 1.0.0 in README)
+2. Command catalogs showing 4 instead of 9
+3. Config location inconsistencies
+4. Outdated hardcoded config stubs
+5. Incomplete version history
+
 ## [1.3.3] - 2025-10-04
 
 ### Fixed
@@ -469,7 +497,23 @@ This release addresses that request completely.
 
 ## Version History
 
-- **1.0.0** (2025-10-04) - Initial release
+- **1.3.4** (2025-10-04) - Fix metadata drift across documentation
+- **1.3.3** (2025-10-04) - Hybrid file moving for comprehensive migration
+- **1.3.2** (2025-10-04) - Cleanup installation files after init/migrate
+- **1.3.1** (2025-10-04) - Template consistency for /migrate-context
+- **1.3.0** (2025-10-04) - General-purpose template sync system
+- **1.2.9** (2025-10-04) - Content-block detection for template updates
+- **1.2.8** (2025-10-04) - Fixed awk syntax and mandatory user approval
+- **1.2.7** (2025-10-04) - Section-based template comparison
+- **1.2.6** (2025-10-04) - Fixed cleanup order in /update-context-system
+- **1.2.5** (2025-10-04) - Step 4 explicit ACTION instructions
+- **1.2.4** (2025-10-04) - Self-reload mechanism (Step 3.5)
+- **1.2.3** (2025-10-04) - Version detection improvements
+- **1.2.2** (2025-10-04) - Enhanced /update-context-system
+- **1.2.1** (2025-10-04) - Bug fixes and improvements
+- **1.2.0** (2025-10-04) - Artifact storage system
+- **1.1.0** (2025-10-04) - Additional commands and improvements
+- **1.0.0** (2025-10-03) - Initial release
 - **Unreleased** - Current development version
 
 ## Upgrade Guide
