@@ -22,10 +22,10 @@ Verify that all context documentation follows the expected structure, flag missi
 
 1. Runs comprehensive validation script
 2. Checks for all required context files
-3. Validates file structure (required sections present)
-4. Flags unfilled placeholders
-5. Validates .context-config.json format
-6. Checks task files for completeness
+3. Flags unfilled placeholders
+4. Validates .context-config.json format
+5. Verifies all 9 slash commands present
+6. Checks template files exist
 7. Reports documentation health score
 8. Provides actionable recommendations
 
@@ -43,13 +43,12 @@ chmod +x scripts/validate-context.sh
 ./scripts/validate-context.sh
 ```
 
-The script performs comprehensive checks:
+The script performs these checks:
 - ✅ Required documentation files exist
 - ✅ No unresolved placeholders (`[TODO:]`, `[PLACEHOLDER]`, etc.)
 - ✅ Valid JSON in .context-config.json
 - ✅ Template files present
-- ✅ Preferences and schema files exist
-- ✅ All slash commands present
+- ✅ All 9 slash commands present
 
 ### Step 2: Interpret Results
 

@@ -25,12 +25,18 @@ git clone https://github.com/rexkirshner/claude-context-system.git
 # Or download just the .claude/commands folder from GitHub
 ```
 
-### Step 2: Copy Files to Your Project
+### Step 2: Copy Toolkit to Your Project
 ```bash
 # From your new project root
-mkdir -p .claude
-cp -r claude-context-system/.claude/commands .claude/
+cp -r claude-context-system/.claude .
+cp -r claude-context-system/scripts .
 ```
+
+This copies:
+- `.claude/commands/` - All 9 slash commands
+- `.claude/docs/` - Comprehensive guides (referenced by commands)
+- `.claude/checklists/` - Review criteria (used by /code-review)
+- `scripts/validate-context.sh` - Validation script (used by /validate-context)
 
 ### Step 3: Initialize Context
 ```

@@ -7,6 +7,76 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.1] - 2025-10-04
+
+### Fixed
+
+**Critical Bug Fixes (Phase 3.5):**
+
+External code review identified several critical bugs that could break installations:
+
+1. **Quick Start Instructions (README.md, SETUP_GUIDE.md)**
+   - **Bug:** Only instructed copying `.claude/commands/`, missing `.claude/docs/`, `.claude/checklists/`, and `scripts/`
+   - **Impact:** Commands referenced missing files, /validate-context failed immediately, documentation links broken
+   - **Fix:** Updated to copy entire `.claude/` directory and `scripts/` folder
+   - **Lines changed:** README.md:47-48, SETUP_GUIDE.md:30-39
+
+2. **Missing Documentation Tree (README.md)**
+   - **Bug:** "What Gets Created" tree omitted `.context-config.json` and `artifacts/` directories
+   - **Impact:** Users didn't know what would be created, might delete artifact directories
+   - **Fix:** Expanded tree to show toolkit structure, config file, and all artifact subdirectories
+   - **Lines changed:** README.md:65-92
+
+3. **Update Command Curl Failure (update-context-system.md)**
+   - **Bug:** No error handling on `curl` download - would proceed with empty zip
+   - **Impact:** Failed download would delete all commands, bricking the installation
+   - **Fix:** Added `curl -f` flag and explicit download verification before proceeding
+   - **Lines changed:** .claude/commands/update-context-system.md:125-134
+
+4. **Update Command Directory Bug (update-context-system.md)**
+   - **Bug:** Used `cd -` to return to project root (only works if previous command changed dirs)
+   - **Impact:** Updates ran in wrong directory, files not updated or wrong paths modified
+   - **Fix:** Capture `PROJECT_ROOT=$(pwd)` before work, use absolute paths, deterministic cd
+   - **Lines changed:** .claude/commands/update-context-system.md:179-189
+
+5. **Validation Subshell Bug (scripts/validate-context.sh)**
+   - **Bug:** `INVALID_SESSIONS` counter incremented in pipeline subshell, stayed zero
+   - **Impact:** Corrupted session JSON files passed validation with false "✅" report
+   - **Fix:** Use process substitution (`< <(echo ...)`) to preserve shell state
+   - **Lines changed:** scripts/validate-context.sh:149-155
+
+6. **Missing Command Validation (scripts/validate-context.sh)**
+   - **Bug:** Only checked 4 of 9 commands (missing 5 newer commands)
+   - **Impact:** Missing or renamed commands slipped through validation
+   - **Fix:** Extended COMMANDS array to all 9 commands
+   - **Lines changed:** scripts/validate-context.sh:219-229
+
+7. **Documentation Mismatch (validate-context.md)**
+   - **Bug:** Command doc promised section-level validation and task completeness checks not implemented
+   - **Impact:** Users expected deeper guarantees than received, reduced trust
+   - **Fix:** Aligned documentation with actual script capabilities
+   - **Lines changed:** .claude/commands/validate-context.md:23-51
+
+### Impact
+
+**Before Phase 3.5:**
+- New installations started broken (missing dependencies)
+- Update command could brick installations
+- Validation had silent failures
+- Documentation misleading
+
+**After Phase 3.5:**
+- Clean installations work immediately
+- Update command safe with error handling
+- Validation catches all issues
+- Documentation accurate
+
+**Security:** Prevented potential data loss from failed updates
+**Reliability:** All critical paths now validated and error-handled
+**User Experience:** First-time setup now works correctly
+
+**Credit:** Bug report from external AI code review (Codex)
+
 ## [1.6.0] - 2025-10-04
 
 ### Added

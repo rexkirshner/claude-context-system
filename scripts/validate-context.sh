@@ -146,12 +146,14 @@ if [ -d "$CONTEXT_DIR/sessions" ]; then
     SESSION_COUNT=$(echo "$SESSION_FILES" | wc -l | tr -d ' ')
     if command -v jq &> /dev/null; then
       INVALID_SESSIONS=0
-      echo "$SESSION_FILES" | while read -r session_file; do
+      # Use process substitution to avoid subshell and preserve INVALID_SESSIONS counter
+      while IFS= read -r session_file; do
         if ! jq empty "$session_file" 2>/dev/null; then
           echo -e "  ${RED}❌ Invalid JSON: $session_file${NC}"
           ((INVALID_SESSIONS++))
         fi
-      done
+      done < <(echo "$SESSION_FILES")
+
       if [ $INVALID_SESSIONS -eq 0 ]; then
         echo "  ✅ All $SESSION_COUNT session JSON files are valid"
       else
@@ -216,9 +218,14 @@ echo "⚡ Checking slash commands..."
 
 COMMANDS=(
   ".claude/commands/init-context.md"
+  ".claude/commands/migrate-context.md"
   ".claude/commands/save-context.md"
+  ".claude/commands/quick-save-context.md"
   ".claude/commands/review-context.md"
   ".claude/commands/code-review.md"
+  ".claude/commands/validate-context.md"
+  ".claude/commands/export-context.md"
+  ".claude/commands/update-context-system.md"
 )
 
 for cmd in "${COMMANDS[@]}"; do

@@ -122,7 +122,15 @@ echo "🔍 Checking for updates from GitHub..."
 ```bash
 rm -rf /tmp/claude-context-update
 mkdir -p /tmp/claude-context-update
-curl -L https://github.com/rexkirshner/claude-context-system/archive/refs/heads/main.zip -o /tmp/claude-context-update/latest.zip
+curl -f -L https://github.com/rexkirshner/claude-context-system/archive/refs/heads/main.zip -o /tmp/claude-context-update/latest.zip
+
+# Verify download succeeded
+if [ ! -f /tmp/claude-context-update/latest.zip ] || [ ! -s /tmp/claude-context-update/latest.zip ]; then
+  echo "❌ ERROR: Download failed. Check your internet connection and try again."
+  rm -rf /tmp/claude-context-update
+  exit 1
+fi
+
 unzip -q /tmp/claude-context-update/latest.zip -d /tmp/claude-context-update
 ```
 
@@ -168,14 +176,17 @@ The version check MUST use string comparison (`[ "$CURRENT_VERSION" = "$LATEST_V
 **ACTION:** Use the Bash tool to update the commands:
 
 ```bash
-# Navigate back to project root
-cd - > /dev/null
+# Capture project root before any directory changes
+PROJECT_ROOT=$(pwd)
 
 # Backup existing commands
 cp -r .claude/commands .claude/commands.backup
 
-# Update with latest
-cp /tmp/claude-context-update/claude-context-system-main/.claude/commands/* .claude/commands/
+# Update with latest (using absolute path)
+cp /tmp/claude-context-update/claude-context-system-main/.claude/commands/* "$PROJECT_ROOT/.claude/commands/"
+
+# Return to project root (deterministic)
+cd "$PROJECT_ROOT"
 
 # Report
 echo "✅ Updated commands:"
