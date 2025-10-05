@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.3] - 2025-10-04
+
+### Fixed
+- **/migrate-context now moves ALL files** - Hybrid approach catches edge cases
+- CLOUDFLARE_DEPLOYMENT.md and similar variants now moved correctly
+- ALL task markdown files now moved (not just todo.md and next-steps.md)
+
+### Changed
+- **Hybrid file moving strategy in /migrate-context Step 3:**
+  - Core docs: Explicit list (CLAUDE.md, PRD.md, etc.) for clear audit trail
+  - Deployment variants: Pattern matching (`*DEPLOYMENT.md`) catches CLOUDFLARE_DEPLOYMENT.md, etc.
+  - Task files: Comprehensive wildcard (`tasks/*.md`) moves ALL markdown files from tasks/
+- More robust migration that handles different project structures
+
+### Technical Details
+**Old approach (v1.3.2):**
+```bash
+mv DEPLOYMENT.md context/
+mv tasks/next-steps.md context/tasks/
+mv tasks/todo.md context/tasks/
+```
+- Missed CLOUDFLARE_DEPLOYMENT.md (wasn't in list)
+- Missed roadmap-brainstorm.md (only moved specific task files)
+
+**New approach (v1.3.3):**
+```bash
+mv DEPLOYMENT.md context/
+mv *DEPLOYMENT.md context/  # Catches any variant
+mv tasks/*.md context/tasks/  # Catches ALL task files
+```
+
+### Impact
+- ✅ No more missed files during migration
+- ✅ Handles CLOUDFLARE_DEPLOYMENT.md and other deployment variants
+- ✅ Moves ALL task files (roadmap-brainstorm.md, planning.md, etc.)
+- ✅ Future-proof for new file types in tasks/
+- ✅ Maintains explicit control over core docs
+
+### User Feedback
+User tested v1.3.2 migration and found CLOUDFLARE_DEPLOYMENT.md and roadmap-brainstorm.md weren't moved. This release uses a hybrid approach (explicit + wildcards) to catch all edge cases while maintaining clarity.
+
 ## [1.3.2] - 2025-10-04
 
 ### Added

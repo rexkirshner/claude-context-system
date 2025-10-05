@@ -118,7 +118,7 @@ mkdir -p artifacts/coverage
 **Move documentation to context/:**
 
 ```bash
-# Core docs
+# Core docs (explicit list)
 mv CLAUDE.md context/ 2>/dev/null || true
 mv PRD.md context/ 2>/dev/null || true
 mv DECISIONS.md context/ 2>/dev/null || true
@@ -127,11 +127,11 @@ mv ARCHITECTURE.md context/ 2>/dev/null || true
 mv CODE_STYLE.md context/ 2>/dev/null || true
 mv SESSIONS.md context/ 2>/dev/null || true
 mv DEPLOYMENT.md context/ 2>/dev/null || true
+mv *DEPLOYMENT.md context/ 2>/dev/null || true  # Catches CLOUDFLARE_DEPLOYMENT.md, etc.
 mv TROUBLESHOOTING.md context/ 2>/dev/null || true
 
-# Task files
-mv tasks/next-steps.md context/tasks/ 2>/dev/null || true
-mv tasks/todo.md context/tasks/ 2>/dev/null || true
+# Task files (comprehensive - move ALL .md files from tasks/)
+mv tasks/*.md context/tasks/ 2>/dev/null || true
 ```
 
 **Move artifacts to artifacts/:**
