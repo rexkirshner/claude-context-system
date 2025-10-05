@@ -1,6 +1,6 @@
 # Claude Context System
 
-**Version 1.4.0**
+**Version 1.5.0**
 
 > Perfect session continuity for Claude Code projects
 
@@ -248,16 +248,27 @@ claude-context-system/
 ├── SETUP_GUIDE.md              # How to install and use
 ├── STRUCTURE.md                # Complete file organization guide
 ├── .claude/
-│   └── commands/               # Custom slash commands (9 total)
-│       ├── init-context.md
-│       ├── migrate-context.md
-│       ├── save-context.md
-│       ├── quick-save-context.md
-│       ├── review-context.md
-│       ├── code-review.md
-│       ├── validate-context.md
-│       ├── export-context.md
-│       └── update-context-system.md
+│   ├── commands/               # Custom slash commands (9 total)
+│   │   ├── init-context.md
+│   │   ├── migrate-context.md
+│   │   ├── save-context.md
+│   │   ├── quick-save-context.md
+│   │   ├── review-context.md
+│   │   ├── code-review.md
+│   │   ├── validate-context.md
+│   │   ├── export-context.md
+│   │   └── update-context-system.md
+│   ├── docs/                   # Comprehensive command guides
+│   │   ├── README.md
+│   │   ├── command-philosophy.md
+│   │   ├── code-review-guide.md
+│   │   ├── save-context-guide.md
+│   │   └── review-context-guide.md
+│   └── checklists/             # Specialized review criteria
+│       ├── accessibility.md
+│       ├── security.md
+│       ├── seo-review.md
+│       └── performance.md
 ├── templates/                  # Doc templates
 │   ├── CLAUDE.template.md
 │   ├── PRD.template.md
@@ -375,7 +386,7 @@ See [SETUP_GUIDE.md](./SETUP_GUIDE.md) for detailed troubleshooting.
 
 ## Version
 
-**Current Version:** 1.4.0
+**Current Version:** 1.5.0
 **Status:** Active Development
 **Last Updated:** 2025-10-04
 

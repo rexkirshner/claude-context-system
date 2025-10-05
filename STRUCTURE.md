@@ -30,6 +30,41 @@ Slash command definitions that can be loaded into any project.
 **Update Commands:**
 - **update-context-system.md** - Update commands and templates from GitHub
 
+## .claude/docs/
+
+Comprehensive guides for understanding commands (Phase 2 addition).
+
+Commands focus on WHAT TO DO (execution steps). Docs explain WHY and HOW (philosophy, principles, examples).
+
+- **README.md** - Documentation folder structure and reading order
+- **command-philosophy.md** - Core principles guiding all commands (Prime Directive, anti-patterns)
+- **code-review-guide.md** - Complete review methodology, grading rubric, examples
+- **save-context-guide.md** - Safety net principle, WIP importance, file-by-file update guide
+- **review-context-guide.md** - Trust but verify, confidence scoring, verification strategies
+
+**When to use:**
+- Learning a command for the first time
+- Understanding philosophy behind decisions
+- Troubleshooting command behavior
+- Reference for best practices
+
+## .claude/checklists/
+
+Specialized review criteria for /code-review command (Phase 2 addition).
+
+Comprehensive checklists covering specific domains. Used during code review for thorough audits.
+
+- **accessibility.md** - WCAG compliance, keyboard navigation, screen readers, color contrast
+- **security.md** - OWASP Top 10, SQL injection prevention, XSS protection, code examples
+- **seo-review.md** - Meta tags, Core Web Vitals, structured data, quick wins
+- **performance.md** - Bundle optimization, Core Web Vitals, caching strategies
+
+**When to use:**
+- During /code-review execution
+- Specialized audits (just SEO, just security, etc.)
+- Learning what to check for quality
+- Reference for best practices
+
 ## templates/
 
 Documentation templates used by /init-context command.

@@ -7,6 +7,8 @@ description: Initialize Claude Context System for this project
 
 Initialize the complete context management system for this project. Run this once when starting a new project to set up comprehensive documentation and session continuity.
 
+**See also:** `.claude/docs/command-philosophy.md` for core principles
+
 ## What This Command Does
 
 1. Creates `context/` folder structure
