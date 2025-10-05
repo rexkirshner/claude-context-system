@@ -7,6 +7,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.2] - 2025-10-04
+
+### Fixed
+
+**Improvements from External Code Review (Phase 3.6):**
+
+External AI review of migration practice project identified several improvements:
+
+1. **Config Version Mismatch** (.claude/commands/migrate-context.md)
+   - **Bug:** /migrate-context created config with "version": "1.0.0"
+   - **Impact:** /update-context-system couldn't detect upgrades (version always old)
+   - **Fix:** Changed to "version": "1.6.2" (matches current toolkit)
+   - **Line changed:** migrate-context.md:388
+
+2. **.claude Directory Placement Documentation** (.claude/commands/migrate-context.md)
+   - **Gap:** No clear warning about .claude needing to be IN project root (not parent)
+   - **Impact:** Practice project had .claude in parent → commands didn't load
+   - **Fix:** Added visual diagrams showing correct vs wrong structure
+   - **Added:** Step 0 now checks if .claude exists in current directory
+   - **Lines changed:** migrate-context.md:35-107
+
+3. **Code Review TypeScript Verification** (.claude/commands/code-review.md)
+   - **Bug:** Review claimed strict mode missing when it was actually enabled
+   - **Root Cause:** Didn't read tsconfig.json, just assumed/guessed
+   - **Impact:** False positive issues, wasted developer time
+   - **Fix:** Added explicit TypeScript Configuration review category
+   - **Added:** "ACTION: Read tsconfig.json to verify settings" with strict mode checks
+   - **Lines changed:** code-review.md:147-153
+
+### Impact
+
+**Before Phase 3.6:**
+- Migrations created outdated config versions
+- .claude placement issues not clearly documented
+- Code reviews could claim false positives
+
+**After Phase 3.6:**
+- Migrations create current version configs
+- Clear visual guidance for .claude placement
+- Code reviews verify TypeScript settings before claiming issues
+
+**Quality:** All improvements based on real-world migration testing
+**Credit:** Bug reports from external AI code review
+
 ## [1.6.1] - 2025-10-04
 
 ### Fixed

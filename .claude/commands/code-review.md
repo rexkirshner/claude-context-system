@@ -144,6 +144,14 @@ Use specialized checklists for thoroughness:
 - Core Web Vitals acceptable?
 - Structured data present?
 
+**9. TypeScript Configuration** (if TypeScript project)
+- **ACTION:** Read tsconfig.json to verify settings
+- Strict mode enabled? (`"strict": true`)
+- No implicit any? (`"noImplicitAny": true` or covered by strict)
+- Strict null checks? (`"strictNullChecks": true` or covered by strict)
+- Other strict flags appropriate for project?
+- **IMPORTANT:** Always verify actual tsconfig.json content before claiming issues
+
 **Document findings:**
 ```markdown
 ### [Category] Issues

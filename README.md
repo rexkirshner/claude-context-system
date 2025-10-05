@@ -1,6 +1,6 @@
 # Claude Context System
 
-**Version 1.6.1**
+**Version 1.6.2**
 
 > Perfect session continuity for Claude Code projects
 
@@ -403,7 +403,7 @@ See [SETUP_GUIDE.md](./SETUP_GUIDE.md) for detailed troubleshooting.
 
 ## Version
 
-**Current Version:** 1.6.1
+**Current Version:** 1.6.2
 **Status:** Active Development
 **Last Updated:** 2025-10-04
 
