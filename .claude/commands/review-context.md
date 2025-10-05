@@ -7,16 +7,20 @@ description: Verify context documentation accuracy and session continuity readin
 
 Verify that all context documentation is accurate, consistent, and complete enough to resume work seamlessly. This is your session start ritual and continuity checkpoint.
 
+**Full guide:** `.claude/docs/review-context-guide.md`
+
 ## When to Use This Command
 
-- **At session start** (always!)
+**Primary use:** First thing at session start (always!)
+
+**Other uses:**
 - Before major decisions
-- When feeling disoriented or confused
+- When feeling disoriented
 - After someone else worked on project
-- Before deployment or major milestones
+- Before deployment/milestones
 - When documentation feels stale
 
-**Primary use:** First thing when opening a project
+**See:** `.claude/docs/review-context-guide.md` - "When To Use This Command"
 
 ## What This Command Does
 
@@ -378,40 +382,7 @@ If confidence score >= 60, actively load context:
 
 ## Important Guidelines
 
-### What Makes Good Context
-
-**For seamless resumption:**
-- Last SESSIONS.md entry <24 hours old
-- WIP explicitly states exact file and line
-- Next action clearly described
-- No contradictions between docs
-- Recent decisions documented
-
-**Red flags:**
-- Last update >3 days old
-- WIP state vague or missing
-- Contradictions between docs
-- Fixed issues still listed
-- Undocumented recent changes
-
-### Handling Issues
-
-**Minor issues (score 75-89):**
-- Note them for user
-- Proceed with work
-- Fix during next /save-context
-
-**Moderate issues (score 60-74):**
-- Recommend review before resuming
-- Highlight specific gaps
-- Suggest running /save-context if user just worked
-
-**Critical issues (score <60):**
-- Do NOT resume work with stale context
-- Strongly recommend /save-context first
-- May need user input to resolve
-
-### Trust but Verify
+### Trust But Verify
 
 **Trust the docs when:**
 - Recent (last updated <48 hours)
@@ -422,39 +393,27 @@ If confidence score >= 60, actively load context:
 **Verify against code when:**
 - Last updated >3 days ago
 - Contradictions found
-- Major changes in git log since last update
+- Major changes in git log
 - Feeling uncertain
 
-## Error Handling
+**See:** `.claude/docs/review-context-guide.md` - "The Trust But Verify Principle"
 
-**If critical files missing:**
-- Report which files missing
-- Reduce confidence score significantly
-- Recommend running /init-context
+### Handling Issues
 
-**If can't access git:**
-- Note git unavailable
-- Rely on file timestamps
-- Reduce confidence score -20
+**Minor (score 75-89):** Note for user, proceed with work
+**Moderate (score 60-74):** Recommend review before resuming
+**Critical (score <60):** Do NOT resume, run /save-context first
 
-**If contradictions unresolvable:**
-- Report contradiction clearly
-- Recommend /save-context to fix
-- Don't guess which is correct
+**See:** `.claude/docs/review-context-guide.md` - "Common Scenarios"
 
 ## Success Criteria
 
-Command succeeds when:
-- All documentation reviewed
-- Accuracy verified against code
-- Consistency checked
-- Confidence score calculated
-- Clear resume point identified
-- Recommendation provided
-- User knows exactly what to do next
+✅ All documentation reviewed
+✅ Accuracy verified against code
+✅ Confidence score calculated
+✅ Clear resume point identified
+✅ User knows what to do next
 
-**Perfect outcome:**
-- Score 90-100
-- Can state exact resume point
-- Understand full context
-- Ready to continue seamlessly
+**Perfect outcome:** Score 90-100, can state exact resume point, ready to continue seamlessly
+
+**See:** `.claude/docs/review-context-guide.md` - "Success Criteria"

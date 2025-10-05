@@ -7,16 +7,25 @@ description: Update all meta-documentation to reflect current code state
 
 Update all context documentation to accurately reflect the current state of the project. This is your safety net - run it frequently to preserve session state and enable perfect continuity.
 
+**Full guide:** `.claude/docs/save-context-guide.md`
+
 ## When to Use This Command
 
-- After completing any significant work
-- Before taking breaks (even 5-minute breaks)
-- At session end (always!)
-- After making technical decisions
-- When switching tasks
-- Before running /code-review
+**Always save:**
+- At session end (non-negotiable!)
+- Before breaks (even 5-minute breaks)
+- After completing work
+- After making decisions
+- Before /code-review
 
-**Rule of thumb:** If you're unsure, run it. Better to save too often than lose context.
+**Frequently save:**
+- Every 30-60 minutes during active work
+- When switching tasks
+- After discovering issues
+
+**Rule of thumb:** If unsure, run it. Better to save too often than lose context.
+
+**See:** `.claude/docs/save-context-guide.md` - "When To Use This Command"
 
 ## What This Command Does
 
@@ -369,33 +378,26 @@ Provide clear summary:
 - Update what changed, not everything
 - Use git history to catch missed changes
 - Focus on material changes, not cosmetic
-- Preserve historical information
 
 **Think about the reader:**
 - Future Claude instances need full context
-- Future you (in weeks) needs to remember why
-- New contributors need to understand decisions
+- Future you needs to remember why
 - Make it scannable and clear
 
 **Keep it honest:**
 - Don't hide issues or technical debt
 - Document the "why" behind weird decisions
 - Admit when something is hacky or temporary
-- Note when you're uncertain
 
-**Maintain narrative:**
-- Docs should tell coherent story
-- Show progression over time
-- Connect decisions to outcomes
-- Link related information
+**See:** `.claude/docs/save-context-guide.md` - "Update Philosophy"
 
 ### What to Capture
 
 **Always capture:**
-- Files modified (with line numbers when significant)
+- Files modified (with line numbers)
 - Decisions made (with reasoning)
 - Issues found (with severity)
-- Work in progress (with exact state)
+- **Work in progress** (with exact state) ← CRITICAL!
 - Next immediate actions
 
 **Never skip:**
@@ -404,42 +406,25 @@ Provide clear summary:
 - Consistency checks
 
 **Can skip if unchanged:**
-- ARCHITECTURE.md (if no design changes)
-- CODE_STYLE.md (rarely changes)
+- ARCHITECTURE.md, CODE_STYLE.md (rarely change)
 - DECISIONS.md (if no decisions made)
 
-## Error Handling
-
-**If files missing:**
-- Report which files missing
-- Offer to recreate from templates
-- Never fail silently
-
-**If can't determine changes:**
-- Document uncertainty
-- Add TODO markers
-- Request user clarification in next session
-
-**If git unavailable:**
-- Use file system timestamps
-- Analyze file content directly
-- Note git history not available
+**See:** `.claude/docs/save-context-guide.md` - "The Critical Importance of WIP"
 
 ## Success Criteria
 
-Command succeeds when:
-- All relevant files updated
-- SESSIONS.md has complete entry
-- WIP state preserved
-- Consistency maintained
-- Next session can resume seamlessly
-- User knows exactly what was captured
+✅ All relevant files updated
+✅ SESSIONS.md has complete, detailed entry
+✅ WIP state preserved with exact resume point
+✅ Consistency maintained
+✅ Next session can resume seamlessly
+
+**See:** `.claude/docs/save-context-guide.md` - "Success Criteria"
 
 ## Time Investment
 
-This command should take:
-- 30-60 seconds for routine updates
-- 2-3 minutes for major session ends
-- 5 minutes for complex multi-feature sessions
+- Routine: 30-60 seconds
+- Session end: 2-3 minutes
+- Complex: 5 minutes
 
 **Worth every second** - saves hours of re-explanation later.
