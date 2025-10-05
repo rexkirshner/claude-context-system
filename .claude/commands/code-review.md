@@ -7,6 +7,8 @@ description: Comprehensive code quality audit without making any changes
 
 Conduct a thorough, unhurried code quality audit. This command **NEVER makes changes** - it only identifies issues and suggests improvements. Fixes happen in a separate session after review.
 
+**Full guide:** `.claude/docs/code-review-guide.md`
+
 ## ⚠️ CRITICAL RULES
 
 1. **NEVER make code changes during review** - This is analysis only
@@ -15,27 +17,20 @@ Conduct a thorough, unhurried code quality audit. This command **NEVER makes cha
 4. **Separate concerns** - Review finds issues, fixes come later
 5. **Be thorough** - This is when we have time to be comprehensive
 
+**Why:** See "The No Changes Rule" in `.claude/docs/code-review-guide.md`
+
 ## When to Use This Command
 
+**Good times:**
 - After completing a feature or phase
 - Before deployment or major milestones
 - When quality matters more than speed
 - **Only when you have plenty of time** - user will only run this when unbound by time
-- When you want deep analysis without pressure
 
-**Never run when:**
+**Bad times:**
 - Time is limited
 - In middle of active development
 - During urgent fixes
-
-## What This Command Does
-
-1. Comprehensive code analysis
-2. Quality assessment against standards
-3. Issue identification and categorization
-4. Improvement suggestions with rationale
-5. Detailed report generation
-6. **NO code modifications whatsoever**
 
 ## Execution Steps
 
@@ -94,267 +89,73 @@ ls -la src/ app/ lib/ components/ 2>/dev/null
 
 Review each area systematically. **NO CHANGES - ONLY ANALYSIS**
 
-#### Architecture & Design Review
+Use specialized checklists for thoroughness:
+- **Security:** `.claude/checklists/security.md`
+- **Accessibility:** `.claude/checklists/accessibility.md`
+- **SEO:** `.claude/checklists/seo-review.md`
+- **Performance:** `.claude/checklists/performance.md`
 
-**Check for:**
-- [ ] Architectural patterns match ARCHITECTURE.md
-- [ ] Separation of concerns maintained
-- [ ] Dependencies flow in one direction
-- [ ] Coupling is minimal
-- [ ] Cohesion is high
-- [ ] Abstraction levels appropriate
+#### Review Categories
 
-**Questions to answer:**
-- Does the structure support the requirements?
-- Are there architectural smells?
-- Is the design over-engineered or under-engineered?
-- Do patterns fit the problem?
+**1. Architecture & Design**
+- Architectural patterns match ARCHITECTURE.md?
+- Separation of concerns maintained?
+- Dependencies flow correctly?
+- Coupling minimal, cohesion high?
 
-**Document findings:**
-```markdown
-### Architecture Issues
+**2. Code Standards** (from CODE_STYLE.md)
+- Simplicity principle followed?
+- No temporary/hacky fixes?
+- Root causes addressed?
+- Clear, readable code?
 
-**A1: Circular dependency in auth flow**
-- Severity: Medium
-- Location: lib/auth.ts ↔ middleware.ts
-- Impact: Makes testing difficult, tight coupling
-- Suggestion: Extract shared logic to lib/auth-utils.ts
-```
+**3. Performance** (checklist: `.claude/checklists/performance.md`)
+- Core Web Vitals acceptable?
+- Bundle sizes reasonable?
+- Images optimized?
+- Efficient database queries?
 
-#### Code Standards Review
+**4. Security** (checklist: `.claude/checklists/security.md`)
+- Input validation present?
+- SQL injection protection?
+- XSS vulnerabilities?
+- Secrets in code?
 
-**Check against CODE_STYLE.md:**
-- [ ] Simplicity principle followed
-- [ ] No temporary/hacky fixes
-- [ ] Root causes addressed
-- [ ] Minimal code impact per change
-- [ ] Clear, readable code
+**5. Error Handling**
+- Proper try-catch usage?
+- Meaningful error messages?
+- Error logging?
+- User feedback?
 
-**Scan for anti-patterns:**
-- Complex functions (>50 lines)
-- Deep nesting (>3 levels)
-- Duplicate code
-- Magic numbers/strings
-- God objects/functions
-- Premature optimization
+**6. Testing**
+- Critical paths tested?
+- Edge cases covered?
+- Test quality good?
 
-**Document findings:**
-```markdown
-### Code Style Issues
+**7. Accessibility** (checklist: `.claude/checklists/accessibility.md`, if UI)
+- Semantic HTML?
+- Keyboard navigation?
+- Screen reader support?
+- Color contrast?
 
-**CS1: Complex authentication function**
-- Severity: Low
-- Location: lib/auth.ts:145-220
-- Issue: 75-line function with 4 levels of nesting
-- Suggestion: Extract validation logic to separate functions
-```
-
-#### Performance Review
-
-**Check for:**
-- [ ] Unnecessary re-renders (React)
-- [ ] Inefficient database queries
-- [ ] Memory leaks
-- [ ] Blocking operations
-- [ ] Large bundle sizes
-- [ ] Unoptimized images
+**8. SEO** (checklist: `.claude/checklists/seo-review.md`, if public web)
+- Meta tags present?
+- Heading hierarchy correct?
+- Core Web Vitals acceptable?
+- Structured data present?
 
 **Document findings:**
 ```markdown
-### Performance Issues
+### [Category] Issues
 
-**P1: Expensive computation in render**
-- Severity: High
-- Location: components/Dashboard.tsx:45
-- Issue: Array.sort() called on every render
-- Impact: Lag with large datasets
-- Suggestion: Memoize with useMemo or compute server-side
-```
-
-#### Security Review
-
-**Check for:**
-- [ ] Input validation
-- [ ] SQL injection risks
-- [ ] XSS vulnerabilities
-- [ ] CSRF protection
-- [ ] Authentication/authorization
-- [ ] Secrets in code
-- [ ] Insecure dependencies
-
-**Document findings:**
-```markdown
-### Security Issues
-
-**S1: Missing input sanitization**
-- Severity: Critical
-- Location: app/api/search/route.ts:23
-- Issue: User input directly in database query
-- Impact: SQL injection risk
-- Suggestion: Use parameterized queries
-```
-
-#### Error Handling Review
-
-**Check for:**
-- [ ] Proper try-catch usage
-- [ ] Error boundaries (React)
-- [ ] Meaningful error messages
-- [ ] Error logging
-- [ ] Graceful degradation
-- [ ] User feedback
-
-**Document findings:**
-```markdown
-### Error Handling Issues
-
-**E1: Silent error swallowing**
-- Severity: Medium
-- Location: lib/api-client.ts:89
-- Issue: Empty catch block suppresses errors
-- Impact: Debugging nightmares, silent failures
-- Suggestion: Log errors, show user feedback
-```
-
-#### Testing Review
-
-**Check for:**
-- [ ] Critical paths tested
-- [ ] Edge cases covered
-- [ ] Test quality (not just coverage)
-- [ ] Integration tests exist
-- [ ] E2E tests for critical flows
-- [ ] Mocking appropriate
-
-**Document findings:**
-```markdown
-### Testing Issues
-
-**T1: No tests for authentication**
-- Severity: High
-- Location: lib/auth.ts (0% coverage)
-- Issue: Critical auth logic untested
-- Impact: Bugs in production, no regression safety
-- Suggestion: Add unit + integration tests for auth flows
-```
-
-#### Accessibility Review (if UI)
-
-**Check for:**
-- [ ] Semantic HTML
-- [ ] ARIA labels where needed
-- [ ] Keyboard navigation
-- [ ] Color contrast
-- [ ] Screen reader support
-- [ ] Focus management
-
-**Document findings:**
-```markdown
-### Accessibility Issues
-
-**A11Y1: Missing form labels**
-- Severity: Medium
-- Location: components/LoginForm.tsx
-- Issue: Inputs lack associated labels
-- Impact: Screen reader users can't use form
-- Suggestion: Add proper <label> elements
-```
-
-#### SEO Review (if web/public site)
-
-**Check for:**
-- [ ] Meta tags (title, description, keywords)
-- [ ] Open Graph tags for social sharing
-- [ ] Twitter Card meta tags
-- [ ] Canonical URLs
-- [ ] Sitemap.xml and robots.txt
-- [ ] Semantic HTML structure (proper heading hierarchy)
-- [ ] Image alt text
-- [ ] Page load performance (Core Web Vitals)
-- [ ] Mobile responsiveness
-- [ ] Internal linking structure
-- [ ] Schema.org structured data (JSON-LD)
-- [ ] URL structure (clean, descriptive URLs)
-
-**Document findings:**
-```markdown
-### SEO Issues
-
-**SEO1: Missing meta descriptions**
-- Severity: High
-- Location: app/layout.tsx or pages without metadata
-- Issue: Pages lack meta descriptions
-- Impact: Poor search engine snippets, lower click-through rates
-- Suggestion: Add unique, compelling meta descriptions (150-160 chars) to all pages
-
-**SEO2: Poor heading hierarchy**
-- Severity: Medium
-- Location: components/ArticlePage.tsx
-- Issue: Multiple H1 tags, skipped heading levels (H1 → H3)
-- Impact: Confuses search engines and screen readers
-- Suggestion: Single H1 per page, sequential heading levels
-
-**SEO3: Missing structured data**
-- Severity: Medium
-- Location: Article pages
-- Issue: No JSON-LD schema markup
-- Impact: Missing rich snippets in search results
-- Suggestion: Add Article schema with author, datePublished, etc.
-
-**SEO4: Slow page load speed**
-- Severity: High
-- Location: Homepage
-- Issue: LCP > 4s, unoptimized images
-- Impact: Poor Core Web Vitals, lower rankings
-- Suggestion: Optimize images, implement lazy loading, reduce bundle size
-
-**SEO5: Missing Open Graph tags**
-- Severity: Low
-- Location: All pages
-- Issue: No OG tags for social sharing
-- Impact: Poor social media previews
-- Suggestion: Add og:title, og:description, og:image, og:url
-```
-
-**SEO Optimization Checklist:**
-- [ ] Title tags: 50-60 chars, unique per page, include target keywords
-- [ ] Meta descriptions: 150-160 chars, compelling call-to-action
-- [ ] H1: Single per page, includes primary keyword
-- [ ] Heading hierarchy: H1 → H2 → H3 (no skips)
-- [ ] Image alt text: Descriptive, includes context
-- [ ] Internal links: Natural, descriptive anchor text
-- [ ] URL structure: Clean, readable, includes keywords
-- [ ] Sitemap: Auto-generated, submitted to search engines
-- [ ] Robots.txt: Properly configured
-- [ ] Canonical URLs: Set for duplicate content
-- [ ] Mobile-first: Responsive design, mobile-optimized
-- [ ] Page speed: LCP < 2.5s, FID < 100ms, CLS < 0.1
-- [ ] Schema markup: Article, Organization, BreadcrumbList as appropriate
-- [ ] Social meta tags: OG and Twitter Card tags
-- [ ] HTTPS: Secure connections
-- [ ] XML sitemap: Updated automatically
-
-**Performance Impact on SEO:**
-```markdown
-### Core Web Vitals Assessment
-
-**LCP (Largest Contentful Paint):**
-- Current: [X]s
-- Target: < 2.5s
-- Issues: [List issues]
-- Fix: [Optimizations needed]
-
-**FID (First Input Delay):**
-- Current: [X]ms
-- Target: < 100ms
-- Issues: [List issues]
-- Fix: [Optimizations needed]
-
-**CLS (Cumulative Layout Shift):**
-- Current: [X]
-- Target: < 0.1
-- Issues: [List issues]
-- Fix: [Optimizations needed]
+**[ID]: [Issue Title]**
+- Severity: Critical/High/Medium/Low
+- Location: file.ts:123-145
+- Issue: [What's wrong]
+- Impact: [Why it matters]
+- Root Cause: [Why it happened]
+- Suggestion: [How to fix]
+- Effort: [Time estimate]
 ```
 
 ### Step 4: Identify Patterns and Root Causes
@@ -589,104 +390,46 @@ All issues documented for fixing later.
 
 ### The "No Changes" Rule
 
-**Why this rule exists:**
-- Past experience: Changes during review broke things
-- Time pressure leads to hasty fixes
-- Review and fix are different mindsets
-- Analysis requires different pace than implementation
+**Every temptation follows this pattern:**
+1. You notice something fixable
+2. You think "this is quick and easy"
+3. You're tempted to fix it now
+4. **You must resist and document instead**
 
-**Temptations to resist:**
-- "This is a quick fix" - NO, document it
-- "Just renaming a variable" - NO, document it
-- "Fixing a typo" - NO, document it
-- "One-line change" - NO, document it
-
-**What to do instead:**
-- Document the issue thoroughly
-- Explain how to fix it
-- Note effort required
-- Let user decide when to fix
+**See full explanation:** `.claude/docs/code-review-guide.md` - "The No Changes Rule"
 
 ### Taking Your Time
 
-**This is the time to be thorough:**
+User runs this when they have time. Be thorough:
 - Read code carefully
 - Trace through logic
 - Consider edge cases
-- Think about implications
 - Question assumptions
 
-**No rushing because:**
-- User runs this when they have time
-- Quality matters here
-- Missing issues is worse than taking time
-- This is preventative, not reactive
+**Missing issues is worse than taking time.**
 
 ### Grading Rubric
 
-**A (Excellent):**
-- Follows all standards
-- Well-tested, secure
-- Clean architecture
-- No critical issues
-- Minimal tech debt
+- **A (90-100%):** Excellent - follows all standards, well-tested, secure, minimal tech debt
+- **B (80-89%):** Good - mostly follows standards, minor issues, decent coverage
+- **C (70-79%):** Adequate - some violations, medium issues, gaps in testing
+- **D (60-69%):** Poor - many violations, high priority issues, major gaps
+- **F (<60%):** Failing - critical security issues, no tests, unsustainable debt
 
-**B (Good):**
-- Mostly follows standards
-- Minor issues only
-- Decent test coverage
-- Some tech debt
-
-**C (Adequate):**
-- Some standard violations
-- Medium priority issues
-- Gaps in testing
-- Notable tech debt
-
-**D (Poor):**
-- Many standard violations
-- High priority issues
-- Major gaps
-- Significant debt
-
-**F (Failing):**
-- Critical issues
-- Security problems
-- No tests
-- Unsustainable debt
+**Full rubric:** `.claude/docs/code-review-guide.md` - "Grading Rubric"
 
 ## Error Handling
 
-**If scope too large:**
-- Report it
-- Suggest focusing on critical areas first
-- Offer to review in chunks
-
-**If unfamiliar technology:**
-- Note it in report
-- Focus on general principles
-- Recommend specialist review
-
-**If can't determine issue:**
-- Document uncertainty
-- Explain what's unclear
-- Suggest investigation steps
+**If scope too large:** Report it, suggest reviewing in chunks
+**If unfamiliar technology:** Note in report, focus on general principles
+**If can't determine issue:** Document uncertainty, suggest investigation
 
 ## Success Criteria
 
-Review succeeds when:
-- Comprehensive analysis completed
-- All issues documented
-- No changes made
-- Clear recommendations provided
-- Report is actionable
-- User knows exactly what to fix
-- Priorities are clear
-- Effort estimates included
+✅ Comprehensive analysis completed
+✅ All issues documented with details
+✅ No code changes made
+✅ Clear, actionable recommendations
+✅ User knows what to fix and in what order
 
-**Perfect review:**
-- Thorough and unhurried
-- Issues with root causes
-- Clear fix suggestions
-- Zero code changes
-- Maintainable codebase as result
+**See:** `.claude/docs/code-review-guide.md` - "Success Criteria"
