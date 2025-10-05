@@ -7,6 +7,78 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2025-10-04
+
+### Removed
+- **JSON artifacts feature** - Removed abandoned state.json/session-N.json generation
+  - Deleted Step 5.5 from save-context.md (193 lines)
+  - Moved state-schema.json and session-schema.json to reference/archive/abandoned-features/
+  - Feature was never consumed by review-context, added complexity without value
+- **Redundant reference/ files** - Deleted 4 obsolete files consolidated into templates
+  - communication-guide.md → Merged into CLAUDE.template.md
+  - workflow-rules.md → Merged into CODE_STYLE.template.md
+  - claude-example.md → Redundant with templates
+  - helpful prompts.txt → Obsolete notes
+
+### Changed
+- **validate-context.md streamlined** - 612 lines → 240 lines (60% reduction)
+  - Now calls scripts/validate-context.sh instead of duplicating logic
+  - Eliminated 372 lines of duplicate validation code
+  - Command focuses on interpretation, script does the work
+- **preferences.yaml repurposed** - Moved to reference/preference-catalog.yaml
+  - Clearly marked as reference documentation, not enforced
+  - Actual preferences live in CLAUDE.template.md, CODE_STYLE.template.md, .context-config.json
+- **Reference folder reorganized** - Better structure for archived content
+  - Created reference/archive/ for historical approaches
+  - Created reference/archive/old-prompts/ for superseded prompts
+  - Created reference/archive/abandoned-features/ for removed features
+  - Added reference/README.md explaining folder purpose
+
+### Fixed
+- **scripts/validate-context.sh** - Removed checks for deleted JSON schemas
+  - No longer warns about missing state-schema.json or session-schema.json
+  - Updated to check for preference-catalog.yaml in reference/ (informational only)
+- **STRUCTURE.md** - Updated to reflect current file organization
+  - Removed references to deleted JSON schemas
+  - Added reference/ section
+  - Clarified preference-catalog.yaml purpose
+
+### Technical Details
+
+**Phase 1 Cleanup Complete:**
+
+This release implements Phase 1 of the comprehensive system review. Main goals:
+1. Remove abandoned features (JSON artifacts)
+2. Delete redundant files (reference/ cleanup)
+3. Consolidate duplicate logic (validation)
+4. Simplify commands (validate-context)
+
+**Lines Removed:**
+- save-context.md: -193 lines (JSON artifact generation)
+- validate-context.md: -372 lines (duplicate validation logic)
+- Total: ~565 lines removed
+
+**Files Removed:**
+- 4 redundant reference files (consolidated into templates)
+- 2 JSON schema files (abandoned feature)
+- Old validate-context.md (archived)
+
+**Files Reorganized:**
+- preferences.yaml → reference/preference-catalog.yaml
+- Legacy files → reference/archive/
+- Old prompts → reference/archive/old-prompts/
+
+**Impact:**
+- ✅ Simpler system (fewer failure points)
+- ✅ No broken promises (JSON artifacts removed)
+- ✅ No duplicate logic (validation consolidated)
+- ✅ Clear file organization (reference/ structure)
+- ✅ Honest about what's enforced (preferences are catalog only)
+
+**Next Steps:**
+- Phase 2: Extract documentation from commands
+- Phase 3: Simplify /update-context-system Step 4
+
 ## [1.3.4] - 2025-10-04
 
 ### Fixed
@@ -497,6 +569,7 @@ This release addresses that request completely.
 
 ## Version History
 
+- **1.4.0** (2025-10-04) - Phase 1 cleanup: Remove abandoned features and redundant files
 - **1.3.4** (2025-10-04) - Fix metadata drift across documentation
 - **1.3.3** (2025-10-04) - Hybrid file moving for comprehensive migration
 - **1.3.2** (2025-10-04) - Cleanup installation files after init/migrate

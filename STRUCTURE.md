@@ -50,9 +50,12 @@ Configuration files for the context system.
 
 - **.context-config.template.json** - Master configuration template with workflow preferences
 - **context-config-schema.json** - JSON Schema for configuration validation
-- **preferences.yaml** - Centralized preferences (single source of truth)
-- **state-schema.json** - Schema for current project state artifacts
-- **session-schema.json** - Schema for session activity log artifacts
+
+## reference/
+
+Reference materials and catalogs (not enforced by commands):
+
+- **preference-catalog.yaml** - Comprehensive catalog of available workflow preferences (reference only)
 
 ## Usage
 

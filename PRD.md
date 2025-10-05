@@ -3,7 +3,7 @@
 ## Executive Summary
 
 **Product Name:** Claude Context System
-**Version:** 1.3.4
+**Version:** 1.4.0
 **Owner:** Rex Kirshner
 **Status:** Active Development
 **Last Updated:** 2025-10-04

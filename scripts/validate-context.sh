@@ -192,16 +192,9 @@ done
 echo ""
 
 # =============================================================================
-# Check 5: Preferences and Schema Files
+# Check 5: Configuration Files
 # =============================================================================
 echo "🔧 Checking configuration system..."
-
-if [ -f "$CONFIG_DIR/preferences.yaml" ]; then
-  echo "  ✅ preferences.yaml found"
-else
-  echo -e "  ${YELLOW}⚠️  preferences.yaml not found${NC}"
-  ((WARNINGS++))
-fi
 
 if [ -f "$CONFIG_DIR/context-config-schema.json" ]; then
   echo "  ✅ context-config-schema.json found"
@@ -210,18 +203,9 @@ else
   ((WARNINGS++))
 fi
 
-if [ -f "$CONFIG_DIR/state-schema.json" ]; then
-  echo "  ✅ state-schema.json found"
-else
-  echo -e "  ${YELLOW}⚠️  state-schema.json not found${NC}"
-  ((WARNINGS++))
-fi
-
-if [ -f "$CONFIG_DIR/session-schema.json" ]; then
-  echo "  ✅ session-schema.json found"
-else
-  echo -e "  ${YELLOW}⚠️  session-schema.json not found${NC}"
-  ((WARNINGS++))
+# Check for reference catalog (optional)
+if [ -f "$BASE_DIR/reference/preference-catalog.yaml" ]; then
+  echo "  ℹ️  preference-catalog.yaml found (reference)"
 fi
 echo ""
 
