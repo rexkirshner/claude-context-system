@@ -421,7 +421,7 @@ Create `context/.context-config.json`:
 
 ```json
 {
-  "version": "1.6.1",
+  "version": "1.6.2",
   "owner": "[Your Name]",
   "project": {
     "name": "[PROJECT_NAME]",
