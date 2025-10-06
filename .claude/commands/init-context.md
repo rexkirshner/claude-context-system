@@ -196,7 +196,7 @@ curl -sL https://raw.githubusercontent.com/rexkirshner/claude-context-system/mai
 After initialization, explain to the user:
 
 ```
-✅ Context System Initialized (v1.9.0)
+✅ Context System Initialized (v2.0.0)
 
 Created 3 core files + supporting docs:
 - context/CONTEXT.md - Orientation (who/what/how/why)
@@ -206,7 +206,7 @@ Created 3 core files + supporting docs:
 - context/QUICK_REF.md - Dashboard (auto-generated)
 - context/.context-config.json - Configuration
 
-⚡ Two-Tier Workflow (NEW in v1.9.0):
+⚡ Two-Tier Workflow:
 
 **Tier 1: Quick Updates (Most Sessions)**
 Run /save at session end - 2-3 minutes
@@ -224,7 +224,7 @@ Run /save-full before breaks/handoffs - 10-15 minutes
 **Time Investment for 20 Sessions:**
 - 17× /save: ~40-50 min
 - 3× /save-full: ~30-45 min
-- Total: ~70-95 min (vs. 100-200 min in v1.8.0)
+- Total: ~70-95 min (50% reduction from v1.8.0)
 
 🎯 Philosophy:
 
@@ -324,7 +324,7 @@ When `/save-context` runs, it should check if additional documentation is needed
 - Feature roadmap getting complex
 - Ask: "Product scope is expanding. Should I create PRD.md to document vision and roadmap for AI agent context?"
 
-**v1.8.0 Note:** We always create DECISIONS.md (core file #3) because it's critical for AI agents to understand WHY choices were made. Only ARCHITECTURE.md and PRD.md are suggested on-demand when complexity demands it.
+**v2.0 Note:** We always create DECISIONS.md because it's critical for AI agents to understand WHY choices were made. Only ARCHITECTURE.md and PRD.md are suggested on-demand when complexity demands it.
 
 ## Important Notes
 
