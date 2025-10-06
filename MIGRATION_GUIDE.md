@@ -1,8 +1,60 @@
-# Migration Guide: v1.7.0/v1.8.0 → v1.9.0
+# Migration Guide
 
-**Claude Context System v1.9.0 Migration**
+**Claude Context System Migration Guide**
 
-This guide helps you upgrade from v1.7.0 or v1.8.0 to v1.9.0 with the new two-tier workflow.
+---
+
+## Latest: v1.9.0 → v2.0.0
+
+**Current version: v2.0.0**
+
+### Quick Migration
+
+The best way to migrate to v2.0.0:
+
+```bash
+# 1. Update slash commands and config
+/update-context-system
+
+# 2. System will offer automatic migration
+# Choose: [Y] to migrate, includes:
+#   - CLAUDE.md → CONTEXT.md (preserves custom sections)
+#   - Creates STATUS.md (single source of truth)
+#   - Creates DECISIONS.md (WHY documentation)
+#   - Reformats SESSIONS.md (structured format)
+#   - Auto-generates QUICK_REF.md
+#   - Backup to context/.backup-pre-v2-[timestamp]/
+```
+
+### What Changed in v2.0.0
+
+**File Structure:**
+```
+Old (v1.9.0):              New (v2.0.0):
+- CLAUDE.md          →     - CONTEXT.md
+- next-steps.md      →     - STATUS.md (single source)
+- todo.md            →     - (optional - merge to STATUS.md)
+- SESSIONS.md        →     - SESSIONS.md (structured format)
+                     →     - QUICK_REF.md (auto-generated)
+                     →     - DECISIONS.md (always created)
+```
+
+**Key Improvements:**
+1. **Status duplication eliminated** - STATUS.md is single source of truth
+2. **All promised files created** - No more missing QUICK_REF.md or SESSIONS.md
+3. **SESSIONS.md scannable** - Structured format with Changed/Decisions/Files sections
+4. **Migration safety** - Dry-run, automatic backups, rollback available
+5. **Progress auto-calculated** - QUICK_REF.md computes % from STATUS.md checkboxes
+
+**See:** [CHANGELOG.md](./CHANGELOG.md) for complete v2.0.0 changes
+
+---
+
+## Previous: v1.7.0/v1.8.0 → v1.9.0
+
+**Note:** If you're on v1.7 or v1.8, upgrade to v1.9 first, then to v2.0.
+
+This guide helps you upgrade from v1.7.0 or v1.8.0 to v1.9.0 with the two-tier workflow.
 
 ---
 

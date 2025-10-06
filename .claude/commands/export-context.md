@@ -70,16 +70,21 @@ Gather all markdown files in order:
 ```bash
 # Core documentation files (in logical order)
 FILES=(
-  "context/CLAUDE.md"
-  "context/PRD.md"
-  "context/ARCHITECTURE.md"
-  "context/CODE_STYLE.md"
+  "context/CONTEXT.md"          # or CLAUDE.md for pre-v2.0
+  "context/STATUS.md"            # v2.0+ single source of truth
+  "context/QUICK_REF.md"         # v2.0+ auto-generated dashboard
   "context/DECISIONS.md"
-  "context/KNOWN_ISSUES.md"
   "context/SESSIONS.md"
-  "context/tasks/next-steps.md"
-  "context/tasks/todo.md"
+  "context/PRD.md"               # optional
+  "context/ARCHITECTURE.md"      # optional
+  "context/CODE_STYLE.md"        # optional
+  "context/KNOWN_ISSUES.md"      # optional
 )
+
+# Support both v1.x and v2.0 structures
+if [ -f "context/CLAUDE.md" ] && [ ! -f "context/CONTEXT.md" ]; then
+  FILES[0]="context/CLAUDE.md"
+fi
 
 # Additional files if they exist
 for file in context/*.md; do

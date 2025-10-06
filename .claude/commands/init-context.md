@@ -5,7 +5,7 @@ description: Initialize Claude Context System for this project
 
 # /init-context Command
 
-Initialize a **minimal overhead** context system for this project. Creates just 2 core files (CONTEXT.md + STATUS.md), then grows naturally as needed.
+Initialize a **minimal overhead** context system for this project. Creates 5 core files (CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md, QUICK_REF.md), with optional files suggested when complexity demands.
 
 **Philosophy:** Minimal overhead during work. Good-enough recovery when needed. Single source of truth.
 
@@ -14,7 +14,7 @@ Initialize a **minimal overhead** context system for this project. Creates just 
 
 ## What This Command Does
 
-Creates **3 core files** that serve dual purpose (developer productivity + AI agent review/takeover):
+Creates **5 core files** that serve dual purpose (developer productivity + AI agent review/takeover):
 1. **CONTEXT.md** - Orientation (rarely changes: who/what/how/why)
 2. **STATUS.md** - Current state (frequently updated: tasks/blockers/next)
 3. **DECISIONS.md** - Decision log (WHY choices made - critical for AI agents)
@@ -23,7 +23,7 @@ Creates **3 core files** that serve dual purpose (developer productivity + AI ag
 
 Optional files (PRD.md, ARCHITECTURE.md) suggested when complexity demands.
 
-## Why 3 Core Files?
+## Why 5 Core Files?
 
 **The Dual Purpose:**
 1. **Session continuity** - Resume work seamlessly
@@ -198,7 +198,7 @@ After initialization, explain to the user:
 ```
 ✅ Context System Initialized (v2.0.0)
 
-Created 3 core files + supporting docs:
+Created 5 core files:
 - context/CONTEXT.md - Orientation (who/what/how/why)
 - context/STATUS.md - Current state (tasks/blockers/next)
 - context/DECISIONS.md - Decision log (WHY choices made)
@@ -351,9 +351,8 @@ If errors occur:
 ## Success Criteria
 
 Command succeeds when:
-- 3 core files (CONTEXT.md + STATUS.md + DECISIONS.md) created with available data
-- SESSIONS.md initialized with structured, comprehensive format
-- QUICK_REF.md generated from STATUS.md
+- 5 core files (CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md, QUICK_REF.md) created with available data
+- All files use v2.0 structure and format
 - Configuration valid
 - Installation files cleaned up
 - User understands dual-purpose philosophy (developer + AI agent)
