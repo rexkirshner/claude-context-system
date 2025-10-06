@@ -83,6 +83,43 @@
 
 ---
 
+## Example: Initial Session
+
+Here's what your first session entry might look like after running `/init-context` and `/save`:
+
+## Session 1 | 2025-10-06 | Project Initialization
+
+**Duration:** 0.5h | **Focus:** Setup Claude Context System v2.0 | **Status:** ✅ Complete
+
+### Changed
+
+- ✅ Initialized Claude Context System v2.0
+- ✅ Created 5 core documentation files (CONTEXT, STATUS, DECISIONS, SESSIONS, QUICK_REF)
+- ✅ Configured .context-config.json with version 2.0.0
+
+### Decisions
+
+- **Documentation System:** Chose Claude Context System v2.0 for session continuity and AI agent handoffs
+- **File Structure:** Using v2.0 structure with STATUS.md as single source of truth
+
+### Files
+
+**NEW:**
+- `context/CONTEXT.md` - Project orientation and overview
+- `context/STATUS.md` - Single source of truth for current state
+- `context/DECISIONS.md` - Decision log with rationale
+- `context/SESSIONS.md` - This file (structured session history)
+- `context/QUICK_REF.md` - Auto-generated dashboard
+- `context/.context-config.json` - System configuration
+
+### Next Session
+
+**Priority:** Begin development work with context system in place
+**Blockers:** None
+**Questions:** None - system ready to use
+
+---
+
 ## Session Template
 
 ```markdown

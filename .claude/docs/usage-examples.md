@@ -30,9 +30,10 @@ This guide demonstrates practical usage patterns for different situations. Each 
 **Confidence Score: 95/100** - Perfect
 
 ✅ **Accurate Documentation:**
-- CLAUDE.md - All current, verified
+- CONTEXT.md - All current, verified
+- STATUS.md - Current state up to date, 3 action items ready
 - SESSIONS.md - Last entry yesterday, complete WIP
-- next-steps.md - 3 action items ready
+- QUICK_REF.md - Auto-generated dashboard current
 
 **Last Session:** Session 23 - 2025-10-03
 **Last Work:** Implementing user profile page (complete)
@@ -40,7 +41,7 @@ This guide demonstrates practical usage patterns for different situations. Each 
 
 **Recommendation:** ✅ Ready to resume work immediately
 
-**Next Steps from docs:**
+**Next Steps from STATUS.md:**
 1. Add user settings page
 2. Implement account deletion flow
 3. Add profile photo upload
@@ -55,18 +56,19 @@ Ready to continue?
 **Every 30-60 minutes while coding:**
 
 ```
-/quick-save-context
+/save
 ```
 
 **What happens:**
 ```
-✅ Quick checkpoint saved
+✅ Quick checkpoint saved (2-3 minutes)
 
 Updated:
-- SESSIONS.md - Added progress note
-- next-steps.md - Marked settings page in progress
+- STATUS.md - Updated current work and next steps
+- SESSIONS.md - Brief progress note
+- QUICK_REF.md - Auto-generated dashboard updated
 
-Time: ~5 seconds
+Time: 2-3 minutes
 ```
 
 **Why:** Lightweight safety net. If session crashes, you have recent checkpoint.
@@ -74,18 +76,18 @@ Time: ~5 seconds
 ### After Completing Feature
 
 ```
-/save-context
+/save-full
 ```
 
 **What happens:**
 ```
-✅ Context Updated
+✅ Context Updated (10-15 minutes comprehensive save)
 
 **Files Updated:**
-- CLAUDE.md - Updated feature list, added settings page
-- PRD.md - Marked feature complete in progress log
-- SESSIONS.md - Complete session 24 entry with accomplishments
-- next-steps.md - Settings page marked done, moved to next item
+- STATUS.md - Updated current state, next steps, recent work
+- SESSIONS.md - Complete session 24 entry with detailed accomplishments
+- DECISIONS.md - Added zod validation library choice
+- QUICK_REF.md - Auto-generated dashboard updated
 
 **Key Changes Captured:**
 - Implemented user settings page (app/settings/page.tsx)
@@ -101,14 +103,14 @@ Time: ~5 seconds
 ### End of Day: Session Close
 
 ```
-/save-context
+/save-full
 ```
 
-**Even if you just ran it 10 minutes ago.** Why? Ensures clean session boundary with proper WIP capture if needed.
+**Even if you just ran /save 10 minutes ago.** Why? Ensures clean session boundary with comprehensive WIP capture.
 
 **What happens:**
 ```
-✅ Context Updated
+✅ Context Updated (comprehensive save)
 
 **Work In Progress:**
 - Started account deletion flow
@@ -148,7 +150,7 @@ rm -rf ../claude-context-system
 
 **What happens:**
 ```
-🎯 Initializing Claude Context System
+🎯 Initializing Claude Context System v2.0
 
 **Step 1: Analyzing project...**
 - Detected: Next.js 14 application
@@ -157,51 +159,50 @@ rm -rf ../claude-context-system
 
 **Step 2: Creating context structure...**
 ✅ Created context/
-✅ Created context/tasks/
-✅ Created context/reviews/
+✅ Created artifacts/ (for code reviews, performance reports)
 
-**Step 3: Generating documentation...**
-✅ CLAUDE.md (analyzed project structure)
-✅ PRD.md (with project name from package.json)
-✅ ARCHITECTURE.md (detected Next.js App Router)
-✅ CODE_STYLE.md (with your workflow preferences)
-✅ DECISIONS.md (empty, ready for decisions)
-✅ KNOWN_ISSUES.md (empty, ready for issues)
-✅ SESSIONS.md (Session 1 placeholder)
-✅ next-steps.md (initial setup tasks)
-✅ todo.md (empty, ready for tasks)
+**Step 3: Generating core documentation...**
+✅ CONTEXT.md (project orientation - analyzed structure)
+✅ STATUS.md (single source of truth for current state)
+✅ DECISIONS.md (decision log with rationale)
+✅ SESSIONS.md (structured session history)
+✅ QUICK_REF.md (auto-generated dashboard)
 
 **Step 4: Configuration...**
 ✅ .context-config.json created
 
 **✅ Initialization Complete!**
 
+Created 5 core files. Optional files (PRD.md, ARCHITECTURE.md) suggested when needed.
+
 Next steps:
-1. Review context/CLAUDE.md - verify project info
-2. Review context/PRD.md - add project goals
-3. Run /save-context to establish Session 1 baseline
+1. Review context/CONTEXT.md - verify project info
+2. Customize context/STATUS.md - add current work
+3. Run /save to establish baseline
 ```
 
 ### Step 3: Customize Documentation
 
 Review and customize the generated files:
-- Update project description in CLAUDE.md
-- Add project goals to PRD.md
-- Document initial architecture decisions
+- Update project description in CONTEXT.md
+- Add current work to STATUS.md
+- Document initial architecture decisions if needed
 
 ### Step 4: Establish Baseline
 
 ```
-/save-context
+/save
 ```
 
 **What happens:**
 ```
-✅ Context Updated
+✅ Baseline Established
 
-**Session 1 Baseline Established**
+**Session 1 Created**
 
-This is your starting point. All future sessions build on this.
+STATUS.md: Current state captured
+SESSIONS.md: Session 1 entry added
+QUICK_REF.md: Dashboard generated
 
 Ready to start coding!
 ```
@@ -225,13 +226,13 @@ Ready to start coding!
 **Confidence Score: 72/100** - Adequate
 
 ✅ **Accurate Documentation:**
-- CLAUDE.md - Current
+- CONTEXT.md - Current
 - ARCHITECTURE.md - Matches code
 
 ⚠️ **Issues Found:**
 - SESSIONS.md - Last entry 3 weeks old
-- KNOWN_ISSUES.md - May have resolved issues not documented
-- next-steps.md - Priorities may have shifted
+- STATUS.md - May not reflect recent work
+- Potential drift between code and docs
 
 **Last Session:** Session 15 - 2025-09-13
 **Last Work:** Refactoring authentication system
@@ -242,8 +243,8 @@ Ready to start coding!
 **Suggested Actions:**
 1. Check git log for work since last session
 2. Review current code state vs documented state
-3. Update KNOWN_ISSUES.md if issues resolved
-4. Run /save-context to update documentation
+3. Update STATUS.md if state changed
+4. Run /save to update documentation
 ```
 
 ### Step 2: Investigate Gaps
@@ -262,7 +263,7 @@ git diff
 ### Step 3: Update Documentation
 
 ```
-/save-context
+/save
 ```
 
 **In your message to Claude:**
@@ -273,10 +274,10 @@ git diff
 ✅ Context Updated
 
 **Updated based on git history:**
+- STATUS.md - Updated current state, marked auth refactor complete
 - SESSIONS.md - Added retrospective entries for completed work
-- KNOWN_ISSUES.md - Removed auth refresh limitation (now fixed)
-- next-steps.md - Marked auth refactor complete
-- PRD.md - Updated progress (Authentication: 100% complete)
+- QUICK_REF.md - Dashboard updated with current status
+- DECISIONS.md - Captured auth approach decisions
 
 **Current Status:** Ready for next feature
 
@@ -316,13 +317,13 @@ Now run `/review-context` again:
 ### Step 1: Ensure Documentation Current
 
 ```
-/save-context
+/save-full
 ```
 
 **Make sure everything is captured:**
 - All recent work documented
 - WIP state clear
-- Known issues listed
+- Current state in STATUS.md
 - Next steps defined
 
 ### Step 2: Validate Quality
@@ -409,7 +410,7 @@ Next: Implement profile edit form (see next-steps.md)
 ### Step 1: Ensure Documentation Current
 
 ```
-/save-context
+/save
 ```
 
 **Critical:** Review must reflect current code state.
@@ -599,7 +600,7 @@ Start from the documented WIP point. You have:
 **Before debugging, capture the issue:**
 
 ```
-/save-context
+/save
 ```
 
 **In message to Claude:**
@@ -623,7 +624,7 @@ This is a CORS configuration issue.
 **When you choose an approach:**
 
 ```
-/save-context
+/save
 ```
 
 **Captures in DECISIONS.md:**
@@ -653,7 +654,7 @@ This is a CORS configuration issue.
 ### Step 4: Capture Solution
 
 ```
-/save-context
+/save
 ```
 
 **Captures in SESSIONS.md:**
@@ -682,7 +683,7 @@ This is a CORS configuration issue.
 ### Step 1: Document the Plan
 
 ```
-/save-context
+/save
 ```
 
 **Captures in DECISIONS.md:**
@@ -709,14 +710,14 @@ This is a CORS configuration issue.
 **After each migration session:**
 
 ```
-/save-context
+/save
 ```
 
 **Captures:**
 - Which routes migrated
 - Patterns learned
 - Issues encountered
-- Remaining work
+- Remaining work in STATUS.md
 
 ### Step 3: Multiple Sessions
 
@@ -760,10 +761,10 @@ After completion, SESSIONS.md shows complete timeline:
 ### Step 1: Document Initial State
 
 ```
-/save-context
+/save
 ```
 
-**Captures:**
+**Captures in STATUS.md:**
 ```markdown
 **Starting:** Stripe integration for payments
 **Knowledge:** Never used Stripe before
@@ -788,10 +789,10 @@ Documented in DECISIONS.md
 **As you implement:**
 
 ```
-/save-context
+/save
 ```
 
-**Captures in ARCHITECTURE.md:**
+**Captures in ARCHITECTURE.md (if it exists):**
 ```markdown
 ### Payment Flow
 
@@ -810,7 +811,7 @@ Documented in DECISIONS.md
 
 ### Step 4: Document Learnings
 
-**Captures gotchas in KNOWN_ISSUES.md or CODE_STYLE.md:**
+**Captures gotchas in DECISIONS.md or CODE_STYLE.md (if it exists):**
 
 ```markdown
 ## Stripe Integration Patterns
@@ -835,25 +836,25 @@ Include idempotency keys for payment operations.
 
 ```
 Morning:        /review-context
-While coding:   /quick-save-context (every 30-60 min)
-After feature:  /save-context
-End of day:     /save-context (even if just ran it)
+While coding:   /save (every 30-60 min - 2-3 min quick updates)
+After feature:  /save-full (10-15 min comprehensive save)
+End of day:     /save-full (even if just ran /save)
 ```
 
 ### The Quality-Check Pattern
 
 ```
-Feature done:    /save-context
+Feature done:    /save
 Validation:      /validate-context
 Deep review:     /code-review
 Fix issues:      (new session)
-Final check:     /save-context
+Final check:     /save
 ```
 
 ### The Handoff Pattern
 
 ```
-Current state:   /save-context
+Current state:   /save-full
 Validate:        /validate-context
 Export:          /export-context
 Share:           Send export file + instructions
@@ -864,7 +865,7 @@ Share:           Send export file + instructions
 ```
 Review:          /review-context
 Check gaps:      git log, git status
-Update:          /save-context (if needed)
+Update:          /save (if needed)
 Verify:          /review-context (again)
 Resume:          Start working
 ```
@@ -878,29 +879,29 @@ Resume:          Start working
 **Bad:**
 ```
 Code for 8 hours straight
-Never run /save-context
+Never run /save
 Session crashes
 Lose everything
 ```
 
 **Good:**
 ```
-/quick-save-context every 30 minutes
-/save-context after major milestones
-Never lose >30 minutes of work
+/save every 30-60 minutes (2-3 min quick updates)
+/save-full after major milestones
+Never lose >1 hour of work
 ```
 
 ### ❌ Saving Without Context
 
 **Bad:**
 ```
-/save-context
+/save
 "update stuff"
 ```
 
 **Good:**
 ```
-/save-context
+/save
 "Implemented user authentication with JWT tokens.
 Created login/logout flows, added middleware for protected routes.
 Decided to use 'jose' library over 'jsonwebtoken' for Edge compatibility."
@@ -936,7 +937,7 @@ Resume efficiently
 ```
 /code-review
 Read full report
-/save-context (to capture current state)
+/save (to capture current state)
 Fix issues in new focused session
 ```
 
@@ -947,14 +948,14 @@ Fix issues in new focused session
 **You're using the system well when:**
 
 ✅ New sessions start with `/review-context`
-✅ You save context every 30-60 minutes (quick or full)
-✅ Session ends always include `/save-context`
+✅ You run `/save` every 30-60 minutes during active work
+✅ Session ends always include `/save-full`
 ✅ You can resume after weeks with high confidence
 ✅ Team handoffs require minimal explanation
 ✅ Git history and SESSIONS.md tell same story
 ✅ WIP captures are detailed and actionable
 ✅ Code reviews are thorough because no time pressure
-✅ Documentation drift is minimal (everything stays current)
+✅ STATUS.md is always current (single source of truth)
 ✅ You rarely repeat explanations to Claude
 
 **The ultimate test:**
@@ -966,13 +967,13 @@ When this is true, you've mastered the system.
 
 ## Tips & Tricks
 
-### Tip 1: Use Quick-Save for Active Work
+### Tip 1: Two-Tier Workflow
 
-Don't let `/save-context` feel heavy. Use `/quick-save-context` frequently during active coding. Full save at natural breakpoints.
+Use `/save` (2-3 min) for frequent checkpoints during active coding. Use `/save-full` (10-15 min) for comprehensive saves at natural breakpoints (end of day, before breaks, after major features).
 
 ### Tip 2: Descriptive Session Messages
 
-When running `/save-context`, give Claude context:
+When running `/save` or `/save-full`, give Claude context:
 - What you accomplished
 - What decisions you made
 - What you're about to start
@@ -980,7 +981,7 @@ When running `/save-context`, give Claude context:
 
 ### Tip 3: WIP is King
 
-The most valuable part of `/save-context` is **Work In Progress** capture:
+The most valuable part of `/save-full` is **Work In Progress** capture:
 - Exact file and line number
 - What you were doing
 - Why you chose this approach
@@ -1002,7 +1003,7 @@ Always `/validate-context` before:
 
 Good pattern:
 ```
-/save-context
+/save
 git add .
 git commit -m "Implemented feature X"
 ```
@@ -1024,10 +1025,10 @@ Run `/code-review` on completed features to learn:
 
 **Solution:**
 ```
-/save-context
+/save
 ```
 
-Run it. Even if you think nothing changed.
+Run it. Even if you think nothing changed. STATUS.md will be updated.
 
 ### "Can't resume after long break"
 
@@ -1035,26 +1036,26 @@ Run it. Even if you think nothing changed.
 ```
 /review-context
 git log --since="[last session date]"
-/save-context (fill in gaps)
+/save (fill in gaps)
 /review-context (verify)
 ```
 
 ### "Lost work to session crash"
 
 **Solution:**
-Check last `/quick-save-context` time. Resume from there.
+Check last `/save` time. Resume from there using SESSIONS.md WIP.
 
 **Prevention:**
-More frequent quick-saves (every 15-30 min).
+More frequent `/save` (every 30 minutes during active work).
 
 ### "Documentation contradicts code"
 
 **Solution:**
 ```
-/save-context
+/save
 ```
 
-Tell Claude what actually happened. It will update docs to match reality.
+Tell Claude what actually happened. It will update STATUS.md and other docs to match reality.
 
 ---
 
