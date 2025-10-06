@@ -127,32 +127,24 @@ The installer will:
 - Installer will show version change (if any)
 - Installer will list all updated files
 
-### Step 3: Update Version in Config
+### Step 3: Run Migration Script
 
-**ACTION:** After the installer completes, update the version in your project config:
+**ACTION:** After the installer completes, run the migration script to clean up legacy files and update configuration:
 
 ```bash
-# Get the latest version
-LATEST_VERSION=$(grep -m 1 '"version":' config/.context-config.template.json | cut -d'"' -f4 2>/dev/null || echo "1.8.0")
-
-# Show current and new version
-CURRENT_VERSION=$(grep -m 1 '"version":' context/.context-config.json | cut -d'"' -f4 2>/dev/null || echo "unknown")
-
 echo ""
-echo "📦 Version Update:"
-echo "  Current: $CURRENT_VERSION"
-echo "  Latest:  $LATEST_VERSION"
-echo ""
+echo "🔄 Running migration to latest version..."
+./scripts/migrate-to-1-9-0.sh
 ```
 
-**ACTION:** Use the Edit tool to update the version in context/.context-config.json:
-```
-file_path: context/.context-config.json
-old_string: "version": "[OLD_VERSION]"
-new_string: "version": "[NEW_VERSION]"
-```
+The migration script will:
+- Detect current version
+- Clean up legacy system files (obsolete commands, old templates)
+- Update configuration version
+- Suggest (but not auto-apply) user content updates
+- **Never deletes user content** - only system files
 
-Replace [OLD_VERSION] and [NEW_VERSION] with the actual version strings from the bash output above.
+**This is safe and automatic** - it only removes obsolete system files, never your documentation.
 
 ### Step 4: Review Template Updates (Optional)
 
