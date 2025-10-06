@@ -68,12 +68,16 @@ Old (v1.9.0):              New (v2.0.0):
                      →     - DECISIONS.md (always created)
 ```
 
-**Key Improvements:**
+**Key Improvements (v2.0):**
 1. **Status duplication eliminated** - STATUS.md is single source of truth
 2. **All promised files created** - No more missing QUICK_REF.md or SESSIONS.md
 3. **SESSIONS.md scannable** - Structured format with Changed/Decisions/Files sections
-4. **Migration safety** - Dry-run, automatic backups, rollback available
-5. **Progress auto-calculated** - QUICK_REF.md computes % from STATUS.md checkboxes
+4. **Two-tier workflow** - `/save` (2-3 min quick) vs `/save-full` (10-15 min comprehensive)
+
+**Planned for v2.1:**
+- Migration safety (dry-run, automatic backups, rollback)
+- Progress auto-calculation from STATUS.md checkboxes
+- Decision ID auto-increment
 
 **See:** [CHANGELOG.md](./CHANGELOG.md) for complete v2.0.0 changes
 

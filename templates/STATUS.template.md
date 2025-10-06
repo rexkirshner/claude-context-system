@@ -1,6 +1,6 @@
 # STATUS.md
 
-**Single source of truth for "what's happening now."** Updated every `/save-context`.
+**Single source of truth for "what's happening now."** Updated every `/save`.
 
 **For orientation:** See `CONTEXT.md` (rarely changes)
 **For history:** See `SESSIONS.md` (structured, scannable)

@@ -41,13 +41,13 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 ### Core Development Methodology
 
-1. **Plan First:** Read codebase, think through problem, write plan to `context/tasks/todo.md`
-2. **Track Progress:** Create todo items that can be checked off during work
+1. **Plan First:** Read codebase, think through problem, use TodoWrite tool for task tracking
+2. **Track Progress:** Create todo items with TodoWrite that can be checked off during work
 3. **Verify Plan:** Check in with user before starting implementation
 4. **Work Incrementally:** Complete todos one by one, marking complete as you go
 5. **Communicate Clearly:** Provide high-level explanation of changes at each step
 6. **Simplicity Above All:** Every change should impact minimal code
-7. **Document Results:** Add review section to todo.md with summary
+7. **Document Results:** Update STATUS.md with current state, run /save to capture session
 8. **No Lazy Coding:** Always look for root causes, never apply band-aids
 9. **Minimal Impact:** Changes affect only necessary code, nothing else
 10. **Full Tracing:** Debug by tracing ENTIRE code flow - no assumptions
