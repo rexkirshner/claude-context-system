@@ -1,5 +1,5 @@
 {
-  "version": "1.7.0",
+  "version": "1.9.0",
   "owner": "[Your Name]",
   "project": {
     "name": "[Project Name]",
@@ -58,12 +58,16 @@
   "commands": {
     "enabled": [
       "/init-context",
-      "/save-context",
+      "/migrate-context",
+      "/save",
+      "/save-full",
       "/review-context",
-      "/code-review"
+      "/code-review",
+      "/validate-context",
+      "/export-context",
+      "/update-context-system"
     ],
     "aliases": {
-      "/save": "/save-context",
       "/review": "/review-context",
       "/init": "/init-context"
     },
@@ -71,17 +75,17 @@
   },
   "documentation": {
     "required": [
-      "CLAUDE.md",
-      "PRD.md",
-      "ARCHITECTURE.md",
-      "DECISIONS.md",
-      "CODE_STYLE.md",
-      "KNOWN_ISSUES.md",
-      "SESSIONS.md",
-      "tasks/next-steps.md",
-      "tasks/todo.md"
+      "CONTEXT.md",
+      "STATUS.md",
+      "DECISIONS.md"
     ],
     "optional": [
+      "SESSIONS.md",
+      "QUICK_REF.md",
+      "PRD.md",
+      "ARCHITECTURE.md",
+      "CODE_STYLE.md",
+      "KNOWN_ISSUES.md",
       "DEPLOYMENT.md",
       "TESTING.md",
       "API.md",
@@ -175,7 +179,7 @@
   "metadata": {
     "createdAt": "[YYYY-MM-DD]",
     "lastUpdated": "[YYYY-MM-DD]",
-    "configVersion": "1.7.0",
+    "configVersion": "1.9.0",
     "notes": "Configuration for Claude Context System"
   }
 }
