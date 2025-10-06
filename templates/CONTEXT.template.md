@@ -1,6 +1,6 @@
-# CONTEXT.md
+# CLAUDE.md
 
-This file provides orientation for working with this project. **For current status, see STATUS.md** - this file rarely changes.
+This file provides guidance to Claude Code when working with code in this repository.
 
 ## Project Overview
 
@@ -8,7 +8,6 @@ This file provides orientation for working with this project. **For current stat
 
 **Key References:**
 - Production URL: [URL if deployed]
-- Staging URL: [URL if exists]
 - Repository: [GitHub URL]
 - Documentation: [Docs URL if exists]
 
@@ -42,13 +41,13 @@ This file provides orientation for working with this project. **For current stat
 
 ### Core Development Methodology
 
-1. **Plan First:** Read codebase, think through problem, use TodoWrite to plan
+1. **Plan First:** Read codebase, think through problem, write plan to `context/tasks/todo.md`
 2. **Track Progress:** Create todo items that can be checked off during work
 3. **Verify Plan:** Check in with user before starting implementation
 4. **Work Incrementally:** Complete todos one by one, marking complete as you go
 5. **Communicate Clearly:** Provide high-level explanation of changes at each step
 6. **Simplicity Above All:** Every change should impact minimal code
-7. **Document Results:** Run `/save-context` to capture session state
+7. **Document Results:** Add review section to todo.md with summary
 8. **No Lazy Coding:** Always look for root causes, never apply band-aids
 9. **Minimal Impact:** Changes affect only necessary code, nothing else
 10. **Full Tracing:** Debug by tracing ENTIRE code flow - no assumptions
@@ -105,6 +104,22 @@ This file provides orientation for working with this project. **For current stat
 - [TODO: Explain file naming conventions]
 - [TODO: Explain where different types of code go]
 
+## Development Status
+
+**Current Phase:** [Phase/Milestone name]
+
+**Completed:**
+- ✅ [Major accomplishment 1]
+- ✅ [Major accomplishment 2]
+
+**In Progress:**
+- ⏳ [Current work item 1]
+- ⏳ [Current work item 2]
+
+**Known Limitations:**
+- [Limitation 1]
+- [Limitation 2]
+
 ## Important Notes
 
 **Environment Variables:**
@@ -120,6 +135,22 @@ This file provides orientation for working with this project. **For current stat
 - [Any quirks or gotchas]
 - [Important context for developers]
 
+## Critical Path
+
+**Current Status:** [One-sentence project status]
+
+**Completed in Session [N]:**
+- ✅ [Recent accomplishment 1]
+- ✅ [Recent accomplishment 2]
+
+**Key Files Modified/Created:**
+- `path/to/file` - [What changed]
+
+**Next Steps:**
+1. [Immediate next action]
+2. [Following action]
+3. [Third priority]
+
 ## Project-Specific Overrides
 
 [Use this section to override or extend general preferences for this specific project]
@@ -132,9 +163,3 @@ This file provides orientation for working with this project. **For current stat
 
 **Technical Constraints:**
 - [Any project-specific technical requirements or limitations]
-
----
-
-**For current status:** See `STATUS.md` (single source of truth for what's happening now)
-**For session history:** See `SESSIONS.md` (structured, scannable history)
-**For quick reference:** See `QUICK_REF.md` (auto-generated dashboard)

@@ -1,249 +1,160 @@
-# Claude Admin - File Structure
+# Claude Context System - File Structure
 
-Complete file organization for the Claude Context System.
+**Version 2.0.0** - Complete file organization
 
 ## Root Files
 
 ### Core Documentation
 - **README.md** - Overview of the Claude Context System
-- **PRD.md** - Complete product requirements document
-- **SETUP_GUIDE.md** - How to install and use the system
+- **PRD.md** - Product requirements document
+- **SETUP_GUIDE.md** - Installation and usage guide
+- **MIGRATION_GUIDE.md** - v1.x → v2.0 migration steps
+- **CHANGELOG.md** - Version history and changes
 
 ## .claude/commands/
 
-Slash command definitions that can be loaded into any project.
+Slash command definitions for project workflows.
 
 **Setup Commands (run once):**
-- **init-context.md** - Initialize context system for new projects
-- **migrate-context.md** - Migrate existing projects with documentation
+- **init-context.md** - Initialize v2.0 structure for new projects (creates 5 core files)
+- **migrate-context.md** - Migrate existing v1.x projects to v2.0
 
 **Maintenance Commands (run frequently):**
-- **save-context.md** - Save current state and update all documentation
-- **quick-save-context.md** - Lightweight checkpoint for active work
-- **review-context.md** - Verify documentation accuracy and continuity
+- **save.md** - Quick save (2-3 min): Updates STATUS.md, QUICK_REF.md
+- **save-full.md** - Comprehensive save (10-15 min): Everything save does + detailed SESSIONS.md
+- **review-context.md** - Verify documentation accuracy and load context at session start
 
 **Quality & Sharing Commands:**
-- **code-review.md** - Comprehensive code quality audit (no changes)
+- **code-review.md** - Comprehensive code quality audit (no changes made)
 - **validate-context.md** - Validate documentation structure and health
 - **export-context.md** - Export all context docs to single file
 
 **Update Commands:**
 - **update-context-system.md** - Update commands and templates from GitHub
 
+**Legacy Commands (v1.x):**
+- **save-context.md** - Legacy (replaced by save.md + save-full.md in v2.0)
+
 ## .claude/docs/
 
-Comprehensive guides for understanding commands (Phase 2 addition).
+Comprehensive guides explaining command philosophy and methodology.
 
-Commands focus on WHAT TO DO (execution steps). Docs explain WHY and HOW (philosophy, principles, examples).
-
+**Core Guides:**
 - **README.md** - Documentation folder structure and reading order
-- **command-philosophy.md** - Core principles guiding all commands (Prime Directive, anti-patterns)
-- **code-review-guide.md** - Complete review methodology, grading rubric, examples
-- **save-context-guide.md** - Safety net principle, WIP importance, file-by-file update guide
-- **review-context-guide.md** - Trust but verify, confidence scoring, verification strategies
-- **update-guide.md** - Update system philosophy, version management, troubleshooting
-- **usage-examples.md** - Real-world workflows and common scenarios
-
-**When to use:**
-- Learning a command for the first time
-- Understanding philosophy behind decisions
-- Troubleshooting command behavior
-- Reference for best practices
+- **command-philosophy.md** - Core principles (Prime Directive, anti-patterns)
+- **code-review-guide.md** - Review methodology, grading rubric, examples
+- **save-context-guide.md** - WIP preservation, file-by-file update strategies
+- **review-context-guide.md** - Trust but verify, confidence scoring, verification
+- **update-guide.md** - System updates, version management, troubleshooting
+- **usage-examples.md** - Real-world workflows and scenarios
 
 ## .claude/checklists/
 
-Specialized review criteria for /code-review command (Phase 2 addition).
+Domain-specific review criteria for `/code-review`.
 
-Comprehensive checklists covering specific domains. Used during code review for thorough audits.
-
-- **accessibility.md** - WCAG compliance, keyboard navigation, screen readers, color contrast
-- **security.md** - OWASP Top 10, SQL injection prevention, XSS protection, code examples
-- **seo-review.md** - Meta tags, Core Web Vitals, structured data, quick wins
-- **performance.md** - Bundle optimization, Core Web Vitals, caching strategies
-
-**When to use:**
-- During /code-review execution
-- Specialized audits (just SEO, just security, etc.)
-- Learning what to check for quality
-- Reference for best practices
+- **accessibility.md** - WCAG compliance, keyboard nav, screen readers
+- **security.md** - OWASP Top 10, SQL injection, XSS protection
+- **seo-review.md** - Meta tags, Core Web Vitals, structured data
+- **performance.md** - Bundle optimization, caching strategies
 
 ## templates/
 
-Documentation templates used by /init-context command.
+Documentation templates used by `/init-context`.
 
-- **CLAUDE.template.md** - Developer guide with Rex's preferences
-- **PRD.template.md** - Product requirements document template
+**v2.0 Templates (Active):**
+- **CONTEXT.template.md** - Project orientation (replaces CLAUDE.template.md)
+- **STATUS.template.md** - Current state (single source of truth)
+- **DECISIONS.template.md** - Decision log with guidelines for AI agents
+- **SESSIONS.template.md** - Structured session history format
+- **QUICK_REF.template.md** - Auto-generated dashboard
+
+**Optional Templates:**
+- **PRD.template.md** - Product requirements document
 - **ARCHITECTURE.template.md** - Technical architecture documentation
-- **DECISIONS.template.md** - Technical decision log format
-- **CODE_STYLE.template.md** - Coding standards (includes Rex's principles)
+- **CODE_STYLE.template.md** - Coding standards and principles
 - **KNOWN_ISSUES.template.md** - Issue tracking template
-- **SESSIONS.template.md** - Session history log format
-- **next-steps.template.md** - Action items template
-- **todo.template.md** - Current session tasks template
+
+**Legacy Templates (v1.x - for migration reference):**
+- **CLAUDE.template.md** - Replaced by CONTEXT.template.md
+- **next-steps.template.md** - Replaced by STATUS.md
+- **todo.template.md** - Merged into STATUS.md
 
 ## config/
 
 Configuration files for the context system.
 
-- **.context-config.template.json** - Master configuration template with workflow preferences
-- **context-config-schema.json** - JSON Schema for configuration validation
+- **.context-config.template.json** - v2.0 configuration template
+  - Includes: version, counters (nextDecisionId, sessionCount), metrics tracking
+- **context-config-schema.json** - JSON Schema for validation
+
+## scripts/
+
+Automation scripts used by commands.
+
+- **validate-context.sh** - Used by `/validate-context`
+- **export-sessions-json.sh** - Used by `/export-context`
+- **save-context-helper.sh** - Used by `/save` and `/save-full`
+- **migrate-to-1-9-0.sh** - Legacy migration (v1.7/v1.8 → v1.9)
 
 ## reference/
 
-Reference materials and catalogs (not enforced by commands):
+Reference materials (not enforced by commands).
 
-- **preference-catalog.yaml** - Comprehensive catalog of available workflow preferences (reference only)
+- **preference-catalog.yaml** - Catalog of workflow preferences
 
-## Usage
-
-### New Project Setup
-
-1. **Get the toolkit:**
-   ```bash
-   # Clone the repo
-   git clone https://github.com/rexkirshner/claude-context-system.git
-
-   # Or download just the .claude/commands folder
-   ```
-
-2. **Copy commands to your project:**
-   ```bash
-   mkdir -p .claude && cp -r claude-context-system/.claude/commands .claude/
-   ```
-
-3. **Initialize context:**
-   ```
-   /init-context
-   ```
-
-4. **Start working:**
-   ```
-   /save-context  # Run frequently
-   /review-context  # Run at session start
-   /code-review  # Run when quality matters
-   ```
-
-### What Gets Created in Projects
-
-When you run `/init-context` in a project, it creates:
+## Typical Project Structure (After /init-context)
 
 ```
-project-root/
-└── context/
-    ├── .context-config.json     # From config/ template
-    ├── CLAUDE.md                # From templates/
-    ├── PRD.md                   # From templates/
-    ├── ARCHITECTURE.md          # From templates/
-    ├── DECISIONS.md             # From templates/
-    ├── CODE_STYLE.md            # From templates/
-    ├── KNOWN_ISSUES.md          # From templates/
-    ├── SESSIONS.md              # From templates/
-    ├── tasks/
-    │   ├── next-steps.md        # From templates/
-    │   └── todo.md              # From templates/
-    └── reviews/
-        └── [generated during /code-review]
+your-project/
+├── .claude/
+│   ├── commands/           # Slash commands
+│   ├── docs/               # Comprehensive guides
+│   └── checklists/         # Review criteria
+├── context/
+│   ├── CONTEXT.md          # Project orientation ✨ v2.0
+│   ├── STATUS.md           # Current state (single source of truth) ✨ v2.0
+│   ├── DECISIONS.md        # Decision log ✨ v2.0
+│   ├── SESSIONS.md         # Structured history ✨ v2.0
+│   ├── QUICK_REF.md        # Auto-generated dashboard ✨ v2.0
+│   ├── PRD.md              # (optional - suggested when needed)
+│   ├── ARCHITECTURE.md     # (optional - suggested when needed)
+│   └── .context-config.json
+├── artifacts/
+│   ├── code-reviews/
+│   ├── lighthouse/
+│   ├── performance/
+│   └── security/
+└── [your project files]
 ```
 
-## File Relationships
+## v2.0 File Purpose Summary
 
-### Command → Template Relationships
+| File | Purpose | Update Frequency |
+|------|---------|------------------|
+| **CONTEXT.md** | Project orientation (who/what/how/why) | Rarely (architecture changes) |
+| **STATUS.md** | Current state - **single source of truth** | Every `/save` |
+| **DECISIONS.md** | WHY choices were made | When decisions made |
+| **SESSIONS.md** | Structured history (Changed/Decisions/Files) | Every `/save` (brief), `/save-full` (detailed) |
+| **QUICK_REF.md** | Auto-generated dashboard | Auto (every `/save`) |
+| PRD.md | Product vision | As needed (optional) |
+| ARCHITECTURE.md | System design | As needed (optional) |
 
-**`/init-context`** uses:
-- All 9 templates from `templates/`
-- Config template from `config/.context-config.template.json`
+## Key Differences from v1.x
 
-**`/save-context`** updates:
-- All context/ docs in the project
-- Adds to SESSIONS.md
-- Updates next-steps.md and todo.md
+**Eliminated:**
+- `tasks/next-steps.md` → Merged into STATUS.md
+- `tasks/todo.md` → Merged into STATUS.md
+- `CLAUDE.md` → Renamed to CONTEXT.md
 
-**`/review-context`** reads:
-- All context/ docs
-- Validates against schema
+**Added:**
+- STATUS.md - Single source of truth for current state
+- QUICK_REF.md - Auto-generated dashboard
+- DECISIONS.md - Always created (was optional before)
 
-**`/code-review`** creates:
-- New review file in artifacts/code-reviews/
-- Based on CODE_STYLE.md standards
+**Improved:**
+- SESSIONS.md - Structured format instead of prose
 
-### How Templates Work
-
-**CLAUDE.template.md** includes:
-- Core Development Methodology (workflow rules)
-- Communication Style preferences
-- Project-specific patterns
-
-**CODE_STYLE.template.md** includes:
-- Core coding principles (simplicity, root causes)
-- Testing requirements
-- Git workflow rules
-
-**.context-config.template.json** enforces:
-- All workflow preferences
-- Communication style
-- Code review behavior
-- Session management
-
-## Version Control
-
-### What to Track in Git (Recommended)
-
-**This toolkit folder:**
-- All files (this is your master toolkit)
-
-**In projects:**
-- Option 1: Track `context/` (recommended for solo projects)
-- Option 2: Add to `.gitignore` (for team projects with different workflows)
-
-### .gitignore Example
-
-If you don't want to track context in a project:
-```
-context/
-.context-config.json
-```
-
-## Maintenance
-
-### Regular Updates
-- Review and update templates as patterns evolve
-- Update config template when preferences change
-- Keep documentation current
-
-### Extending the System
-- Add new command .md files to `.claude/commands/`
-- Add new templates to `templates/`
-- Update schema when adding config options
-- Document new patterns directly in templates
-
-## Verification Checklist
-
-✅ All 4 commands created
-✅ All 9 templates created
-✅ Config and schema created
-✅ Templates contain all workflow rules and preferences
-✅ Root documentation complete
-✅ Structure is clean and logical
-✅ Ready for use in projects
-
-## Quick Reference
-
-**Most Important Files:**
-1. `README.md` - Start here
-2. `SETUP_GUIDE.md` - How to use
-3. `.claude/commands/` - The actual commands
-4. `templates/CLAUDE.template.md` - Core workflow and communication
-5. `templates/CODE_STYLE.template.md` - Coding principles
-
-**For New Users:**
-1. Read README.md
-2. Clone from GitHub or download .claude/commands/
-3. Copy .claude/commands/ to your project (.claude/ directory)
-4. Run /init-context
-5. Read SETUP_GUIDE.md for details
-
-**For Maintenance:**
-1. Update templates/ as needs evolve
-2. Version config template when changing preferences
-3. Document new patterns directly in templates
-4. Keep all preferences embedded in templates and config
+**Philosophy:**
+- No status duplication - update once in STATUS.md
+- Single file per purpose
+- Auto-generation where possible (QUICK_REF.md)

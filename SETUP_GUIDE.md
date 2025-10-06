@@ -1,26 +1,23 @@
 # Claude Context System - Setup Guide
 
-**Version 1.7.0** - Progressive Enhancement Approach
+**Version 2.0.0** - Single Source of Truth
+
+> **What's New in v2.0:** New file structure (CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md, QUICK_REF.md) eliminates status duplication. See [v2.0 Overview](#whats-new-in-v20) below.
 
 ## Which Setup Command Do I Use?
 
 ### Use `/init-context` for:
 - ✅ **New projects** with no documentation yet (RECOMMENDED)
 - ✅ Fresh scaffolded projects (npx create-next-app, etc.)
-- ✅ Start minimal (3 files), grow naturally as complexity demands
-- ✅ 80% of value, 20% of overhead
-
-### Use `/init-context-full` for:
-- ✅ **Complex projects** that need comprehensive docs from day one
-- ✅ You know you need all 8 documentation files upfront
-- ✅ Team projects with strict documentation requirements
-- ⚠️ Most projects should use `/init-context` instead
+- ✅ Creates 5 core files: CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md, QUICK_REF.md
+- ✅ Optional files (PRD, ARCHITECTURE) suggested when complexity demands
 
 ### Use `/migrate-context` for:
-- ✅ **Existing projects** with documentation already
-- ✅ Projects with CLAUDE.md, PRD.md, etc. in root directory
+- ✅ **Existing projects** with v1.x documentation (pre-v2.0)
+- ✅ Projects with CLAUDE.md, next-steps.md, todo.md in context/
 - ✅ Projects with scattered artifacts (lighthouse reports, code reviews)
-- ✅ Want to preserve ALL existing content while adopting the system
+- ✅ Want to preserve ALL existing content while adopting v2.0 structure
+- ⚠️ **Note:** Automated migration coming in v2.1 - currently manual (see [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md))
 
 ---
 
@@ -51,10 +48,16 @@ This copies:
 ```
 /init-context
 ```
-This creates:
-- `context/` folder with all meta-documentation
+This creates 5 core files in `context/`:
+- **CONTEXT.md** - Project orientation (who/what/how/why)
+- **STATUS.md** - Current state (tasks/blockers/next steps) - **single source of truth**
+- **DECISIONS.md** - Decision log (WHY choices were made)
+- **SESSIONS.md** - History (structured, scannable format)
+- **QUICK_REF.md** - Auto-generated dashboard
+
+Plus:
 - `context/.context-config.json` with your preferences
-- Initial project analysis and documentation
+- `artifacts/` folders for code reviews, reports
 
 **Note:** `/init-context` automatically creates the config file, so you don't need to copy it manually.
 
@@ -67,17 +70,27 @@ rm -rf claude-context-system
 The system is now installed and the clone is no longer needed. Future updates use `/update-context-system` which downloads fresh from GitHub.
 
 ### Step 5: Start Working
-```
+
+**v2.0 Two-Tier Workflow:**
+
+```bash
 # At session start:
-/review-context  # Verify context is loaded
+/review-context  # Load context, verify accuracy
 
 # During work:
-/quick-save-context  # Every 15-30 minutes during active coding
-/save-context        # After completing major features
+# Use TodoWrite for active task tracking (minimal overhead)
 
-# At session end:
-/save-context    # Capture final state
+# At session end (most sessions):
+/save            # 2-3 min: Updates STATUS.md, QUICK_REF.md
+
+# Before breaks/handoffs (occasionally):
+/save-full       # 10-15 min: Everything /save does + comprehensive SESSIONS.md entry
 ```
+
+**Time Investment (20 sessions):**
+- 17× `/save`: ~40-50 min
+- 3× `/save-full`: ~30-45 min
+- **Total: ~70-95 min** (50% reduction from v1.x)
 
 ---
 
@@ -187,20 +200,25 @@ Additional files (PRD.md, ARCHITECTURE.md, etc.) will be suggested
 when your project complexity demands it.
 ```
 
-### `/init-context-full`
-**When:** Once, for COMPLEX projects (COMPREHENSIVE MODE)
+### `/init-context`
+**When:** Once, when starting with a new project
 
-**What it does:**
-- Creates all 8 documentation files upfront
-- Same as old `/init-context` behavior
-- Use when you know you need comprehensive docs from day one
+**What it does (v2.0):**
+- Creates 5 core files: CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md, QUICK_REF.md
+- Suggests optional files (PRD, ARCHITECTURE) when complexity demands
+- Creates `.context-config.json` with preferences
+- Creates `artifacts/` folder structure
 
 **Expected output:**
 ```
-✅ Context System Initialized (Full Mode)
-✅ Created 8 documentation files
-✅ Analyzed project structure
-✅ Created .context-config.json
+✅ Context System Initialized (v2.0.0)
+
+Created 5 core files:
+- context/CONTEXT.md - Orientation
+- context/STATUS.md - Current state (single source of truth)
+- context/DECISIONS.md - Decision log
+- context/SESSIONS.md - History
+- context/QUICK_REF.md - Auto-generated dashboard
 ```
 
 ### `/migrate-context`
@@ -224,15 +242,27 @@ when your project complexity demands it.
 ✅ All existing content preserved
 ```
 
-### `/save-context`
-**When:** Frequently - after major work, before breaks, at session end
+### `/save` (v2.0 - Quick Update)
+**When:** Most sessions - at session end
 
-**What it does (v1.7.0 - Intelligent Updates):**
-- **Writes a good session summary** (SESSIONS.md - always)
-- **Updates what changed** (not everything)
-- **Suggests new files** when complexity demands it
-- Preserves work-in-progress state
-- No bureaucratic process - just smart documentation
+**What it does:**
+- Updates STATUS.md (current tasks, blockers, next steps) - **2-3 minutes**
+- Auto-generates QUICK_REF.md from STATUS.md
+- Appends brief entry to SESSIONS.md
+- Validates consistency
+
+**Use this for:** Continuous work, daily sessions
+
+### `/save-full` (v2.0 - Comprehensive)
+**When:** Occasionally - before breaks >1 week, handoffs, milestones
+
+**What it does:**
+- Everything `/save` does - **10-15 minutes**
+- PLUS: Detailed SESSIONS.md entry with mental models
+- PLUS: Prompts for DECISIONS.md entries if significant choices made
+- PLUS: Suggests optional docs if complexity increased
+
+**Use this for:** Deep documentation before context loss events
 
 **Expected output:**
 ```
@@ -529,6 +559,50 @@ Add to `.context-config.json`:
   "/r": "/review-context"
 }
 ```
+
+---
+
+## What's New in v2.0
+
+### Single Source of Truth
+
+**The Problem in v1.x:**
+- Status duplicated across CLAUDE.md, next-steps.md, todo.md
+- Files drifted out of sync
+- Hard to find "current state"
+
+**The v2.0 Solution:**
+- **STATUS.md** = single source of truth for current state
+- **QUICK_REF.md** = auto-generated dashboard from STATUS.md
+- Other files reference STATUS.md instead of duplicating
+
+### New File Structure
+
+| v1.x (Old) | v2.0 (New) | Purpose |
+|------------|------------|---------|
+| CLAUDE.md | **CONTEXT.md** | Project orientation (rarely changes) |
+| next-steps.md | **STATUS.md** | Current state (single source of truth) |
+| todo.md | (merged into STATUS.md) | Active tasks |
+| SESSIONS.md (prose) | **SESSIONS.md** (structured) | History (Changed/Decisions/Files/Next) |
+| (missing) | **QUICK_REF.md** | Auto-generated dashboard |
+| (missing) | **DECISIONS.md** | Decision log (WHY choices made) |
+
+### Migration Path
+
+**New projects:** Use `/init-context` - creates v2.0 structure automatically
+
+**Existing projects:** See [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md) for manual migration steps
+- Automated migration coming in v2.1
+- Manual ensures you understand changes
+- Backup included in migration process
+
+### Benefits
+
+1. **No status duplication** - Update once in STATUS.md, done
+2. **Scannable history** - SESSIONS.md uses structured format (find info in seconds)
+3. **Fast onboarding** - QUICK_REF.md provides instant orientation
+4. **Decision tracking** - DECISIONS.md captures WHY for AI agent review
+5. **50% time savings** - Two-tier workflow (quick `/save` vs comprehensive `/save-full`)
 
 ---
 

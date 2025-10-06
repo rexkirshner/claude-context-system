@@ -6,6 +6,27 @@
 >
 > **Two-tier workflow: 2-3 minutes daily, comprehensive when needed.**
 
+---
+
+## 🆕 What's New in v2.0
+
+**Single Source of Truth:** No more status duplication across multiple files
+
+**New Structure:**
+- **CONTEXT.md** - Project orientation (replaces CLAUDE.md)
+- **STATUS.md** - Current state - **single source of truth** (replaces next-steps.md + todo.md)
+- **DECISIONS.md** - Decision log (WHY choices were made)
+- **SESSIONS.md** - Structured history (Changed/Decisions/Files format)
+- **QUICK_REF.md** - Auto-generated dashboard
+
+**For new projects:** Run `/init-context` - creates v2.0 structure automatically
+
+**For existing projects:** See [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md) - manual migration (automated in v2.1)
+
+**Learn more:** [What's New in v2.0](#whats-new-in-v20) • [CHANGELOG.md](./CHANGELOG.md)
+
+---
+
 ## What is This?
 
 The Claude Context System is a complete toolkit for maintaining perfect context across Claude Code sessions AND enabling AI agents to review, improve, and take over your work.

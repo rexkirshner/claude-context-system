@@ -22,19 +22,27 @@ Based on real-world usage feedback (Claude agent on Podcast Website) and externa
 4. **No aggregated decision log** - DECISIONS.md promised but not created, rationale buried in sessions
 5. **Commands assumed files exist** - `/code-review` failed when CODE_STYLE.md missing instead of graceful degradation
 
-**New Features:**
+**What's Delivered in v2.0:**
 
-- **Decision ID Auto-Increment:** Counter stored in `.context-config.json` (`nextDecisionId`), auto-assigned during `/save-full`
-- **Metrics Tracking:** `/save` and `/save-full` duration logged to `.context-config.json` for continuous improvement
-- **Progress Auto-Calculation:** QUICK_REF.md computes `% complete` from `completed_tasks / total_tasks` in STATUS.md checkboxes
-- **Migration Safeguards:**
-  - Dry-run mode shows preview before making changes
-  - Custom CLAUDE.md sections preserved in "Legacy Notes"
-  - User notes in next-steps.md preserved in STATUS.md
-  - Optional todo.md handling (keep or migrate - user choice)
-  - Automatic backup to `context/.backup-pre-v2-[timestamp]/`
-  - `/rollback-migration` command for safety
-- **Acceptance Tests:** Each command has defined criteria to prevent regressions
+- **New file structure defined:** CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md (structured), QUICK_REF.md templates
+- **Templates updated:** All templates follow v2.0 structure (CONTEXT replaces CLAUDE, STATUS is single source of truth)
+- **Command documentation updated:** All commands reference v2.0 files (CONTEXT, STATUS, QUICK_REF)
+- **Config schema enhanced:** Added counters (`nextDecisionId`, `sessionCount`) and metrics fields for future use
+- **Manual migration guide:** Step-by-step instructions in MIGRATION_GUIDE.md
+- **Legacy file handling:** Moved next-steps.template.md, todo.template.md to templates/legacy/
+- **Documentation consistency:** SETUP_GUIDE.md, STRUCTURE.md, README.md all updated to v2.0
+
+**Planned for v2.1 (3-4 weeks):**
+
+- **Decision ID Auto-Increment:** Commands will auto-assign IDs using counter in config
+- **Metrics Tracking:** `/save` and `/save-full` will log duration to config for monitoring
+- **Automated Migration:**
+  - Dry-run mode with preview
+  - Automatic backups to `.backup-pre-v2-[timestamp]/`
+  - `/rollback-migration` command
+  - Custom content preservation in "Legacy Notes"
+- **New Commands:** `/export-takeover` for AI agent onboarding
+- **Acceptance Tests:** Per-command validation criteria
 
 ### Changed
 
@@ -107,11 +115,18 @@ New (v2.0.0):
 
 ### Fixed
 
-- **Status duplication eliminated** - STATUS.md is now single source of truth, other files reference it
-- **All promised files created** - `/init-context` creates CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md, QUICK_REF.md
-- **Commands handle missing files gracefully** - No more failures when optional docs don't exist
-- **SESSIONS.md made scannable** - Structured format with Changed/Decisions/Files sections (find info in seconds instead of scrolling)
-- **Migration preserves custom content** - "Legacy Notes" section, user notes preserved, automatic backups, zero data loss
+- **Documentation promises kept** - `/init-context` command documentation says it creates 5 files, templates exist for all 5
+- **File structure defined** - CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md, QUICK_REF.md templates ready
+- **Commands reference correct files** - Updated to CONTEXT (not CLAUDE), STATUS (not next-steps/todo)
+- **SESSIONS.md template structured** - Changed/Decisions/Files/Next format (not prose)
+- **Legacy files organized** - Moved to templates/legacy/ folder for migration reference
+
+### Known Limitations (v2.0)
+
+- **Manual migration only** - Automated migration deferred to v2.1 (see MIGRATION_GUIDE.md for manual steps)
+- **Metrics not logged** - Config has fields but commands don't implement logging yet (v2.1)
+- **Decision IDs manual** - Auto-increment planned for v2.1
+- **No /rollback-migration** - Backup/rollback system coming in v2.1
 
 ### Why This Matters
 
