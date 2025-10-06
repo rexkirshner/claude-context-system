@@ -8,23 +8,52 @@
 
 **Current version: v2.0.0**
 
-### Quick Migration
+### Migration Status
 
-The best way to migrate to v2.0.0:
+**Automated Migration:** Planned for v2.1 (dry-run, backup, rollback)
+**Current (v2.0):** Manual migration (follow steps below)
 
+### Quick Migration (Manual Process)
+
+**Step 1:** Update system files
 ```bash
-# 1. Update slash commands and config
 /update-context-system
-
-# 2. System will offer automatic migration
-# Choose: [Y] to migrate, includes:
-#   - CLAUDE.md → CONTEXT.md (preserves custom sections)
-#   - Creates STATUS.md (single source of truth)
-#   - Creates DECISIONS.md (WHY documentation)
-#   - Reformats SESSIONS.md (structured format)
-#   - Auto-generates QUICK_REF.md
-#   - Backup to context/.backup-pre-v2-[timestamp]/
+# This updates templates and commands to v2.0.0
 ```
+
+**Step 2:** Backup your context
+```bash
+cp -r context/ context-backup-$(date +%Y%m%d)/
+```
+
+**Step 3:** Manual file migration
+```bash
+# Rename CLAUDE.md → CONTEXT.md
+mv context/CLAUDE.md context/CONTEXT.md
+
+# Extract current status from CONTEXT.md into new STATUS.md
+# (Use STATUS.template.md as guide)
+
+# Create DECISIONS.md from template
+cp templates/DECISIONS.template.md context/DECISIONS.md
+
+# Create QUICK_REF.md from template
+cp templates/QUICK_REF.template.md context/QUICK_REF.md
+
+# Update .context-config.json version to 2.0.0
+# Add counters and metrics sections (see config template)
+```
+
+**Step 4:** Verify migration
+```bash
+/validate-context
+```
+
+**Why Manual?**
+- v2.0.0 focuses on getting the new structure right
+- Automated migration requires testing on 10+ real projects
+- Manual ensures you understand the changes
+- v2.1 will add full automation with safety features
 
 ### What Changed in v2.0.0
 

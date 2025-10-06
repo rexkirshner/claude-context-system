@@ -132,7 +132,7 @@ mkdir -p artifacts/coverage
 
 ### Step 4: Generate Core Documentation Files
 
-Create the **3 core files + supporting docs** from templates:
+Create the **5 core files** from templates:
 
 **context/CONTEXT.md** - Orientation (rarely changes)
 - Project overview (from README or git description)

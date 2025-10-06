@@ -1016,28 +1016,95 @@ To prevent regressions during implementation, each updated command must pass acc
 
 ## Timeline
 
-- **Week 1-2:** Core file structure + command updates (Critical path)
-- **Week 3:** New commands (Parallel work)
-- **Week 4:** Migration system (Parallel work)
-- **Week 5:** Documentation + in-product changelog (Parallel work)
-- **Week 6:** Testing + polish + acceptance tests
-- **Week 7:** Beta release to 5-10 users (collect metrics)
-- **Week 8:** General release as v2.0.0
-- **Months 1-3:** Post-launch monitoring (Phase 7)
+**REVISED:** Based on real-world constraints and feedback:
 
-**Target Release:** 6-8 weeks from start to v2.0.0
-**Ongoing:** 3-month feedback loop for v2.1, v2.2 iterations
+- **✅ Week 1 (DONE):** Core file structure (templates, config, command docs)
+- **📋 Week 2-4:** v2.0.0 Release (manual migration)
+  - Templates ready ✓
+  - Command documentation updated ✓
+  - Migration guide written ✓
+  - Release v2.0.0 with manual migration path
+- **Week 5-8:** v2.1.0 Development (automated migration)
+  - Implement migration script with dry-run
+  - Add backup/rollback mechanisms
+  - Test on 10+ real projects
+  - Release v2.1.0 with automated migration
+- **Months 2-3:** v2.2+ iterations based on feedback
+
+**Actual Release Plan:**
+- **v2.0.0 (Now):** New structure, templates, manual migration
+- **v2.1.0 (3-4 weeks):** Automated migration with safety features
+- **v2.2+ (Ongoing):** Refinements based on user feedback
+
+**Why Split the Release:**
+1. Get new structure into users' hands faster
+2. Manual migration forces understanding of changes
+3. Time to test automation thoroughly (10+ projects)
+4. Gather feedback on v2.0 structure before automating migration
 
 ---
 
-## Next Steps (Immediate)
+## Implementation Status
 
-1. **Validate plan with user** - Get feedback on proposed changes
-2. **Prioritize Phase 1** - Start with file structure templates
-3. **Create v2.0.0 branch** - Develop without breaking v1.9.0
-4. **Draft CONTEXT.md template** - Test with one project
-5. **Draft STATUS.md template** - Test integration with `/save`
-6. **Prototype QUICK_REF.md generation** - Ensure auto-generation works
+### ✅ Completed (v2.0.0)
+
+1. **File Structure & Templates**
+   - CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md, QUICK_REF.md templates exist and aligned
+   - Config schema updated to v2.0.0 (counters, metrics, required files list)
+   - All templates follow structured format from upgrade plan
+
+2. **Command Documentation**
+   - `/init-context` - Updated to create 5 core files
+   - `/review-context` - Updated for v2.0 file structure
+   - `/validate-context` - Updated for v2.0 validation
+   - `/export-context` - Updated with backward compatibility
+   - `/save` and `/save-full` - Already correct for STATUS.md
+   - `/update-context-system` - Updated to guide manual migration
+
+3. **Documentation**
+   - README.md - v2.0.0 features and migration status
+   - CHANGELOG.md - Complete v2.0.0 entry
+   - MIGRATION_GUIDE.md - Manual migration steps
+   - ccs-upgrade-plan.md - Full rationale
+
+4. **Consistency Fixes**
+   - All file references updated (CLAUDE.md → CONTEXT.md)
+   - File count descriptions accurate (5 core files)
+   - Version numbers consistent across all docs
+
+### 📋 Deferred to v2.1.0 (3-4 weeks)
+
+1. **Automated Migration**
+   - Create `migrate-to-2-0-0.sh` script
+   - Implement dry-run mode
+   - Add backup/rollback mechanisms
+   - Test on 10+ real projects
+
+2. **New Commands**
+   - `/export-takeover` - Onboarding guide generation
+   - `/rollback-migration` - Safety mechanism
+
+3. **Acceptance Tests**
+   - Per-command validation criteria
+   - Regression prevention
+
+### 🔄 Ongoing (v2.2+)
+
+- Post-launch monitoring
+- User feedback integration
+- Iterative improvements
+
+---
+
+## Next Steps for v2.0.0 Release
+
+1. ✅ Templates and config ready
+2. ✅ Command documentation updated
+3. ✅ Consistency fixes applied
+4. **→ Push to GitHub (ready)**
+5. **→ Test on new project with `/init-context`**
+6. **→ Document known limitations (manual migration)**
+7. **→ Gather user feedback for v2.1**
 
 ---
 
@@ -1049,8 +1116,20 @@ v2.0.0 is **evolutionary, not revolutionary**. We're fixing implementation gaps 
 2. ✅ Eliminate status duplication (single source of truth: STATUS.md)
 3. ✅ Make SESSIONS.md scannable (structured format)
 4. ✅ Handle missing files gracefully (all commands)
-5. ✅ Enable fast takeover (new `/export-takeover` command)
+5. 📋 Enable fast takeover (deferred to v2.1: `/export-takeover` command)
 
 The core philosophy (TodoWrite for work, rich docs for checkpoints) is validated and preserved. We're making the system deliver on its promises without adding complexity.
 
-**Bottom line:** Same great philosophy, better execution.
+**v2.0.0 Scope:**
+- New file structure defined and templates ready
+- Command documentation updated
+- Manual migration path documented
+- Foundation for automated migration in v2.1
+
+**v2.1.0 Scope (Next):**
+- Automated migration with dry-run/backup/rollback
+- New commands (/export-takeover, /rollback-migration)
+- Extensive testing on real projects
+- Acceptance test suite
+
+**Bottom line:** Same great philosophy, better execution. Releasing v2.0.0 now to get structure feedback, automating migration in v2.1.
