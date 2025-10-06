@@ -1,42 +1,57 @@
 # Claude Context System
 
-**Version 1.7.0**
+**Version 1.8.0**
 
 > Perfect session continuity for Claude Code projects
 >
-> **Start simple. Grow naturally. Document what matters.**
+> **Minimal overhead. Maximum recovery. Single source of truth.**
 
 ## What is This?
 
-The Claude Context System is a complete toolkit for maintaining perfect context across Claude Code sessions. Never lose your place, never repeat explanations, never lose work again.
+The Claude Context System is a complete toolkit for maintaining perfect context across Claude Code sessions AND enabling AI agents to review, improve, and take over your work.
+
+**Dual Purpose:**
+1. **Session Continuity** - Never lose your place, never repeat explanations, never lose work again
+2. **AI Agent Review & Takeover** - Rich documentation that enables AI agents to understand your thinking, review your work, and seamlessly take over development
 
 ## The Problem
 
-When working with Claude Code:
+**For Session Continuity:**
 - Context is lost between sessions
 - You repeat the same explanations every time
 - Work in progress disappears when sessions end
 - Technical decisions get forgotten or contradicted
 - Session handoffs feel like starting over
 
+**For AI Agent Review & Takeover:**
+- AI agents can't understand WHY you made certain decisions
+- Code reviews lack context about constraints and tradeoffs
+- New AI agents starting on your project have to reverse-engineer your thinking
+- Architecture reviews miss the rationale behind design choices
+- Handoffs to other developers/AIs lose critical mental models
+
 ## The Solution
 
-**Progressive enhancement approach** - Start minimal, grow as needed:
+**Dual-purpose documentation system** - Minimal overhead during work, rich context for AI agents:
+
+**Philosophy:**
+- **Within sessions:** TodoWrite for active productivity
+- **At save points:** Rich documentation for AI review and takeover
+- **Single source of truth:** No duplication, but comprehensive depth
 
 **Setup (run once):**
-- **`/init-context`** - Start with essentials (3 core files), grow naturally
-- **`/init-context-full`** - Create all 8 files (complex projects only)
+- **`/init-context`** - Create core files (CONTEXT.md, STATUS.md, DECISIONS.md)
 - **`/migrate-context`** - Migrate existing project with documentation
 
 **Maintenance:**
-- **`/save-context`** - Capture current state (frequently)
-- **`/quick-save-context`** - Fast checkpoint during active work (very frequently)
-- **`/review-context`** - Verify continuity (at session start)
+- **`/save-context`** - Captures TodoWrite state + mental models for AI review
+- **`/save-context --full`** - Comprehensive documentation pass
+- **`/review-context`** - Verify continuity and completeness
 
 **Quality & Sharing:**
-- **`/code-review`** - Quality audit without breaking things
+- **`/code-review`** - AI agent conducts quality audit
 - **`/validate-context`** - Check documentation completeness
-- **`/export-context`** - Generate single file for sharing/backup
+- **`/export-context`** - Generate AI-optimized export for review/takeover
 
 **Updates:**
 - **`/update-context-system`** - Update to latest version from GitHub
@@ -65,24 +80,24 @@ See [SETUP_GUIDE.md](./SETUP_GUIDE.md) for complete instructions.
 
 ## What Gets Created
 
-**Minimal by default** (`/init-context`):
+**Core documentation** (`/init-context`):
 ```
 your-project/
 ├── .claude/                        # Toolkit (you copy this)
-│   ├── commands/                   # 10 slash commands
+│   ├── commands/                   # Slash commands
 │   ├── docs/                       # Comprehensive guides
 │   └── checklists/                 # Review criteria
 ├── scripts/
 │   └── validate-context.sh         # Validation script
-├── context/                        # Core files (3 essentials)
+├── context/                        # Core documentation files
 │   ├── .context-config.json        # Project configuration
-│   ├── CLAUDE.md                   # Project guide + preferences
-│   ├── SESSIONS.md                 # Session history (key!)
-│   └── tasks/
-│       ├── next-steps.md           # What to do next
-│       └── todo.md                 # Current session tasks
+│   ├── CONTEXT.md                  # Orientation (who/what/how/why)
+│   ├── STATUS.md                   # Current state (tasks/blockers/next)
+│   ├── DECISIONS.md                # Decision log (WHY choices were made)
+│   ├── SESSIONS.md                 # History (structured, comprehensive)
+│   └── QUICK_REF.md                # Auto-generated dashboard
 └── artifacts/                      # Generated outputs
-    ├── code-reviews/               # Code review reports
+    ├── code-reviews/               # AI agent code reviews
     ├── lighthouse/                 # Performance reports
     ├── performance/                # Perf analysis
     ├── security/                   # Security audits
@@ -90,81 +105,86 @@ your-project/
     └── coverage/                   # Test coverage
 ```
 
-**Additional files created on-demand** (when complexity grows):
+**Additional files created on-demand**:
 - `PRD.md` → Product vision gets complex
-- `ARCHITECTURE.md` → Technical design needs documenting
-- `DECISIONS.md` → Tracking rationale becomes important
-- `CODE_STYLE.md` → Coding standards need formalizing
-- `KNOWN_ISSUES.md` → Bug tracking needed
+- `ARCHITECTURE.md` → System design needs comprehensive documentation
 
-Claude asks before creating these. No overhead unless you need it.
+**Key Principle:** Structured but comprehensive. AI agents need depth to understand your thinking, constraints, and rationale - not just what you did, but WHY.
 
 ## Key Features
 
-### Progressive Enhancement (New in v1.7.0!)
-- **Start simple** - Just 3 core files initially
-- **Grow naturally** - Add documentation when complexity demands it
-- **No overhead** - Don't create files you don't need
-- **User decides** - Claude asks before adding complexity
+### Dual Purpose: Developer Productivity + AI Agent Review (New in v1.8.0!)
+- **Within sessions** - TodoWrite for active productivity (minimal overhead)
+- **At save points** - Rich documentation for AI review and takeover
+- **Mental models captured** - AI agents understand your thinking, not just code
+- **Decision rationale preserved** - DECISIONS.md explains WHY, not just WHAT
+- **Comprehensive but structured** - Depth without verbosity
 
-### Automatic Context Preservation
-- Captures everything: code changes, decisions, progress
-- Works across session boundaries
-- Handles interrupted sessions gracefully
+### AI Agent Review & Takeover
+- **`/code-review`** - AI agent reviews your code with full context
+- **`/export-context`** - Generates AI-optimized export for agent takeover
+- **DECISIONS.md** - AI understands constraints and tradeoffs
+- **SESSIONS.md** - AI learns from your problem-solving approach
+- **Mental model capture** - AI knows your current thinking and next steps
 
-### Intelligent Documentation
-- **Updates what changed**, not everything
-- Focus on "write good session summary" not "follow 50 steps"
-- Reference guides, not checklists
-- Real-world usage patterns
+### Single Source of Truth
+- **Each piece of information lives in ONE place**
+- No duplication between CONTEXT.md, STATUS.md, SESSIONS.md
+- STATUS.md is canonical for current state
+- DECISIONS.md is canonical for WHY
+- CONTEXT.md references other files instead of duplicating
 
-### User Preference Enforcement
-- Your workflow rules built in
-- Consistent behavior every session
-- No more reminding Claude of your preferences
+### Structured, Comprehensive Documentation
+- **SESSIONS.md is structured AND comprehensive**
+- Easy to scan: What changed, decisions, files, mental models, next steps
+- Enough depth for AI agents to understand context and thinking
+- Auto-generated QUICK_REF.md dashboard
+
+### Smart Save Command
+- **Captures TodoWrite state automatically**
+- **Extracts mental models and decision rationale**
+- Updates only what changed
+- Suggests optional files when complexity demands
+- `/save-context --full` for comprehensive AI review preparation
 
 ### Zero Context Loss
-- Session logs preserve exact state
-- Work-in-progress is saved
+- Session logs preserve exact state + thinking
+- Work-in-progress with mental models
 - Can resume from anywhere
+- AI agents can take over seamlessly
 
 ## Core Commands
 
 ### Setup Commands (Run Once)
 
 #### `/init-context`
-**For NEW projects (Minimal Mode - Recommended)**
+**For ALL projects**
 
-Creates just the essentials: CLAUDE.md, SESSIONS.md, tasks/. Other files added on-demand as complexity grows. **80% of value, 20% of overhead.**
-
-#### `/init-context-full`
-**For COMPLEX projects (Comprehensive Mode)**
-
-Creates all 8 documentation files upfront. Use when you know you need comprehensive documentation from day one. Most projects should start with `/init-context` instead.
+Creates 2 core files: CONTEXT.md (orientation), STATUS.md (current state). Auto-generates QUICK_REF.md dashboard. Optional files (PRD, ARCHITECTURE) suggested when complexity demands. **Minimal overhead. Maximum value.**
 
 #### `/migrate-context`
 **For EXISTING projects with docs**
 
-Migrates existing documentation to Claude Context System structure. Preserves ALL existing content while organizing into context/ and artifacts/ folders. Augments existing docs with new sections.
+Migrates existing documentation to Claude Context System structure. Preserves ALL existing content while organizing into context/ and artifacts/ folders. Consolidates to single source of truth.
 
 ### Maintenance Commands (Run Frequently)
 
 #### `/save-context`
-**Run after major work (Intelligent Updates)**
+**Smart update - run often**
 
-**Write a good session summary. Update what matters.**
+**Captures TodoWrite state. Updates what changed. Suggests growth when needed.**
 
-Updates only files that changed. Suggests creating new documentation when complexity demands it. No bureaucratic process - just intelligent documentation. Your safety net.
+- Default mode: Updates STATUS.md, appends to SESSIONS.md, captures WIP
+- Auto-generates QUICK_REF.md dashboard
+- Suggests optional files (PRD, ARCHITECTURE) when complexity demands
+- Use `--full` flag for comprehensive update (rare)
 
-#### `/quick-save-context`
-**Run during active work**
-
-Lightweight checkpoint that updates SESSIONS.md and tasks/ only. Fast (~5 seconds). Perfect for frequent saves every 15-30 minutes during active coding.
+**Fast and lightweight.** Your safety net.
 
 #### `/review-context`
 **Run at session start**
 
-Verifies documentation is current and accurate. Reports any gaps or issues. Confirms you can resume exactly where you left off.
+Verifies documentation is current and accurate. Shows QUICK_REF.md dashboard. Reports any gaps or issues. Confirms you can resume exactly where you left off.
 
 ### Quality & Sharing Commands
 
@@ -212,47 +232,60 @@ Updates slash commands and optionally updates context file templates from GitHub
 
 ## Documentation Files
 
-### CLAUDE.md - Developer Guide
-How to work with this project. Includes:
-- Commands and architecture
-- Your specific preferences
-- Current status and critical path
+### CONTEXT.md - Orientation (Rarely Changes)
+**Who, what, how, why.** Includes:
+- Tech stack and architecture
+- Communication preferences
+- Anti-patterns to avoid
+- Commands and setup
+- References other files (no duplication)
 
-### PRD.md - Product Requirements
-What and why. Includes:
-- Vision and goals
-- Tech stack and implementation plan
-- Progress log and roadmap
+**For AI agents:** Project overview, constraints, preferences
 
-### ARCHITECTURE.md - Technical Design
-How it's built. Includes:
-- System design and structure
-- Data flow and dependencies
-- Integration points
+### STATUS.md - Current State (Frequently Updated)
+**Single source of truth for "what's happening now."** Includes:
+- Current phase/focus
+- Active tasks (checkboxes)
+- Blockers and recent decisions
+- Next session start point
+- Updated by every `/save-context`
 
-### DECISIONS.md - Decision Log
-Why we chose this. Includes:
+**For AI agents:** Current work state, immediate priorities, blockers
+
+### DECISIONS.md - Decision Log (Critical for AI Review)
+**WHY choices were made.** Includes:
 - Technical decisions and rationale
 - Alternatives considered
+- Constraints and tradeoffs
 - When to reconsider
+- Append-only decision history
 
-### CODE_STYLE.md - Coding Standards
-How we write code. Includes:
-- Simplicity principles
-- No lazy coding rule
-- Testing requirements
+**For AI agents:** Understand WHY, not just WHAT. Critical for reviews and takeover.
 
-### KNOWN_ISSUES.md - Issue Tracking
-What's broken. Includes:
-- Current bugs and limitations
-- Technical debt
-- Future improvements
+### SESSIONS.md - History (Structured, Comprehensive)
+**What happened when.** Includes:
+- Structured entries (scannable but comprehensive)
+- What changed, decisions, files, mental models
+- Problem-solving approaches
+- Enough depth for AI understanding
+- Append-only
 
-### SESSIONS.md - Work History
-What happened when. Includes:
-- Detailed session logs
-- Files modified
-- Decisions made
+**For AI agents:** Learn from problem-solving patterns, understand evolution, see thinking process
+
+### QUICK_REF.md - Dashboard (Auto-Generated)
+**At-a-glance project status.** Includes:
+- Current phase and progress
+- Tech stack and URLs
+- Quick navigation links
+- Generated automatically by `/save-context`
+
+**For AI agents:** Fast orientation and entry point
+
+### Optional Files (Created On-Demand)
+
+**PRD.md** - Product vision and roadmap (when scope is complex)
+
+**ARCHITECTURE.md** - System design details (when architecture is complex)
 
 ## Workflow Integration
 
@@ -425,21 +458,35 @@ See [SETUP_GUIDE.md](./SETUP_GUIDE.md) for detailed troubleshooting.
 
 ## Version
 
-**Current Version:** 1.7.0
+**Current Version:** 1.8.0
 **Status:** Active Development
 **Last Updated:** 2025-10-05
 
-### What's New in v1.7.0
+### What's New in v1.8.0
 
-**Progressive Enhancement** - Real-world feedback showed the comprehensive 8-file approach felt overengineered. v1.7.0 takes a smarter approach:
+**Dual Purpose: Developer Productivity + AI Agent Review** - Real-world feedback revealed a critical insight: this system isn't just for session continuity, it's for AI agents to review, improve, and take over your work.
 
-- **Start minimal** - `/init-context` now creates just 3 core files
-- **Grow naturally** - Additional files suggested when complexity demands
-- **Intelligent updates** - `/save-context` updates what changed, not everything
-- **Reference guides** - Not checklists to follow rigidly
-- **80/20 principle** - Maximum value, minimum overhead
+**The Realization:**
+- **During work:** TodoWrite >> Context docs for productivity
+- **At save points:** Rich documentation for AI review and takeover
+- **The value:** AI agents can understand WHY, review with full context, take over seamlessly
 
-**The concept stayed the same. The execution got smarter.**
+**Key Changes:**
+- **Restored DECISIONS.md** - Critical for AI agents to understand rationale
+- **Enhanced SESSIONS.md** - Structured BUT comprehensive (mental models + thinking)
+- **3 core files** - CONTEXT.md (orientation), STATUS.md (current), DECISIONS.md (why)
+- **Single source of truth** - No duplication, but comprehensive depth
+- **Auto-generated dashboard** - QUICK_REF.md for fast orientation
+- **Smart `/save-context`** - Captures TodoWrite + mental models for AI review
+- **AI-optimized exports** - `/export-context` generates takeover-ready documentation
+
+**Philosophy:**
+```
+v1.7.0: Start minimal → Grow naturally
+v1.8.0: Minimal overhead during work → Rich documentation for AI review/takeover
+```
+
+**The sweet spot:** Low friction for you, rich context for AI agents.
 
 ## Contributing
 

@@ -5,9 +5,13 @@ description: Update all meta-documentation to reflect current code state
 
 # /save-context Command
 
-Update context documentation to accurately reflect the current state of the project. **Intelligent, not bureaucratic** - updates what changed, suggests growth when needed.
+Update context documentation to reflect current state AND enable AI agent review/takeover. **Dual purpose:** low overhead for developer, rich context for AI agents.
 
-**Philosophy:** Write a good session summary. Update what matters. Grow documentation when complexity demands it.
+**Philosophy:**
+- Capture TodoWrite state for productivity tracking
+- Extract mental models and decision rationale for AI agents
+- Update what changed (not everything)
+- Grow documentation when complexity demands
 
 **Reference guide:** `.claude/docs/save-context-guide.md` (philosophy, examples, not a checklist)
 
@@ -27,14 +31,17 @@ Update context documentation to accurately reflect the current state of the proj
 
 ## What This Command Does
 
-**Smart approach:**
-1. Analyzes what actually changed this session
-2. Updates only the relevant files
-3. **Suggests creating new files when complexity demands it**
-4. Preserves work-in-progress state
-5. Reports what changed
+**Dual-purpose approach:**
+1. **Captures TodoWrite state** - preserves your productivity tracking
+2. **Extracts mental models** - AI agents understand your thinking
+3. **Analyzes what changed** - updates only relevant files
+4. **Documents decision rationale** - WHY choices were made (DECISIONS.md)
+5. **Creates comprehensive session log** - structured with depth for AI (40-60 lines)
+6. **Auto-generates QUICK_REF.md** - dashboard for fast orientation
+7. **Suggests new files** when complexity demands it
+8. **Preserves work-in-progress** - exact resume point with mental model
 
-**Not a checklist. Not 50 steps. Just intelligent documentation.**
+**Not a checklist. Intelligent documentation for both you AND AI agents.**
 
 ## Execution Steps
 
@@ -50,6 +57,21 @@ If context/ exists:
 ```
 
 ### Step 2: Analyze What Changed
+
+**Option A: Use Helper Script (Recommended)**
+
+```bash
+./scripts/save-context-helper.sh
+```
+
+This will:
+- Auto-detect session number
+- Gather git changes (log, status, diff)
+- Pre-populate session template with file changes
+- Create draft file: `context/.session-N-draft.md`
+- You just fill in the [BRACKETED] placeholders (mental models, rationale)
+
+**Option B: Manual Analysis**
 
 Gather information about this session's work:
 
@@ -75,7 +97,7 @@ git diff --cached
 
 These files ALWAYS get updated:
 
-#### context/SESSIONS.md - Session History
+#### context/SESSIONS.md - Session History (Structured, Comprehensive)
 
 **Auto-detect session number:**
 ```bash
@@ -83,63 +105,111 @@ LAST_SESSION=$(grep -c "^## Session" context/SESSIONS.md)
 NEXT_SESSION=$((LAST_SESSION + 1))
 ```
 
-**Write a GOOD session summary** (not a checklist - capture what matters):
+**Write a comprehensive, structured session summary** (40-60 lines with depth for AI agents):
 ```markdown
-## Session [N] - YYYY-MM-DD HH:MM
+## Session [N] | YYYY-MM-DD | [Phase Name]
 
-**Focus:** [What was this session about?]
+**Duration:** [X]h | **Focus:** [Brief description] | **Status:** ✅/⏳
 
-**Accomplishments:**
-- [What did we achieve?]
-- [Include file paths: `src/file.ts:123`]
+### Changed
+- ✅ [Key accomplishment 1 with context]
+- ✅ [Key accomplishment 2 with context]
 
-**Files Modified/Created:**
-- `path/to/file.ts:123-145` - [What changed]
-- `path/to/new-file.tsx` - [Purpose]
+### Problem Solved
+**Issue:** [What problem did this session address?]
+**Constraints:** [What limitations existed?]
+**Approach:** [How did you solve it? What was your thinking?]
+**Why this approach:** [Rationale for the chosen solution]
 
-**Work In Progress:**
-- [What's incomplete? Where exactly did we stop?]
-- [Next specific action to take]
+### Decisions
+- **[Decision topic]:** [What and why] → See DECISIONS.md [ID]
 
-**Next Steps:**
-- [What to do next session]
+### Files
+**NEW:** `path/to/file.ts:1-150` - [Purpose and key contents]
+**MOD:** `path/to/file.tsx:123-145` - [What changed and why]
+**DEL:** `path/to/old-file.ts` - [Why removed]
+
+### Mental Models
+**Current understanding:** [Explain your mental model of the system]
+**Key insights:** [Insights AI agents should know]
+**Gotchas discovered:** [Things that weren't obvious]
+
+### Work In Progress
+**Task:** [What's incomplete - be specific]
+**Location:** `file.ts:145` in `functionName()`
+**Current approach:** [Detailed mental model of what you're doing]
+**Why this approach:** [Rationale]
+**Next specific action:** [Exact next step]
+**Context needed:** [What you need to remember to resume]
+
+### TodoWrite State
+**Captured from TodoWrite:**
+- ✅ [Completed todo 1]
+- [ ] [Incomplete todo - in WIP]
+
+### Next Session
+**Priority:** [Most important next action]
+**Blockers:** [None / List blockers with details]
 ```
 
-**The WIP section is CRITICAL** - be specific:
-- Exact file and line number
-- Current approach/mental model
-- Next specific action
-- Any context needed to resume
+**Critical for AI Agents:**
+- Problem Solved section - shows your thinking process
+- Mental Models section - AI understands your approach
+- Decisions linked to DECISIONS.md - full rationale
+- Structured but comprehensive (40-60 lines, not 10 or 190)
 
-#### context/CLAUDE.md - Project Guide
+#### context/STATUS.md - Current State (Single Source of Truth)
 
-**Update if changed:**
-- Current status/phase
-- Commands (if new scripts added)
-- Critical path section:
-  ```markdown
-  **Current Status:** [One-sentence status]
+**Always update:**
+- Current phase/focus - reflect where you are now
+- Active tasks - update from TodoWrite state
+- Work in progress - detailed WIP from current session
+- Recent accomplishments - what you completed this session
+- Next session priorities - what to do next
+- Blockers and recent decisions
 
-  **Completed in Session [N]:**
-  - ✅ [Key accomplishment 1]
-  - ✅ [Key accomplishment 2]
+**This is the canonical source for "what's happening now"**
 
-  **Key Files Modified/Created:**
-  - `path/to/file` - [What changed]
+#### context/DECISIONS.md - Decision Log (For AI Agents)
 
-  **Next Steps:**
-  1. [Immediate next action]
-  ```
+**Update when significant decisions made:**
 
-**Skip if:** No material changes to project context
+If you made an important technical decision this session:
+1. Check if it's already documented
+2. If not, add new entry using template format:
+   ```markdown
+   ## D[ID] - [Decision Title]
 
-#### context/tasks/next-steps.md - Action Items
+   **Date:** YYYY-MM-DD
+   **Status:** Accepted
+   **Session:** [N]
 
-**Update based on session:**
-- Mark completed actions: [ ] → [✅]
-- Add new actions from current session
-- Update blockers
-- Refresh priorities
+   ### Context
+   [What problem? What constraints?]
+
+   ### Decision
+   [What did we decide?]
+
+   ### Rationale
+   [WHY this approach?]
+
+   ### Alternatives Considered
+   1. **[Alt 1]** - Pros/Cons/Why not
+
+   ### Tradeoffs Accepted
+   - ✅ [What we gain]
+   - ❌ [What we give up]
+
+   ### When to Reconsider
+   [Triggers for revisiting]
+
+   **For AI agents:** [Additional context AI needs]
+   ```
+
+3. Update Active Decisions table
+4. Link from SESSIONS.md entry
+
+**Critical:** DECISIONS.md enables AI agents to understand WHY you made choices, not just WHAT you implemented.
 
 ### Step 4: Update Optional Files (If They Exist)
 
@@ -150,61 +220,84 @@ Only update these if the file already exists:
 **Skip if:** Just implementation work
 
 #### context/ARCHITECTURE.md (if exists)
-**Update if:** Architectural changes made
+**Update if:** Architectural changes made, new system design decisions
 **Skip if:** No design changes
 
-#### context/DECISIONS.md (if exists)
-**Update if:** Technical decisions made this session
-**Skip if:** No significant choices
+**Note:** These are the only optional files in v1.8.0. Other documentation needs are covered by core files:
+- Decisions → DECISIONS.md (core file)
+- Code style → CONTEXT.md preferences
+- Known issues → STATUS.md blockers section
 
-#### context/CODE_STYLE.md (if exists)
-**Update if:** New patterns/standards adopted
-**Skip if:** No style changes (most sessions)
+### Step 5: Auto-Generate QUICK_REF.md
 
-#### context/KNOWN_ISSUES.md (if exists)
-**Update if:** Issues discovered or fixed
-**Skip if:** No issue changes
+**Always generate** - provides fast orientation dashboard:
 
-### Step 5: Suggest New Files (When Needed)
+```markdown
+# Quick Reference
 
-**Progressive enhancement** - suggest creating files when complexity demands:
+**Auto-generated by `/save-context`** - Do not edit manually
+
+---
+
+## Project: [Project Name]
+
+**Current:** [Phase] | **Session:** [N] | **Progress:** [X%]
+
+## Tech Stack
+
+- **Framework:** [e.g., Next.js 15]
+- **Language:** [e.g., TypeScript]
+- **Database:** [e.g., PostgreSQL]
+
+## URLs
+
+- **Production:** [URL]
+- **Staging:** [URL]
+- **Local:** [URL]
+- **Repository:** [GitHub URL]
+
+## Current Focus
+
+**Phase:** [Phase name]
+**Active Tasks:** [From STATUS.md]
+**Next Priority:** [From STATUS.md]
+
+## Quick Commands
+
+```bash
+[dev command]
+[test command]
+[build command]
+```
+
+## Context Navigation
+
+- **Orientation:** `context/CONTEXT.md`
+- **Current Status:** `context/STATUS.md`
+- **Decision Log:** `context/DECISIONS.md`
+- **Session History:** `context/SESSIONS.md`
+
+---
+
+**Last Updated:** [Timestamp]
+**Next Session:** See STATUS.md → Work In Progress
+```
+
+### Step 6: Suggest New Files (When Needed)
+
+**On-demand enhancement** - suggest when complexity demands:
 
 #### Check for ARCHITECTURE.md need:
 ```bash
-# Count source files
 FILE_COUNT=$(find src -type f 2>/dev/null | wc -l)
 DIR_COUNT=$(find src -type d -maxdepth 2 2>/dev/null | wc -l)
 
 if [ ! -f context/ARCHITECTURE.md ] && [ $FILE_COUNT -gt 20 ] && [ $DIR_COUNT -gt 5 ]; then
   echo "📐 Your architecture is getting complex (20+ files, 5+ directories)"
-  echo "   Should I create ARCHITECTURE.md to document system design?"
+  echo "   Should I create ARCHITECTURE.md for AI agents to understand system design?"
   echo "   (y/n)"
 fi
 ```
-
-#### Check for DECISIONS.md need:
-Ask if:
-- Discussed 3+ technical options/tradeoffs this session
-- Made significant architectural choice
-- File doesn't exist yet
-
-**Prompt:** "We made several important technical decisions this session. Should I create DECISIONS.md to track them?"
-
-#### Check for CODE_STYLE.md need:
-Ask if:
-- User mentioned code quality standards multiple times
-- Discussed coding patterns/conventions
-- File doesn't exist yet
-
-**Prompt:** "You've mentioned code quality standards. Should I create CODE_STYLE.md to formalize them?"
-
-#### Check for KNOWN_ISSUES.md need:
-Ask if:
-- Tracking 3+ bugs or limitations
-- Issues mentioned across multiple sessions
-- File doesn't exist yet
-
-**Prompt:** "We're tracking several bugs/issues. Should I create KNOWN_ISSUES.md?"
 
 #### Check for PRD.md need:
 Ask if:
@@ -212,18 +305,37 @@ Ask if:
 - Feature roadmap getting complex
 - File doesn't exist yet
 
-**Prompt:** "Product scope is expanding. Should I create PRD.md to document vision and roadmap?"
+**Prompt:** "Product scope is expanding. Should I create PRD.md to document vision and roadmap for AI agent context?"
 
-### Step 6: Cross-Check Consistency
+**v1.8.0 Note:** We only suggest ARCHITECTURE.md and PRD.md on-demand. DECISIONS.md is always created as core file #3.
+
+### Step 7: Cross-Check Consistency
 
 Quick verification that docs tell coherent story:
-- Does CLAUDE.md status match reality?
+- Does STATUS.md reflect current reality?
+- Are DECISIONS.md entries linked from SESSIONS.md?
+- Is QUICK_REF.md accurate?
 - Do files reference each other correctly?
-- Is SESSIONS.md complete?
 
 If inconsistencies found → fix them.
 
-### Step 7: Report Updates
+### Step 7.5: Export JSON for Multi-Agent Workflows
+
+**ACTION:** Export SESSIONS.md to machine-readable JSON:
+
+```bash
+./scripts/export-sessions-json.sh
+```
+
+This creates `context/.sessions-data.json` with structured session history for:
+- Multi-agent workflows (context handoff)
+- External tooling and analytics
+- Automated QA and reminders
+- AI agent consumption without Markdown parsing
+
+**Note:** This step is automatic and takes <1 second.
+
+### Step 8: Report Updates
 
 Clear, concise summary:
 
@@ -231,59 +343,73 @@ Clear, concise summary:
 ✅ Context Updated - Session [N]
 
 **Core Updates:**
-- SESSIONS.md - Complete session log with WIP state
-- CLAUDE.md - Updated critical path
-- next-steps.md - 3 completed, 2 new actions
+- SESSIONS.md - Comprehensive session log (Problem Solved, Mental Models, WIP)
+- STATUS.md - Updated current tasks, blockers, next priorities
+- DECISIONS.md - [Documented Decision D[ID] / No new decisions]
+- QUICK_REF.md - Auto-generated dashboard
+- .sessions-data.json - Machine-readable export for multi-agent workflows
 
 **Optional Updates:**
-- DECISIONS.md - Documented [decision]
-- KNOWN_ISSUES.md - Fixed 2 bugs, added 1 concern
+- [ARCHITECTURE.md - Updated system design / Skipped]
+- [PRD.md - Updated roadmap / Skipped]
+
+**For AI Agents:**
+- Mental models captured in SESSIONS.md
+- Decision rationale in DECISIONS.md
+- Machine-readable JSON available in .sessions-data.json
+- Full context available for review/takeover
 
 **Current Status:** [One-sentence project status]
 
-**Next Session:** [What to do next]
+**Next Session:** [What to do next - from STATUS.md]
 ```
 
 ## Important Guidelines
 
 ### Update Philosophy
 
-**Focus on what matters:**
-- Write a good session summary (SESSIONS.md is key)
-- Update project context if it changed (CLAUDE.md)
-- Track action items (next-steps.md)
+**Dual purpose in mind:**
+- **For you:** Capture TodoWrite state, update STATUS.md, quick recovery
+- **For AI agents:** Mental models, decision rationale, comprehensive context
+- Write good session summary (SESSIONS.md 40-60 lines with depth)
+- Document decisions with WHY (DECISIONS.md critical for AI)
 - Everything else is optional
 
-**Be specific, not generic:**
+**Be structured AND comprehensive:**
+- Structured format (scannable sections)
+- But include depth (mental models, rationale, constraints)
 - Include file paths and line numbers
 - Capture the "why" not just the "what"
-- Document WIP state precisely
-- Make it scannable
+- Document WIP state precisely with mental model
+- **Structured ≠ minimal** - AI agents need context
 
 **Grow when needed:**
 - Don't create files prematurely
-- Suggest new documentation when complexity warrants it
-- Let user decide what's worth documenting
+- Suggest ARCHITECTURE/PRD when complexity warrants it
+- DECISIONS.md is always core (AI agents need it)
 
 **See:** `.claude/docs/save-context-guide.md` for philosophy, examples, best practices
 
 ### What to Always Capture
 
-**Non-negotiable:**
-- SESSIONS.md entry (most important!)
-- **Work in progress** state (exact resume point)
-- Files modified (with what changed)
-- Next actions
+**Non-negotiable (Core Files):**
+- **SESSIONS.md entry** - Comprehensive with mental models (40-60 lines)
+- **STATUS.md update** - Current tasks, blockers, next priorities
+- **DECISIONS.md entry** - If significant decisions made (WHY)
+- **QUICK_REF.md** - Auto-generated dashboard
+- **Work in progress** state - Exact resume point with mental model
+- **TodoWrite state** - Capture what was completed vs. pending
 
-**If relevant:**
-- Decisions made (with reasoning)
-- Issues found/fixed (with severity)
-- Status updates
+**Critical for AI agents:**
+- Mental models - How you understand the system
+- Decision rationale - WHY you chose this approach
+- Problem-solving approach - How you tackled the issue
+- Constraints - What limitations existed
+- Gotchas discovered - Things that weren't obvious
 
 **Can skip:**
-- Files that didn't change
-- Documentation that's not relevant
-- Bureaucratic ceremony
+- Optional files that didn't change (PRD, ARCHITECTURE)
+- Sections that have no updates
 
 ### Work-In-Progress Capture (Critical!)
 
@@ -312,25 +438,37 @@ Clear, concise summary:
 - Bureaucratic process
 - "Documentation for documentation's sake"
 
-**New way (v1.7.0):**
-- Write a good session summary
+**v1.7.0:**
+- Write session summary
 - Update what changed
-- Suggest growth when needed
-- "Document what matters"
+- Minimal approach (2 files)
+
+**New way (v1.8.0 - Dual Purpose):**
+- **Write comprehensive session summary** (40-60 lines with mental models)
+- **Capture TodoWrite state + mental models for AI agents**
+- **Document decision rationale** (DECISIONS.md)
+- Update core 3 files (CONTEXT, STATUS, DECISIONS)
+- **Auto-generate QUICK_REF.md**
+- Structured but comprehensive
+- **Enable AI agent review and takeover**
 
 ## Success Criteria
 
-✅ SESSIONS.md has complete entry
-✅ WIP state captured precisely
-✅ CLAUDE.md reflects current status (if changed)
-✅ Next steps are clear
+✅ SESSIONS.md has comprehensive, structured entry (40-60 lines)
+✅ Mental models captured for AI understanding
+✅ TodoWrite state preserved
+✅ WIP state captured precisely with mental model
+✅ STATUS.md updated as single source of truth
+✅ DECISIONS.md updated if significant decisions made
+✅ QUICK_REF.md auto-generated
 ✅ Can resume seamlessly next session
-✅ No unnecessary file updates
+✅ **AI agents can review with full context**
+✅ **AI agents can take over development with understanding**
 
 ## Time Investment
 
-- Simple session: 1-2 minutes (just SESSIONS.md + next-steps)
-- Complex session: 3-5 minutes (multiple files updated)
-- With new file creation: 5-7 minutes (create + populate)
+- Simple session: 3-5 minutes (comprehensive SESSIONS.md + STATUS.md + QUICK_REF.md)
+- Complex session with decisions: 5-8 minutes (+ DECISIONS.md entry)
+- With new optional file: 8-12 minutes (create ARCHITECTURE/PRD)
 
-**Worth every second** - enables perfect session continuity.
+**Worth every second** - enables perfect session continuity AND AI agent review/takeover.

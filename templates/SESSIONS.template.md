@@ -1,363 +1,149 @@
 # Session History
 
-Detailed log of all work sessions. This is the most critical file for session continuity - capture everything here.
+**Structured, comprehensive history** - for AI agent review and takeover. Append-only.
+
+**For current status:** See `STATUS.md` (single source of truth)
+**For quick reference:** See `QUICK_REF.md` (auto-generated dashboard)
 
 ---
 
-## Session [N] - [YYYY-MM-DD HH:MM]
+## Session [N] | [YYYY-MM-DD] | [Phase Name]
 
-**Duration:** [X] hours
-**Focus:** [Main work area or goal]
-**Status:** [Complete / In Progress / Interrupted]
+**Duration:** [X]h | **Focus:** [Brief description] | **Status:** ✅ Complete / ⏳ In Progress
 
-### Accomplishments
+### Changed
 
-**Summary:**
-[High-level summary of what was achieved]
+- ✅ [Key accomplishment 1 with context]
+- ✅ [Key accomplishment 2 with context]
+- ✅ [Key accomplishment 3 with context]
 
-**Detailed Work:**
-1. [Accomplishment 1 with details]
-   - Implemented in `path/to/file.ts:123-145`
-   - Added functionality for [purpose]
+### Problem Solved
 
-2. [Accomplishment 2]
-   - Modified `path/to/file.tsx:67`
-   - Fixed [issue] by [solution]
+**Issue:** [What problem did this session address?]
 
-3. [Accomplishment 3]
-   - [Details]
+**Constraints:** [What limitations existed?]
+- [Constraint 1]
+- [Constraint 2]
 
-### Files Modified
+**Approach:** [How did you solve it? What was your thinking?]
 
-**Created:**
-- `path/to/new-file.ts` - [Purpose and contents]
-- `path/to/another-file.tsx` - [Purpose]
+**Why this approach:** [Rationale for the chosen solution]
 
-**Modified:**
-- `path/to/file-1.ts:123-145` - [What changed and why]
-- `path/to/file-2.tsx:67,89,120-130` - [What changed and why]
-- `config/file.json` - [What changed]
+### Decisions
 
-**Deleted:**
-- `path/to/old-file.ts` - [Why removed]
+- **[Decision topic]:** [What and why] → See DECISIONS.md [ID]
+- **[Decision topic]:** [What and why]
 
-### Decisions Made
+### Files
 
-1. **[Decision Title]**
-   - Decision: [What was decided]
-   - Reason: [Why]
-   - See: DECISIONS.md [Reference]
+**NEW:**
+- `path/to/file.ts:1-150` - [Purpose and key contents]
 
-2. **[Decision Title]**
-   - [Details]
+**MOD:**
+- `path/to/file.tsx:123-145` - [What changed and why]
+- `path/to/config.json` - [What changed]
 
-### Issues Discovered
+**DEL:**
+- `path/to/old-file.ts` - [Why removed and what replaced it]
 
-1. **[Issue Title]** - Added to KNOWN_ISSUES.md as [ID]
-   - Severity: [Level]
-   - Description: [Brief]
-   - Location: [Where found]
+### Mental Models
 
-2. **[Issue Title]**
-   - [Details]
+**Current understanding:**
+[Explain your mental model of the system/feature you're working on]
 
-### Issues Resolved
+**Key insights:**
+- [Insight 1 that AI agents should know]
+- [Insight 2]
 
-1. **[Issue Title]** - Removed from KNOWN_ISSUES.md [ID]
-   - How fixed: [Solution]
-   - Commit: [Hash/reference]
-
-2. **[Issue Title]**
-   - [Details]
+**Gotchas discovered:**
+- [Gotcha 1 - thing that wasn't obvious]
+- [Gotcha 2]
 
 ### Work In Progress
 
-**Status:** [What was in progress when session ended]
+**Task:** [What's incomplete - be specific]
+**Location:** `file.ts:145` in `functionName()`
+**Current approach:** [Detailed mental model of what you're doing]
+**Why this approach:** [Rationale]
+**Next specific action:** [Exact next step]
+**Context needed:** [What you need to remember to resume]
 
-**Current Task:**
-[Exact description of what's incomplete]
+### TodoWrite State
 
-**Location:**
-- File: `path/to/file.ts`
-- Line: 145
-- Function/Component: [Name]
+**Captured from TodoWrite:**
+- [Completed todo 1]
+- [Completed todo 2]
+- [ ] [Incomplete todo - in WIP]
 
-**Mental Model:**
-[Describe the approach being taken, thought process, strategy]
+### Next Session
 
-**Next Specific Action:**
-[EXACTLY what to do next - be ultra-specific]
-
-**Example:**
-```
-Current Task: Implementing JWT refresh token logic
-
-Location:
-- File: lib/auth.ts
-- Line: 145
-- Function: refreshAccessToken()
-
-Mental Model:
-Using jose library for JWT verification. Refresh tokens stored in httpOnly cookie,
-access tokens in memory. Following stateless auth pattern with short-lived access
-tokens (15min) and longer refresh tokens (7 days).
-
-Next Specific Action:
-Add refresh token validation at lib/auth.ts:145. Need to:
-1. Extract refresh token from cookie
-2. Verify signature with secret
-3. Check expiration
-4. Generate new access token
-5. Return to client
-```
-
-### Commands Run
-
-**Build/Dev:**
-```bash
-npm run dev
-npm run build
-```
-
-**Git:**
-```bash
-git status
-git add [files]
-git commit -m "message"
-# NOT pushed - waiting for approval
-```
-
-**Other:**
-```bash
-[Other significant commands]
-```
-
-### Testing Done
-
-**Manual Testing:**
-- [Test scenario 1] - ✅ Passed
-- [Test scenario 2] - ✅ Passed
-- [Test scenario 3] - ❌ Failed (added to issues)
-
-**Automated Testing:**
-```bash
-npm test
-# Results: [X] passed, [Y] failed
-```
-
-**Browser Testing:**
-- Desktop Chrome: ✅
-- Desktop Firefox: ✅
-- Mobile Safari: ⚠️ [Issue found]
-
-### Dependencies Added/Removed
-
-**Added:**
-```bash
-npm install [package]@[version]
-```
-- Reason: [Why added]
-- Usage: [Where used]
-
-**Removed:**
-```bash
-npm uninstall [package]
-```
-- Reason: [Why removed]
-- Replaced with: [Alternative if any]
-
-### Notes & Context
-
-**Key Learnings:**
-- [Learning 1]
-- [Learning 2]
-
-**Challenges Faced:**
-- [Challenge 1 and how overcome]
-- [Challenge 2]
-
-**Open Questions:**
-- [Question 1]
-- [Question 2]
-
-**Future Considerations:**
-- [Thing to think about later]
-- [Potential improvement]
-
-**Links/References:**
-- [Useful article/doc consulted]
-- [Stack Overflow link that helped]
-
-### Next Steps
-
-**Immediate (Next Session):**
-1. [First thing to do]
-2. [Second thing to do]
-3. [Third thing to do]
-
-**Short-term (This Week):**
-- [Task 1]
-- [Task 2]
-
-**Blocked On:**
-- [Blocker 1] - [What's needed to unblock]
-- [Blocker 2]
-
-### Session Metadata
-
-**Started:** [YYYY-MM-DD HH:MM]
-**Ended:** [YYYY-MM-DD HH:MM]
-**Interruptions:** [Number/type]
-**Energy Level:** [High/Medium/Low]
-**Productivity:** [High/Medium/Low]
-
-**Git State:**
-- Branch: [branch-name]
-- Commits: [N]
-- Pushed: [Yes/No]
-- Changes staged: [Yes/No]
-- Uncommitted changes: [Yes/No]
+**Priority:** [Most important next action]
+**Blockers:** [None / List blockers with details]
+**Questions:** [Open questions for next session]
 
 ---
 
 ## Session Template
 
-Use this template for each new session. Be thorough - this is your continuity lifeline.
-
 ```markdown
-## Session [N] - [YYYY-MM-DD HH:MM]
+## Session [N] | [YYYY-MM-DD] | [Phase Name]
 
-**Duration:** [X] hours
-**Focus:** [Main work area]
-**Status:** [Complete/In Progress/Interrupted]
+**Duration:** [X]h | **Focus:** [Brief] | **Status:** ✅/⏳
 
-### Accomplishments
-[What was achieved]
+### Changed
+- ✅ [Accomplishment]
 
-### Files Modified
-**Created:**
-**Modified:**
-**Deleted:**
+### Decisions
+- **[Topic]:** [Decision and why]
 
-### Decisions Made
-[Key decisions]
-
-### Issues Discovered
-[New issues]
-
-### Issues Resolved
-[Fixed issues]
+### Files
+**NEW:** `file` - [Purpose]
+**MOD:** `file:lines` - [What]
+**DEL:** `file` - [Why]
 
 ### Work In Progress
-**Current Task:**
-**Location:** `file.ts:line`
-**Mental Model:** [Approach]
-**Next Action:** [Exact next step]
+**Task:** [What]
+**Location:** `file:line`
+**Approach:** [How]
+**Next:** [Exact action]
 
-### Commands Run
-[Significant commands]
-
-### Testing Done
-[What was tested]
-
-### Dependencies
-**Added:**
-**Removed:**
-
-### Notes & Context
-[Important context]
-
-### Next Steps
-**Immediate:**
-**Short-term:**
-**Blocked On:**
-
-### Session Metadata
-**Git State:**
+### Next Session
+**Priority:** [What]
+**Blockers:** [None/List]
 ```
 
 ---
 
 ## Session Index
 
-Quick reference to find specific work.
+Quick navigation to specific work.
 
-| Session | Date | Focus | Key Accomplishments | Status |
-|---------|------|-------|-------------------|--------|
-| 1 | [Date] | [Focus] | [Brief summary] | ✅ |
-| 2 | [Date] | [Focus] | [Brief summary] | ✅ |
-| N | [Date] | [Focus] | [Brief summary] | ⏳ |
-
----
-
-## Session Statistics
-
-**Total Sessions:** [N]
-**Total Hours:** [N]
-**Average Session Length:** [N] hours
-
-**Work Distribution:**
-- Feature Development: [N] sessions
-- Bug Fixes: [N] sessions
-- Refactoring: [N] sessions
-- Documentation: [N] sessions
-
-**Productivity Metrics:**
-- Files created: [N]
-- Files modified: [N]
-- Commits made: [N]
-- Issues resolved: [N]
-- Issues discovered: [N]
+| # | Date | Phase | Focus | Status |
+|---|------|-------|-------|--------|
+| 1 | YYYY-MM-DD | Phase | [Brief] | ✅ |
+| 2 | YYYY-MM-DD | Phase | [Brief] | ✅ |
+| N | YYYY-MM-DD | Phase | [Brief] | ⏳ |
 
 ---
 
-## Continuity Checklist
+## Tips
 
-When starting a new session, review the last entry for:
-- [ ] WIP state - what was in progress
-- [ ] Next actions - what to do first
-- [ ] Blockers - what's preventing progress
-- [ ] Open questions - what needs answers
-- [ ] Mental model - understanding approach
-- [ ] Git state - uncommitted work
+**For AI Agent Review & Takeover:**
+- **Mental models are critical** - AI needs to understand your thinking
+- **Capture constraints** - AI should know what limitations existed
+- **Explain rationale** - WHY you chose this approach
+- **Document gotchas** - Save AI from discovering the same issues
+- **Show problem-solving** - AI learns from your approach
 
-When ending a session, ensure you've captured:
-- [ ] All accomplishments (with file paths)
-- [ ] All files changed (with line numbers)
-- [ ] All decisions made
-- [ ] All issues found/fixed
-- [ ] WIP state (ultra-specific)
-- [ ] Next exact action
-- [ ] Mental model of approach
-- [ ] Git state
+**Be structured AND comprehensive:**
+- Use structured format (scannable sections)
+- But include depth (mental models, rationale, constraints)
+- 40-60 lines per session is appropriate for AI understanding
+- Structured ≠ minimal. AI needs context.
 
----
-
-## Tips for Great Session Logs
-
-**Be specific:**
-- "Modified auth.ts" → "Modified lib/auth.ts:145-160 to add JWT refresh logic"
-- "Fixed bug" → "Fixed CORS issue in middleware.ts:23 by adding credentials header"
-
-**Capture mental models:**
-- Don't just say what you did, explain your thinking
-- Future sessions need to understand the approach
-- Document the "why" behind decisions
-
-**WIP is critical:**
-- Be ULTRA specific about where you stopped
-- Include exact file, line, function
-- Describe the exact next action
-- Explain the approach being taken
-
-**Link everything:**
-- Reference DECISIONS.md for decisions
-- Reference KNOWN_ISSUES.md for issues
-- Link to commits when possible
-- Cross-reference related sessions
-
-**Honest assessment:**
-- Note what went well
-- Note what was challenging
-- Admit uncertainty
-- Ask questions for next session
+**Key sections for AI:**
+1. **Problem Solved** - What issue existed, constraints, approach
+2. **Mental Models** - Your understanding of the system
+3. **Decisions** - Link to DECISIONS.md for full rationale
+4. **Work In Progress** - Detailed enough for takeover
+5. **TodoWrite State** - What was accomplished vs. pending
