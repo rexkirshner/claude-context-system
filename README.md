@@ -1,10 +1,10 @@
 # Claude Context System
 
-**Version 1.8.0**
+**Version 1.9.0**
 
 > Perfect session continuity for Claude Code projects
 >
-> **Minimal overhead. Maximum recovery. Single source of truth.**
+> **Two-tier workflow: 2-3 minutes daily, comprehensive when needed.**
 
 ## What is This?
 
@@ -32,20 +32,22 @@ The Claude Context System is a complete toolkit for maintaining perfect context 
 
 ## The Solution
 
-**Dual-purpose documentation system** - Minimal overhead during work, rich context for AI agents:
+**Two-tier workflow** - Minimal overhead for continuous work, comprehensive documentation when needed:
 
 **Philosophy:**
-- **Within sessions:** TodoWrite for active productivity
-- **At save points:** Rich documentation for AI review and takeover
+- **Within sessions:** TodoWrite for active productivity (zero overhead)
+- **Quick saves (daily):** `/save` updates current state (2-3 minutes)
+- **Comprehensive saves (occasional):** `/save-full` before breaks/handoffs (10-15 minutes)
 - **Single source of truth:** No duplication, but comprehensive depth
 
 **Setup (run once):**
 - **`/init-context`** - Create core files (CONTEXT.md, STATUS.md, DECISIONS.md)
 - **`/migrate-context`** - Migrate existing project with documentation
 
-**Maintenance:**
-- **`/save-context`** - Captures TodoWrite state + mental models for AI review
-- **`/save-context --full`** - Comprehensive documentation pass
+**Daily Workflow:**
+- **`/save`** - Quick save (2-3 min): Updates STATUS.md, auto-generates QUICK_REF.md
+- **`/save-full`** - Comprehensive (10-15 min): Everything /save does + SESSIONS.md entry + mental models
+- **Frequency:** Use `/save` most sessions, `/save-full` 3-5× per 20 sessions
 - **`/review-context`** - Verify continuity and completeness
 
 **Quality & Sharing:**
@@ -72,8 +74,9 @@ cp -r claude-context-system/scripts /path/to/your/project/
 # 4. Clean up (after init completes)
 rm -rf claude-context-system
 
-# 5. Start working
-/save-context  # Run this often!
+# 5. Daily workflow
+/save          # Quick update (2-3 min) - most sessions
+/save-full     # Comprehensive (10-15 min) - before breaks/handoffs
 ```
 
 See [SETUP_GUIDE.md](./SETUP_GUIDE.md) for complete instructions.

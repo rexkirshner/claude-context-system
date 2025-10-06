@@ -7,6 +7,88 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.0] - 2025-10-06
+
+### Added
+
+**Two-Tier Workflow - Addressing the Frequency Mismatch:**
+
+Based on real-world AI agent feedback from v1.7.0/v1.8.0 usage, we identified the core problem: **overhead paid every session (20×) vs. benefit realized occasionally (3-4×) = unfavorable 5:1 ratio**.
+
+**The Solution: Minimal Continuous + Comprehensive On-Demand**
+
+**New Command: /save (Quick Update)**
+- Minimal session save (2-3 minutes)
+- Updates STATUS.md (current tasks, blockers, next steps)
+- Auto-generates QUICK_REF.md
+- Use for most sessions during continuous work
+- `.claude/commands/save.md`
+
+**Renamed: /save-context → /save-full (Comprehensive)**
+- Comprehensive documentation (10-15 minutes)
+- Everything /save does PLUS:
+  - Creates SESSIONS.md entry (40-60 lines with mental models)
+  - Updates DECISIONS.md if significant decision made
+  - Optional JSON export (--with-json flag)
+- Use before breaks >1 week, handoffs, milestones
+- Frequency: ~3-5 times per 20 sessions
+- `.claude/commands/save-full.md`
+
+### Changed
+
+**Time Investment (20-Session Project):**
+- **v1.8.0:** 100-200 minutes
+- **v1.9.0:** 70-95 minutes
+- **Savings: 30-50% reduction in overhead**
+
+**Workflow:**
+```
+Old (v1.8.0): /save-context every session (5-10 min)
+New (v1.9.0): /save most sessions (2-3 min)
+              /save-full occasionally (10-15 min, 3-5× per 20 sessions)
+```
+
+**Updated Commands:**
+- `/init-context` - Explains two-tier workflow to new users
+- `/save-full` - Emphasizes "use sparingly, before breaks/handoffs"
+- JSON export now optional (--with-json flag), not automatic
+
+**Updated Documentation:**
+- README.md - Two-tier workflow explanation
+- Version bump: 1.8.0 → 1.9.0
+- Tagline: "Two-tier workflow: 2-3 minutes daily, comprehensive when needed"
+
+### Why This Matters
+
+**Real-World Feedback (AI Agent using v1.7.0):**
+> "Worth asking: how often do you actually lose context vs how often do you update the docs?"
+
+**The Problem:**
+- Update docs: 20 times (every session)
+- Recover context: 3-4 times (occasional breaks)
+- **Overhead/benefit ratio: 5:1 (unfavorable)**
+- Time invested: 100-200 min, Time saved: 12-20 min = **Negative ROI**
+
+**The Fix:**
+- Pay minimal overhead for continuous work (common case)
+- Pay comprehensive overhead only when needed (edge case)
+- **Aligns cost with value**
+
+**Expected Outcome:**
+- Same context recovery quality
+- 50-60% less time investment
+- Better developer experience (less overhead feeling)
+- Positive ROI for complex projects
+
+### Philosophy Shift
+
+```
+v1.8.0: "Comprehensive documentation every session"
+v1.9.0: "Minimal continuous, comprehensive on-demand"
+```
+
+**Key Insight:** Most value is in CONTEXT.md + STATUS.md (orientation + current state), not comprehensive session history every time. SESSIONS.md is valuable, but only needs updates before actual context loss events.
+
 ## [1.8.0] - 2025-10-05
 
 ### Added

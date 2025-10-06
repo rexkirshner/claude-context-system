@@ -196,7 +196,7 @@ curl -sL https://raw.githubusercontent.com/rexkirshner/claude-context-system/mai
 After initialization, explain to the user:
 
 ```
-✅ Context System Initialized (v1.8.0)
+✅ Context System Initialized (v1.9.0)
 
 Created 3 core files + supporting docs:
 - context/CONTEXT.md - Orientation (who/what/how/why)
@@ -206,13 +206,33 @@ Created 3 core files + supporting docs:
 - context/QUICK_REF.md - Dashboard (auto-generated)
 - context/.context-config.json - Configuration
 
-🎯 Dual Purpose Philosophy:
+⚡ Two-Tier Workflow (NEW in v1.9.0):
 
-**Within sessions:** Use TodoWrite for active productivity (minimal overhead)
-**At save points:** Rich documentation for AI review/takeover
+**Tier 1: Quick Updates (Most Sessions)**
+Run /save at session end - 2-3 minutes
+- Updates STATUS.md (current tasks, blockers, next steps)
+- Auto-generates QUICK_REF.md
+- Minimal overhead, continuous work
 
-**Why this matters:**
-This system isn't just for YOU - it's for AI AGENTS to:
+**Tier 2: Comprehensive Documentation (Occasional)**
+Run /save-full before breaks/handoffs - 10-15 minutes
+- Everything /save does
+- PLUS: Creates detailed SESSIONS.md entry
+- PLUS: Documents mental models and decision rationale
+- Use ~3-5 times per 20 sessions
+
+**Time Investment for 20 Sessions:**
+- 17× /save: ~40-50 min
+- 3× /save-full: ~30-45 min
+- Total: ~70-95 min (vs. 100-200 min in v1.8.0)
+
+🎯 Philosophy:
+
+**Within sessions:** TodoWrite for productivity (minimal overhead)
+**At save points:** /save for quick state capture (2-3 min)
+**Before breaks:** /save-full for comprehensive docs (10-15 min)
+
+This system enables AI agents to:
 - Review your code with full context
 - Understand WHY you made decisions
 - Take over development seamlessly
@@ -224,38 +244,33 @@ Each piece of information lives in ONE place:
 - Current tasks → STATUS.md
 - Project overview → CONTEXT.md
 - Decision rationale → DECISIONS.md
-- History + mental models → SESSIONS.md
-- No duplication, but comprehensive depth where needed
+- History + mental models → SESSIONS.md (created by /save-full)
 
 🤖 For AI Agents:
 
-**DECISIONS.md is critical** - AI agents reviewing your code need to understand:
-- WHY you chose certain approaches
-- What constraints existed
-- What alternatives you considered
-- What tradeoffs you accepted
+**DECISIONS.md is critical** - Captures WHY choices were made:
+- Rationale and constraints
+- Alternatives considered
+- Tradeoffs accepted
 
 **SESSIONS.md captures thinking** - AI agents learn from:
 - Your mental models
 - Problem-solving approaches
-- Gotchas you discovered
 - Evolution of your understanding
 
 📈 Growing Your Documentation:
 
 When complexity demands it, I'll suggest:
-
-- **PRD.md** → Product vision gets complex
-- **ARCHITECTURE.md** → System design needs documenting
-
-I'll ask first. No overhead unless you need it.
+- **PRD.md** → Product vision documentation
+- **ARCHITECTURE.md** → System design documentation
 
 Next Steps:
 1. Review context/CONTEXT.md for accuracy
 2. Use TodoWrite during active work
-3. Run /save-context at session end (captures TodoWrite + mental models)
-4. Use /code-review for AI agent review when ready
-5. Start coding!
+3. Run /save at session end (2-3 min quick update)
+4. Run /save-full before breaks/handoffs (10-15 min comprehensive)
+5. Use /code-review for AI agent review when ready
+6. Start coding!
 ```
 
 ### Step 7: Cleanup Installation Files

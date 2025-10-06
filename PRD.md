@@ -3,10 +3,33 @@
 ## Executive Summary
 
 **Product Name:** Claude Context System
-**Version:** 1.8.0
+**Version:** 1.9.0
 **Owner:** Rex Kirshner
 **Status:** Active Development
-**Last Updated:** 2025-10-05
+**Last Updated:** 2025-10-06
+
+### What Changed in v1.9.0
+
+**Real-world AI agent feedback** identified the core problem:
+> "How often do you actually lose context vs. how often do you update docs?"
+
+**The Frequency Mismatch:**
+- Update docs: 20× (every session)
+- Recover context: 3-4× (occasional breaks)
+- Overhead/benefit ratio: 5:1 (unfavorable)
+- Result: Negative ROI (pay 100-200 min, save 12-20 min)
+
+**v1.9.0 Response: Two-Tier Workflow**
+- **Most sessions:** `/save` quick update (2-3 min)
+  - Updates STATUS.md + QUICK_REF.md
+  - Minimal overhead, continuous work
+- **Occasional:** `/save-full` comprehensive (10-15 min)
+  - Creates SESSIONS.md entry
+  - Documents mental models and rationale
+  - Use 3-5× per 20 sessions (before breaks/handoffs)
+- **Result:** 50-60% reduction in overhead (100-200 min → 70-95 min)
+
+**Philosophy:** Align cost with value - minimal overhead for common case, comprehensive documentation only when needed.
 
 ### What Changed in v1.8.0
 
@@ -17,12 +40,12 @@
 - ❌ Duplication: same info in 3 places (CLAUDE.md, next-steps.md, SESSIONS.md)
 - ❌ SESSIONS.md too verbose (190+ lines, exhausting to write/read)
 
-**v1.8.0 Response: Two-Tool Philosophy**
+**v1.8.0 Response: Dual Purpose Philosophy**
 - **Within sessions:** TodoWrite for productivity
-- **Between sessions:** Context for recovery
-- **2 core files only:** CONTEXT.md + STATUS.md
+- **At save points:** Rich documentation for AI agents
+- **3 core files:** CONTEXT.md + STATUS.md + DECISIONS.md
 - **Single source of truth:** No duplication
-- **Structured SESSIONS.md:** Scannable, not prose
+- **Structured SESSIONS.md:** 40-60 lines with mental models
 - **Smart `/save-context`:** Captures TodoWrite, updates what changed
 
 ### Problem Statement
