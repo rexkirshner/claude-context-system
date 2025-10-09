@@ -238,7 +238,7 @@
   "metadata": {
     "createdAt": "[YYYY-MM-DD]",
     "lastUpdated": "[YYYY-MM-DD]",
-    "configVersion": "2.0.0",
+    "configVersion": "2.1.0",
     "notes": "Configuration for Claude Context System"
   },
   "counters": {
