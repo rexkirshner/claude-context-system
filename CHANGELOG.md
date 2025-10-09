@@ -7,6 +7,142 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2025-10-09
+
+### Philosophy
+
+**"Consolidate, don't expand. Start simple, grow naturally."**
+
+v2.1.0 is a refinement release based on real-world feedback. The comprehensive 8-file v2.0 approach felt overengineered. v2.1.0 implements progressive enhancement: start with minimal overhead, add files only when complexity demands it.
+
+### Added
+
+**File Consolidation:**
+- **Quick Reference section in STATUS.md** - QUICK_REF.md merged into STATUS.md as auto-generated section at top
+- Reduces file count: 6 → 5 files (4 core + 1 AI header)
+- Eliminates manual drift between separate files
+- Single source of truth for current state
+
+**Multi-AI Support Pattern:**
+- **AI header files** (claude.md, cursor.md, aider.md, codex.md) - 7-line redirects to platform-neutral docs
+- Platform-neutral CONTEXT.md works with any AI tool
+- Easy extension for new AI tools
+- No content duplication across headers
+- `/add-ai-header` command for adding new tool support
+
+**Quality Improvements:**
+- **Mandatory TL;DR** in SESSIONS.md template (2-3 sentences, enforced)
+- **Auto-logged git operations** in sessions (commits, pushed status, approval quote)
+- **Automated staleness detection** in /validate-context (🟢🟡🔴 indicators, configurable thresholds)
+- **5-layer git push protection** (config flag, pre-push checklist, session reminder, audit trail, validation)
+- **Optional CODE_MAP.md** with 4-question adoption criteria (only create when value > maintenance cost)
+
+**New Commands:**
+- `/update-templates` - Compare context files with templates, interactively update with diffs
+- `/add-ai-header [tool]` - Create header file for additional AI coding tools
+- `/session-summary [--last N] [--full]` - Quick navigation via TL;DR summaries
+
+**Configuration Enhancements:**
+- **Staleness thresholds** - Per-file green/yellow/red day thresholds
+- **Git push protection settings** - Explicit approval phrases, requireExplicitApproval flag
+- **Project metadata** - URLs (production, staging, repo), commands (dev, test, build), tech stack
+- **AI headers array** - Track which AI tools are supported
+
+### Changed
+
+**Template Improvements:**
+- **CONTEXT.md trimmed:** 600 → 282 lines (53% reduction)
+- Preserved "Getting Started Path" (5-min and 30-min orientations)
+- High-level architecture with links to DECISIONS.md for details
+- Platform-neutral approach (works with any AI tool)
+
+**Command Updates:**
+- `/init-context` - Creates 4 core + 1 AI header, prompts for CODE_MAP based on 4-question quiz
+- `/save` - Updates STATUS.md with auto-generated Quick Reference section (not separate file)
+- `/save-full` - Added git push protection checklist (MANDATORY STOP before push)
+- `/review-context` - Step 1.6: Critical Protocol Reminder sets PUSH_APPROVED=false
+- `/validate-context` - Step 2.5: Git push protocol audit, Step 2.7: Staleness detection
+
+**File Structure:**
+```
+v2.0: 6 files
+- CONTEXT.md
+- STATUS.md
+- DECISIONS.md
+- SESSIONS.md
+- QUICK_REF.md (separate file)
+- .context-config.json
+
+v2.1: 5 files (4 core + 1 AI header)
+- claude.md (AI header: 7-line redirect)
+- CONTEXT.md (platform-neutral, ~300 lines)
+- STATUS.md (includes Quick Reference section at top)
+- DECISIONS.md
+- SESSIONS.md (mandatory TL;DR, auto-logged git ops)
+- .context-config.json
+```
+
+### Removed
+
+- **QUICK_REF.md as separate file** - Merged into STATUS.md as auto-generated section
+- Eliminates duplication and manual drift
+
+### Migration
+
+**From v2.0 to v2.1:**
+
+See [MIGRATION_GUIDE_v2.0_to_v2.1.md](./MIGRATION_GUIDE_v2.0_to_v2.1.md) for complete migration steps.
+
+**Quick migration:**
+1. Merge QUICK_REF.md content into STATUS.md top (as Quick Reference section)
+2. Delete QUICK_REF.md
+3. Create claude.md header (7 lines)
+4. Update .context-config.json to v2.1.0
+5. Run /validate-context to verify
+
+**Backward compatibility:**
+- v2.0 projects work without migration (but won't get new features)
+- All v2.0 commands still function
+- Existing documentation structure preserved
+
+### Real-World Validation
+
+**Feedback that shaped v2.1:**
+- SESSIONS.md + CLAUDE.md provided 80% of value
+- Other files felt like "documentation for documentation's sake"
+- 50-step save process felt bureaucratic
+- Need: Simple start, grow when complexity demands
+
+**Philosophy shift:**
+- OLD: Create comprehensive system → Force all projects to use it
+- NEW: Start minimal → Grow naturally when complexity demands it
+
+### Breaking Changes
+
+- **QUICK_REF.md location changed:** Now a section within STATUS.md (not separate file)
+- Manual Quick Reference updates no longer possible (auto-generated only)
+- Migration required to adopt v2.1.0 fully
+
+### Fixed
+
+- Inconsistent QUICK_REF.md references across 28 locations (all updated to STATUS.md section)
+- AI header templates documented as "5 lines" (actually 7 lines) - Fixed in 9 files
+- Legacy v2.0 references in commands and documentation - All updated to v2.1
+
+### Performance
+
+**Time investment for 20 sessions:**
+- 17× /save: ~40-50 min
+- 3× /save-full: ~30-45 min
+- **Total: ~70-95 min** (50% reduction from v1.8.0)
+
+### Documentation
+
+- **MIGRATION_GUIDE_v2.0_to_v2.1.md** - Complete migration instructions
+- **STRUCTURE.md** - Updated for v2.1 file structure
+- **README.md** - Updated to reflect v2.1 features
+- **All command docs** - Updated for QUICK_REF consolidation and new features
+
 ## [2.0.0] - 2025-10-06
 
 ### Added

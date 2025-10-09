@@ -3,7 +3,7 @@
 **Structured, comprehensive history** - for AI agent review and takeover. Append-only.
 
 **For current status:** See `STATUS.md` (single source of truth)
-**For quick reference:** See `QUICK_REF.md` (auto-generated dashboard)
+**For quick reference:** See Quick Reference section in `STATUS.md` (auto-generated)
 
 ---
 
@@ -11,7 +11,12 @@
 
 **Duration:** [X]h | **Focus:** [Brief description] | **Status:** ✅ Complete / ⏳ In Progress
 
-### Changed
+### TL;DR
+**MANDATORY - 2-3 sentences summarizing what was accomplished this session**
+
+[2-3 sentences: what was accomplished, key decisions made, current state]
+
+### Accomplishments
 
 - ✅ [Key accomplishment 1 with context]
 - ✅ [Key accomplishment 2 with context]
@@ -81,36 +86,53 @@
 **Blockers:** [None / List blockers with details]
 **Questions:** [Open questions for next session]
 
+### Git Operations
+**MANDATORY - Auto-logged from conversation**
+
+- **Commits:** [N] commits
+- **Pushed:** [YES | NO | USER WILL PUSH]
+- **Approval:** ["Exact user quote approving push" | "Not pushed"]
+
+### Tests & Build
+
+- **Tests:** [X/Y passing | All passing | Not run]
+- **Build:** [Success | Failure | Not run]
+- **Coverage:** [N% | Not measured]
+
 ---
 
 ## Example: Initial Session
 
 Here's what your first session entry might look like after running `/init-context` and `/save`:
 
-## Session 1 | 2025-10-06 | Project Initialization
+## Session 1 | 2025-10-09 | Project Initialization
 
-**Duration:** 0.5h | **Focus:** Setup Claude Context System v2.0 | **Status:** ✅ Complete
+**Duration:** 0.5h | **Focus:** Setup Claude Context System v2.1 | **Status:** ✅ Complete
+
+### TL;DR
+
+Initialized Claude Context System v2.1 with 4 core files + 1 AI header (claude.md). System ready for minimal-overhead documentation during development with comprehensive save points before breaks.
 
 ### Changed
 
-- ✅ Initialized Claude Context System v2.0
-- ✅ Created 5 core documentation files (CONTEXT, STATUS, DECISIONS, SESSIONS, QUICK_REF)
-- ✅ Configured .context-config.json with version 2.0.0
+- ✅ Initialized Claude Context System v2.1
+- ✅ Created 4 core documentation files + 1 AI header (claude.md, CONTEXT, STATUS, DECISIONS, SESSIONS)
+- ✅ Configured .context-config.json with version 2.1.0
 
 ### Decisions
 
-- **Documentation System:** Chose Claude Context System v2.0 for session continuity and AI agent handoffs
-- **File Structure:** Using v2.0 structure with STATUS.md as single source of truth
+- **Documentation System:** Chose Claude Context System v2.1 for session continuity and AI agent handoffs
+- **File Structure:** Using v2.1 structure with STATUS.md as single source of truth (includes auto-generated Quick Reference)
 
 ### Files
 
 **NEW:**
-- `context/CONTEXT.md` - Project orientation and overview
-- `context/STATUS.md` - Single source of truth for current state
+- `context/claude.md` - AI header (entry point for Claude)
+- `context/CONTEXT.md` - Project orientation (platform-neutral)
+- `context/STATUS.md` - Single source of truth with auto-generated Quick Reference section
 - `context/DECISIONS.md` - Decision log with rationale
 - `context/SESSIONS.md` - This file (structured session history)
-- `context/QUICK_REF.md` - Auto-generated dashboard
-- `context/.context-config.json` - System configuration
+- `context/.context-config.json` - System configuration v2.1.0
 
 ### Next Session
 
@@ -127,26 +149,40 @@ Here's what your first session entry might look like after running `/init-contex
 
 **Duration:** [X]h | **Focus:** [Brief] | **Status:** ✅/⏳
 
-### Changed
-- ✅ [Accomplishment]
+### TL;DR
+[MANDATORY - 2-3 sentences summary]
+
+### Accomplishments
+- ✅ [Accomplishment 1]
+- ✅ [Accomplishment 2]
 
 ### Decisions
-- **[Topic]:** [Decision and why]
+- **[Topic]:** [Decision and why] → See DECISIONS.md [ID]
 
 ### Files
-**NEW:** `file` - [Purpose]
-**MOD:** `file:lines` - [What]
-**DEL:** `file` - [Why]
+**NEW:** `file` (+N lines) - [Purpose]
+**MOD:** `file:lines` (+N, -M) - [What changed]
+**DEL:** `file` - [Why removed]
 
 ### Work In Progress
-**Task:** [What]
+**Task:** [What's incomplete]
 **Location:** `file:line`
-**Approach:** [How]
-**Next:** [Exact action]
+**Approach:** [How you're solving it]
+**Next:** [Exact action to resume]
 
 ### Next Session
-**Priority:** [What]
-**Blockers:** [None/List]
+**Priority:** [Most important next]
+**Blockers:** [None / List]
+
+### Git Operations
+**MANDATORY - Auto-logged**
+- **Commits:** [N] commits
+- **Pushed:** [YES | NO | USER WILL PUSH]
+- **Approval:** ["User quote" | "Not pushed"]
+
+### Tests & Build
+- **Tests:** [Status]
+- **Build:** [Status]
 ```
 
 ---

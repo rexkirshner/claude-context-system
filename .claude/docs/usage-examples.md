@@ -33,7 +33,7 @@ This guide demonstrates practical usage patterns for different situations. Each 
 - CONTEXT.md - All current, verified
 - STATUS.md - Current state up to date, 3 action items ready
 - SESSIONS.md - Last entry yesterday, complete WIP
-- QUICK_REF.md - Auto-generated dashboard current
+- Quick Reference (in STATUS.md) - Auto-generated dashboard current
 
 **Last Session:** Session 23 - 2025-10-03
 **Last Work:** Implementing user profile page (complete)
@@ -66,7 +66,7 @@ Ready to continue?
 Updated:
 - STATUS.md - Updated current work and next steps
 - SESSIONS.md - Brief progress note
-- QUICK_REF.md - Auto-generated dashboard updated
+- Quick Reference (in STATUS.md) - Auto-generated dashboard updated
 
 Time: 2-3 minutes
 ```
@@ -87,7 +87,7 @@ Time: 2-3 minutes
 - STATUS.md - Updated current state, next steps, recent work
 - SESSIONS.md - Complete session 24 entry with detailed accomplishments
 - DECISIONS.md - Added zod validation library choice
-- QUICK_REF.md - Auto-generated dashboard updated
+- Quick Reference (in STATUS.md) - Auto-generated dashboard updated
 
 **Key Changes Captured:**
 - Implemented user settings page (app/settings/page.tsx)
@@ -166,7 +166,7 @@ rm -rf ../claude-context-system
 ✅ STATUS.md (single source of truth for current state)
 ✅ DECISIONS.md (decision log with rationale)
 ✅ SESSIONS.md (structured session history)
-✅ QUICK_REF.md (auto-generated dashboard)
+✅ Quick Reference (in STATUS.md) (auto-generated dashboard)
 
 **Step 4: Configuration...**
 ✅ .context-config.json created
@@ -202,7 +202,7 @@ Review and customize the generated files:
 
 STATUS.md: Current state captured
 SESSIONS.md: Session 1 entry added
-QUICK_REF.md: Dashboard generated
+Quick Reference (in STATUS.md): Dashboard generated
 
 Ready to start coding!
 ```
@@ -276,7 +276,7 @@ git diff
 **Updated based on git history:**
 - STATUS.md - Updated current state, marked auth refactor complete
 - SESSIONS.md - Added retrospective entries for completed work
-- QUICK_REF.md - Dashboard updated with current status
+- Quick Reference (in STATUS.md) - Dashboard updated with current status
 - DECISIONS.md - Captured auth approach decisions
 
 **Current Status:** Ready for next feature

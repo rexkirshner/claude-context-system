@@ -1,29 +1,37 @@
 # Claude Context System
 
-**Version 2.0.0**
+**Version 2.1.0**
 
 > Perfect session continuity for Claude Code projects
 >
-> **Two-tier workflow: 2-3 minutes daily, comprehensive when needed.**
+> **Start simple, grow naturally. Platform-neutral core with tool-specific entry points.**
 
 ---
 
-## 🆕 What's New in v2.0
+## 🆕 What's New in v2.1
 
-**Single Source of Truth:** No more status duplication across multiple files
+**Philosophy:** Consolidate, don't expand. Start with minimal overhead, add complexity only when needed.
+
+**Key Improvements:**
+- **File consolidation** - QUICK_REF merged into STATUS.md → 5 files (4 core + 1 AI header)
+- **Multi-AI support** - Platform-neutral docs with tool-specific headers (claude.md, cursor.md, etc.)
+- **Mandatory TL;DR** - Enforced 2-3 sentence summaries in sessions
+- **Automated staleness** - Visual indicators (🟢🟡🔴) with configurable thresholds
+- **Git push protection** - 5-layer structural prevention system
+- **CODE_MAP optional** - 4-question criteria gates creation
 
 **New Structure:**
-- **CONTEXT.md** - Project orientation (replaces CLAUDE.md)
-- **STATUS.md** - Current state - **single source of truth** (replaces next-steps.md + todo.md)
+- **claude.md** - AI header (7-line redirect to platform-neutral docs)
+- **CONTEXT.md** - Platform-neutral orientation (~300 lines, 50% reduction)
+- **STATUS.md** - Single source of truth **with auto-generated Quick Reference at top**
 - **DECISIONS.md** - Decision log (WHY choices were made)
-- **SESSIONS.md** - Structured history (Changed/Decisions/Files format)
-- **QUICK_REF.md** - Auto-generated dashboard
+- **SESSIONS.md** - Structured history with mandatory TL;DR + auto-logged git ops
 
-**For new projects:** Run `/init-context` - creates v2.0 structure automatically
+**For new projects:** Run `/init-context` - creates minimal structure, suggests optional files when needed
 
-**For existing projects:** See [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md) - manual migration (automated in v2.1)
+**For v2.0 projects:** See [MIGRATION_GUIDE_v2.0_to_v2.1.md](./MIGRATION_GUIDE_v2.0_to_v2.1.md) - 10-15 minute migration
 
-**Learn more:** [What's New in v2.0](#whats-new-in-v20) • [CHANGELOG.md](./CHANGELOG.md)
+**Learn more:** [What's New in v2.1](#whats-new-in-v21) • [CHANGELOG.md](./CHANGELOG.md)
 
 ---
 
@@ -66,7 +74,7 @@ The Claude Context System is a complete toolkit for maintaining perfect context 
 - **`/migrate-context`** - Migrate existing project with documentation
 
 **Daily Workflow:**
-- **`/save`** - Quick save (2-3 min): Updates STATUS.md, auto-generates QUICK_REF.md
+- **`/save`** - Quick save (2-3 min): Updates STATUS.md (with auto-generated Quick Reference section)
 - **`/save-full`** - Comprehensive (10-15 min): Everything /save does + SESSIONS.md entry + mental models
 - **Frequency:** Use `/save` most sessions, `/save-full` 3-5× per 20 sessions
 - **`/review-context`** - Verify continuity and completeness
@@ -115,11 +123,11 @@ your-project/
 │   └── validate-context.sh         # Validation script
 ├── context/                        # Core documentation files
 │   ├── .context-config.json        # Project configuration
+│   ├── claude.md                   # AI header (7-line redirect)
 │   ├── CONTEXT.md                  # Orientation (who/what/how/why)
-│   ├── STATUS.md                   # Current state (tasks/blockers/next)
+│   ├── STATUS.md                   # Current state (includes Quick Reference section)
 │   ├── DECISIONS.md                # Decision log (WHY choices were made)
-│   ├── SESSIONS.md                 # History (structured, comprehensive)
-│   └── QUICK_REF.md                # Auto-generated dashboard
+│   └── SESSIONS.md                 # History (structured, comprehensive)
 └── artifacts/                      # Generated outputs
     ├── code-reviews/               # AI agent code reviews
     ├── lighthouse/                 # Performance reports
@@ -130,6 +138,7 @@ your-project/
 ```
 
 **Additional files created on-demand**:
+- `CODE_MAP.md` → Project has >20 files, multiple directories
 - `PRD.md` → Product vision gets complex
 - `ARCHITECTURE.md` → System design needs comprehensive documentation
 
@@ -162,14 +171,15 @@ your-project/
 - **SESSIONS.md is structured AND comprehensive**
 - Easy to scan: What changed, decisions, files, mental models, next steps
 - Enough depth for AI agents to understand context and thinking
-- Auto-generated QUICK_REF.md dashboard
+- Auto-generated Quick Reference section in STATUS.md
 
-### Smart Save Command
+### Smart Save Commands
+- **`/save` (2-3 min)** - Quick updates: STATUS.md with auto-generated Quick Reference
+- **`/save-full` (10-15 min)** - Comprehensive: Everything /save does + SESSIONS.md entry with mandatory TL;DR
 - **Captures TodoWrite state automatically**
+- **Auto-logs git operations** (commits, pushes) to SESSIONS.md
 - **Extracts mental models and decision rationale**
-- Updates only what changed
 - Suggests optional files when complexity demands
-- `/save-context --full` for comprehensive AI review preparation
 
 ### Zero Context Loss
 - Session logs preserve exact state + thinking
@@ -184,7 +194,7 @@ your-project/
 #### `/init-context`
 **For ALL projects**
 
-Creates 2 core files: CONTEXT.md (orientation), STATUS.md (current state). Auto-generates QUICK_REF.md dashboard. Optional files (PRD, ARCHITECTURE) suggested when complexity demands. **Minimal overhead. Maximum value.**
+Creates 5 files (4 core + 1 AI header): claude.md, CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md. STATUS.md includes auto-generated Quick Reference section at top. Optional files (CODE_MAP, PRD) suggested when complexity demands. **Start simple, grow naturally.**
 
 #### `/migrate-context`
 **For EXISTING projects with docs**
@@ -193,22 +203,30 @@ Migrates existing documentation to Claude Context System structure. Preserves AL
 
 ### Maintenance Commands (Run Frequently)
 
-#### `/save-context`
-**Smart update - run often**
+#### `/save`
+**Quick save - run often (2-3 min)**
 
-**Captures TodoWrite state. Updates what changed. Suggests growth when needed.**
+**Updates current state. Fast and lightweight.**
 
-- Default mode: Updates STATUS.md, appends to SESSIONS.md, captures WIP
-- Auto-generates QUICK_REF.md dashboard
-- Suggests optional files (PRD, ARCHITECTURE) when complexity demands
-- Use `--full` flag for comprehensive update (rare)
+- Updates STATUS.md (including auto-generated Quick Reference section)
+- Captures current tasks, blockers, next steps
+- Your safety net for maintaining context
 
-**Fast and lightweight.** Your safety net.
+#### `/save-full`
+**Comprehensive save - run before breaks (10-15 min)**
+
+**Everything /save does + full session documentation.**
+
+- Updates STATUS.md with auto-generated Quick Reference
+- Adds structured entry to SESSIONS.md with mandatory TL;DR
+- Captures mental models and decision rationale
+- Auto-logs git operations for audit trail
+- Suggests optional files when complexity demands
 
 #### `/review-context`
 **Run at session start**
 
-Verifies documentation is current and accurate. Shows QUICK_REF.md dashboard. Reports any gaps or issues. Confirms you can resume exactly where you left off.
+Verifies documentation is current and accurate. Shows Quick Reference section from STATUS.md. Checks for version updates. Reports any gaps or issues. Confirms you can resume exactly where you left off.
 
 ### Quality & Sharing Commands
 
@@ -220,7 +238,7 @@ Comprehensive code audit with NO changes during review. Identifies issues and su
 #### `/validate-context`
 **Run to check documentation health**
 
-Validates all context files follow expected structure. Flags missing sections, unfilled placeholders, and configuration issues. Reports health score and actionable recommendations.
+Validates all context files follow expected structure. Checks staleness with visual indicators (🟢🟡🔴). Flags missing sections, unfilled placeholders, and configuration issues. Reports health score and actionable recommendations.
 
 #### `/export-context`
 **Run to share or backup**
@@ -232,7 +250,12 @@ Combines all context documentation into single markdown file with table of conte
 #### `/update-context-system`
 **Run periodically to get latest improvements**
 
-Updates slash commands and optionally updates context file templates from GitHub. Interactive mode shows diffs, or use `--accept-all` for automatic updates.
+Updates slash commands and configuration from GitHub. Ensures you have the latest commands and features. Interactive mode with version detection.
+
+#### `/update-templates`
+**Compare and update context files with latest templates**
+
+Shows visual diffs between your context files and latest templates. Interactive file-by-file updates with automatic backups. Robust path resolution (works with any installation method). Perfect for adopting template improvements after system updates.
 
 ## Choosing Your Setup Command
 
@@ -268,13 +291,14 @@ Updates slash commands and optionally updates context file templates from GitHub
 
 ### STATUS.md - Current State (Frequently Updated)
 **Single source of truth for "what's happening now."** Includes:
+- **Auto-generated Quick Reference section at top** (project overview, tech stack, URLs)
 - Current phase/focus
 - Active tasks (checkboxes)
 - Blockers and recent decisions
 - Next session start point
-- Updated by every `/save-context`
+- Updated by every `/save` and `/save-full`
 
-**For AI agents:** Current work state, immediate priorities, blockers
+**For AI agents:** Current work state, immediate priorities, blockers, fast orientation
 
 ### DECISIONS.md - Decision Log (Critical for AI Review)
 **WHY choices were made.** Includes:
@@ -288,24 +312,19 @@ Updates slash commands and optionally updates context file templates from GitHub
 
 ### SESSIONS.md - History (Structured, Comprehensive)
 **What happened when.** Includes:
+- **Mandatory TL;DR** (2-3 sentence summary) for quick scanning
 - Structured entries (scannable but comprehensive)
 - What changed, decisions, files, mental models
+- **Auto-logged git operations** (commits, pushes for audit trail)
 - Problem-solving approaches
 - Enough depth for AI understanding
 - Append-only
 
-**For AI agents:** Learn from problem-solving patterns, understand evolution, see thinking process
-
-### QUICK_REF.md - Dashboard (Auto-Generated)
-**At-a-glance project status.** Includes:
-- Current phase and progress
-- Tech stack and URLs
-- Quick navigation links
-- Generated automatically by `/save-context`
-
-**For AI agents:** Fast orientation and entry point
+**For AI agents:** Learn from problem-solving patterns, understand evolution, see thinking process, review decision history
 
 ### Optional Files (Created On-Demand)
+
+**CODE_MAP.md** - File structure and navigation (when >20 files, multiple directories)
 
 **PRD.md** - Product vision and roadmap (when scope is complex)
 
@@ -342,16 +361,20 @@ claude-context-system/
 ├── SETUP_GUIDE.md              # How to install and use
 ├── STRUCTURE.md                # Complete file organization guide
 ├── .claude/
-│   ├── commands/               # Custom slash commands (9 total)
+│   ├── commands/               # Custom slash commands (12 total)
 │   │   ├── init-context.md
 │   │   ├── migrate-context.md
+│   │   ├── save.md
+│   │   ├── save-full.md
 │   │   ├── save-context.md
-│   │   ├── quick-save-context.md
 │   │   ├── review-context.md
 │   │   ├── code-review.md
 │   │   ├── validate-context.md
 │   │   ├── export-context.md
-│   │   └── update-context-system.md
+│   │   ├── update-context-system.md
+│   │   ├── update-templates.md
+│   │   ├── add-ai-header.md
+│   │   └── session-summary.md
 │   ├── docs/                   # Comprehensive command guides
 │   │   ├── README.md
 │   │   ├── command-philosophy.md
@@ -366,15 +389,18 @@ claude-context-system/
 │       ├── seo-review.md
 │       └── performance.md
 ├── templates/                  # Doc templates
-│   ├── CLAUDE.template.md
-│   ├── PRD.template.md
-│   ├── ARCHITECTURE.template.md
+│   ├── claude.md.template
+│   ├── cursor.md.template
+│   ├── aider.md.template
+│   ├── codex.md.template
+│   ├── generic-ai-header.template.md
+│   ├── CONTEXT.template.md
+│   ├── STATUS.template.md
 │   ├── DECISIONS.template.md
-│   ├── CODE_STYLE.template.md
-│   ├── KNOWN_ISSUES.template.md
 │   ├── SESSIONS.template.md
-│   ├── next-steps.template.md
-│   └── todo.template.md
+│   ├── CODE_MAP.template.md
+│   ├── PRD.template.md
+│   └── ARCHITECTURE.template.md
 └── config/
     ├── .context-config.template.json
     └── context-config-schema.json
@@ -387,15 +413,16 @@ claude-context-system/
 1. Init project
 2. /init-context
 3. Start coding
-4. /save-context (often)
+4. /save (frequently)
+5. /save-full (at session end)
 ```
 
 ### Existing Project Migration
 ```
-1. Copy .claude/commands to project
+1. Copy .claude/ and scripts/ to project
 2. /migrate-context
 3. Review migration report
-4. /save-context
+4. /save-full
 5. Continue working
 ```
 
@@ -404,15 +431,14 @@ claude-context-system/
 1. Open project
 2. /review-context
 3. Start coding
-4. /quick-save-context (every 15-30 minutes)
-5. /save-context (after major features)
-6. /save-context (at end of session)
+4. /save (frequently - 2-3 min quick updates)
+5. /save-full (at end of session - 10-15 min comprehensive)
 ```
 
 ### Quality Check
 ```
-1. /save-context
-2. /validate-context (check docs health)
+1. /save-full
+2. /validate-context (check docs health + staleness)
 3. /code-review (thorough audit)
 4. Review reports
 5. Fix in new session
@@ -420,7 +446,7 @@ claude-context-system/
 
 ### Team Handoff
 ```
-1. /save-context
+1. /save-full
 2. /validate-context
 3. /export-context
 4. Share export file with team
@@ -478,17 +504,21 @@ Customize per project or use global defaults.
 **Commands missing after update?**
 - Check if there's a parent `.claude` directory
 - The update may have updated the wrong folder
-- Verify: `ls .claude/commands` shows all 9 commands
+- Verify: `ls .claude/commands` shows all 12 commands
 
 See [SETUP_GUIDE.md](./SETUP_GUIDE.md) for detailed troubleshooting.
 
 ## Version
 
-**Current Version:** 2.0.0
+**Current Version:** 2.1.0
 **Status:** Active Development
-**Last Updated:** 2025-10-06
+**Last Updated:** 2025-10-09
 
-### What's New in v2.0.0
+See [What's New in v2.1](#whats-new-in-v21) at the top of this file.
+
+### Previous Versions
+
+#### What's New in v2.0.0
 
 **Core Improvements: Promise → Delivery** - Real-world feedback from v1.9.0 revealed critical gaps between what we promised and what we delivered.
 
@@ -567,4 +597,4 @@ See:
 
 ---
 
-**Remember:** When in doubt, `/save-context`!
+**Remember:** When in doubt, `/save`!

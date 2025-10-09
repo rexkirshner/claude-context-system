@@ -143,9 +143,9 @@ if [[ "$CURRENT_VERSION" == "1.9.0" ]]; then
   echo ""
   echo "⚠️  v2.0.0 includes major file structure changes:"
   echo "   - CLAUDE.md → CONTEXT.md"
-  echo "   - Creates STATUS.md (single source of truth)"
+  echo "   - Creates STATUS.md (single source of truth with auto-generated Quick Reference)"
   echo "   - Creates DECISIONS.md, SESSIONS.md (structured)"
-  echo "   - Auto-generates QUICK_REF.md"
+  echo "   - Auto-generates Quick Reference section at top of STATUS.md"
   echo ""
   echo "Migration options:"
   echo "  1. MANUAL: Follow MIGRATION_GUIDE.md (recommended for now)"
@@ -241,10 +241,10 @@ Provide a clear summary to the user:
 
 Review templates/ directory for new reference content you may want to adopt:
 - templates/CONTEXT.template.md
-- templates/STATUS.template.md
+- templates/STATUS.template.md (includes Quick Reference section at top in v2.1)
 - templates/DECISIONS.template.md
 - templates/SESSIONS.template.md
-- templates/QUICK_REF.template.md
+- templates/CODE_MAP.template.md (optional)
 
 ## Next Steps
 

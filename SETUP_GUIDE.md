@@ -2,14 +2,14 @@
 
 **Version 2.0.0** - Single Source of Truth
 
-> **What's New in v2.0:** New file structure (CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md, QUICK_REF.md) eliminates status duplication. See [v2.0 Overview](#whats-new-in-v20) below.
+> **What's New in v2.0:** New file structure (CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md, Quick Reference (section in STATUS.md)) eliminates status duplication. See [v2.0 Overview](#whats-new-in-v20) below.
 
 ## Which Setup Command Do I Use?
 
 ### Use `/init-context` for:
 - ✅ **New projects** with no documentation yet (RECOMMENDED)
 - ✅ Fresh scaffolded projects (npx create-next-app, etc.)
-- ✅ Creates 5 core files: CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md, QUICK_REF.md
+- ✅ Creates 5 core files: CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md, Quick Reference (section in STATUS.md)
 - ✅ Optional files (PRD, ARCHITECTURE) suggested when complexity demands
 
 ### Use `/migrate-context` for:
@@ -53,7 +53,7 @@ This creates 5 core files in `context/`:
 - **STATUS.md** - Current state (tasks/blockers/next steps) - **single source of truth**
 - **DECISIONS.md** - Decision log (WHY choices were made)
 - **SESSIONS.md** - History (structured, scannable format)
-- **QUICK_REF.md** - Auto-generated dashboard
+- **Quick Reference (section in STATUS.md)** - Auto-generated dashboard
 
 Plus:
 - `context/.context-config.json` with your preferences
@@ -81,7 +81,7 @@ The system is now installed and the clone is no longer needed. Future updates us
 # Use TodoWrite for active task tracking (minimal overhead)
 
 # At session end (most sessions):
-/save            # 2-3 min: Updates STATUS.md, QUICK_REF.md
+/save            # 2-3 min: Updates STATUS.md, Quick Reference (section in STATUS.md)
 
 # Before breaks/handoffs (occasionally):
 /save-full       # 10-15 min: Everything /save does + comprehensive SESSIONS.md entry
@@ -204,7 +204,7 @@ when your project complexity demands it.
 **When:** Once, when starting with a new project
 
 **What it does (v2.0):**
-- Creates 5 core files: CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md, QUICK_REF.md
+- Creates 5 core files: CONTEXT.md, STATUS.md, DECISIONS.md, SESSIONS.md, Quick Reference (section in STATUS.md)
 - Suggests optional files (PRD, ARCHITECTURE) when complexity demands
 - Creates `.context-config.json` with preferences
 - Creates `artifacts/` folder structure
@@ -218,7 +218,7 @@ Created 5 core files:
 - context/STATUS.md - Current state (single source of truth)
 - context/DECISIONS.md - Decision log
 - context/SESSIONS.md - History
-- context/QUICK_REF.md - Auto-generated dashboard
+- context/Quick Reference (section in STATUS.md) - Auto-generated dashboard
 ```
 
 ### `/migrate-context`
@@ -247,7 +247,7 @@ Created 5 core files:
 
 **What it does:**
 - Updates STATUS.md (current tasks, blockers, next steps) - **2-3 minutes**
-- Auto-generates QUICK_REF.md from STATUS.md
+- Auto-generates Quick Reference (section in STATUS.md) from STATUS.md
 - Appends brief entry to SESSIONS.md
 - Validates consistency
 
@@ -573,7 +573,7 @@ Add to `.context-config.json`:
 
 **The v2.0 Solution:**
 - **STATUS.md** = single source of truth for current state
-- **QUICK_REF.md** = auto-generated dashboard from STATUS.md
+- **Quick Reference (section in STATUS.md)** = auto-generated dashboard from STATUS.md
 - Other files reference STATUS.md instead of duplicating
 
 ### New File Structure
@@ -584,7 +584,7 @@ Add to `.context-config.json`:
 | next-steps.md | **STATUS.md** | Current state (single source of truth) |
 | todo.md | (merged into STATUS.md) | Active tasks |
 | SESSIONS.md (prose) | **SESSIONS.md** (structured) | History (Changed/Decisions/Files/Next) |
-| (missing) | **QUICK_REF.md** | Auto-generated dashboard |
+| (missing) | **Quick Reference (section in STATUS.md)** | Auto-generated dashboard |
 | (missing) | **DECISIONS.md** | Decision log (WHY choices made) |
 
 ### Migration Path
@@ -600,7 +600,7 @@ Add to `.context-config.json`:
 
 1. **No status duplication** - Update once in STATUS.md, done
 2. **Scannable history** - SESSIONS.md uses structured format (find info in seconds)
-3. **Fast onboarding** - QUICK_REF.md provides instant orientation
+3. **Fast onboarding** - Quick Reference (section in STATUS.md) provides instant orientation
 4. **Decision tracking** - DECISIONS.md captures WHY for AI agent review
 5. **50% time savings** - Two-tier workflow (quick `/save` vs comprehensive `/save-full`)
 

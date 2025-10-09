@@ -1,165 +1,281 @@
-# CLAUDE.md
+# Project Context
 
-This file provides guidance to Claude Code when working with code in this repository.
+**Last Updated:** [Auto-updated]
+**Purpose:** Project orientation and high-level architecture
 
-## Project Overview
+---
 
-**[Project Name]** is [brief description of what this project does].
+## What Is This Project?
 
-**Key References:**
-- Production URL: [URL if deployed]
-- Repository: [GitHub URL]
-- Documentation: [Docs URL if exists]
+**[Project Name]** - [2-3 sentence description: what it does, why it exists, who it's for]
 
-## Working with You
+**Goals:**
+- [Primary goal 1]
+- [Primary goal 2]
+- [Primary goal 3]
 
-> **📋 Preferences:** All communication, workflow, and quality preferences are defined in `context/.context-config.json`.
-> The settings below are derived from that source of truth.
+**Key Stakeholders:**
+- Owner: [Name/role]
+- Users: [Who uses this]
+- Contributors: [Who maintains it]
 
-### Communication Style
+---
 
-**What You Prefer:**
-- Direct, concise responses without preamble
-- High-level summaries of changes made (e.g., "Changed X to Y in file.ts:123")
-- Clear indication when waiting for approval vs. when work is complete
-- Honest assessment of confidence levels
-- Simple solutions over complex ones
+## Getting Started
 
-**What to Avoid:**
-- Verbose explanations unless specifically requested
-- Pushing to GitHub without explicit approval
-- Making assumptions about user intent
-- Complex changes when simple ones work
-- Temporary fixes instead of root cause solutions
-- Emojis unless explicitly requested
+**First time here? (5-minute startup)**
 
-**Git Workflow:**
-- **NEVER push without explicit "push" approval**
-- Test everything in dev before committing
-- When user says "let's make sure it works first" = make change, verify, WAIT for approval
-- Make incremental commits with clear messages
+1. **Read STATUS.md Quick Reference** (30 seconds)
+   - ✅ Checkpoint: Can you find production URL and current phase?
 
-### Core Development Methodology
+2. **Check Active Tasks in STATUS.md** (2 minutes)
+   - ✅ Checkpoint: Know what needs doing next?
 
-1. **Plan First:** Read codebase, think through problem, use TodoWrite tool for task tracking
-2. **Track Progress:** Create todo items with TodoWrite that can be checked off during work
-3. **Verify Plan:** Check in with user before starting implementation
-4. **Work Incrementally:** Complete todos one by one, marking complete as you go
-5. **Communicate Clearly:** Provide high-level explanation of changes at each step
-6. **Simplicity Above All:** Every change should impact minimal code
-7. **Document Results:** Update STATUS.md with current state, run /save to capture session
-8. **No Lazy Coding:** Always look for root causes, never apply band-aids
-9. **Minimal Impact:** Changes affect only necessary code, nothing else
-10. **Full Tracing:** Debug by tracing ENTIRE code flow - no assumptions
+3. **Review last session in SESSIONS.md** (2 minutes)
+   - ✅ Checkpoint: Understand recent work and decisions?
 
-**When Debugging:**
-- Trace through the ENTIRE code flow step by step
-- No assumptions - verify what you think you know
-- No shortcuts - follow the data from entry to issue
-- Use breakpoints or logging at each step
-- Check inputs, outputs, and state at every layer
-- Document the flow as you trace it
+4. **Start working** ✅
 
-## Commands
+**Need deeper context? (30-minute orientation)**
+- Read this file (CONTEXT.md) for architecture → 10 minutes
+- Read DECISIONS.md for technical rationale → 15 minutes
+- Read recent SESSIONS.md entries for recent work → 5 minutes
 
-```bash
-# Development
-[TODO: Add dev command]          # [Description]
+**For AI agents taking over:**
+Recommended: Complete 30-minute orientation above + review last 3 sessions in SESSIONS.md (45 minutes total) for full context.
 
-# Production
-[TODO: Add build command]        # [Description]
-[TODO: Add start command]        # [Description]
+---
 
-# Testing
-[TODO: Add test command]         # [Description]
+## Tech Stack
 
-# Other
-[TODO: Add other commands]       # [Description]
+**Core Technologies:**
+- **Framework:** [e.g., Next.js 15] - [One-line rationale, see DECISIONS.md:REF if detailed]
+- **Language:** [e.g., TypeScript] - [One-line rationale]
+- **Database:** [e.g., PostgreSQL] - [One-line rationale]
+- **Hosting:** [e.g., Vercel] - [One-line rationale]
+- **[Other key tech]:** [Brief description]
+
+**Why these choices?**
+Brief summary of the tech stack philosophy. For detailed decision rationale, see [DECISIONS.md](./DECISIONS.md).
+
+---
+
+## High-Level Architecture
+
+**Type:** [Web App / API / CLI / Library / Mobile App]
+
+**Architecture Pattern:** [e.g., Server-rendered with API routes, Microservices, Monolith, etc.]
+
+**System Diagram:**
+```
+[Optional simple ASCII diagram showing main components]
+
+Example for web app:
+┌─────────────┐
+│   Browser   │
+└──────┬──────┘
+       │
+┌──────▼──────────┐
+│   Next.js App   │
+│  (Pages + API)  │
+└──────┬──────────┘
+       │
+┌──────▼──────────┐
+│   Database      │
+└─────────────────┘
 ```
 
-## Architecture
+**Key Components:**
+- **[Component 1]:** [Purpose and responsibility]
+- **[Component 2]:** [Purpose and responsibility]
+- **[Component 3]:** [Purpose and responsibility]
 
-### [Project Type - Web App / API / CLI / Library]
+**Data Flow:**
+[1-2 paragraphs describing how data moves through the system]
 
-**Technology Stack:**
-- Framework: [e.g., Next.js 15]
-- Language: [e.g., TypeScript]
-- Database: [e.g., PostgreSQL]
-- Hosting: [e.g., Vercel]
+**For detailed architectural decisions:** See [DECISIONS.md](./DECISIONS.md)
 
-**Directory Structure:**
+---
+
+## Directory Structure
+
 ```
 [project-root]/
 ├── [key-directory]/     # [Purpose]
 ├── [key-directory]/     # [Purpose]
-└── [key-directory]/     # [Purpose]
+├── [key-directory]/     # [Purpose]
+├── context/             # Claude Context System docs
+│   ├── CONTEXT.md       # This file
+│   ├── STATUS.md        # Current state
+│   ├── DECISIONS.md     # Decision log
+│   └── SESSIONS.md      # History
+└── [other-directories]  # [Purpose]
 ```
 
-**Key Patterns:**
-- [TODO: Describe main architectural pattern]
-- [TODO: Describe state management approach]
-- [TODO: Describe data flow pattern]
+**File Organization Principles:**
+- [Principle 1, e.g., "Colocation - tests next to source"]
+- [Principle 2, e.g., "Feature folders, not type folders"]
+- [Principle 3, e.g., "Shared code in /lib"]
 
-**File Organization:**
-- [TODO: Explain file naming conventions]
-- [TODO: Explain where different types of code go]
+---
 
-## Development Status
+## Development Workflow
 
-**Current Phase:** [Phase/Milestone name]
+**Core Principles:**
+1. **Plan First** - Understand the problem before writing code
+2. **Test in Dev** - Verify locally before committing
+3. **Incremental Changes** - Small, focused commits
+4. **Root Cause Solutions** - No temporary fixes or band-aids
+5. **Minimal Impact** - Change only what's necessary
+6. **Full Code Tracing** - Debug by following entire flow, no assumptions
 
-**Completed:**
-- ✅ [Major accomplishment 1]
-- ✅ [Major accomplishment 2]
+**Git Workflow:**
+- Branch: [Strategy - feature branches, trunk-based, etc.]
+- Commits: [Convention - conventional commits, semantic, etc.]
+- **Push Protocol:** NEVER push without explicit user approval
+  - See [DECISIONS.md](./DECISIONS.md) for detailed push protocol
+  - Current status: See STATUS.md for git state
 
-**In Progress:**
-- ⏳ [Current work item 1]
-- ⏳ [Current work item 2]
+**Testing Approach:**
+- **Unit Tests:** [When/what to test]
+- **Integration Tests:** [Coverage expectations]
+- **E2E Tests:** [If applicable]
+- **Current Test Status:** See STATUS.md
 
-**Known Limitations:**
-- [Limitation 1]
-- [Limitation 2]
+**For detailed workflow decisions:** See [DECISIONS.md](./DECISIONS.md)
 
-## Important Notes
+---
+
+## Environment Setup
+
+**Prerequisites:**
+- [e.g., Node.js 20+]
+- [e.g., PostgreSQL 15+]
+- [e.g., Other tools]
+
+**Initial Setup:**
+```bash
+# 1. Install dependencies
+[install command]
+
+# 2. Configure environment
+cp .env.example .env.local
+# Edit .env.local with your values
+
+# 3. Setup database (if applicable)
+[database setup command]
+
+# 4. Run development server
+[dev command]
+```
 
 **Environment Variables:**
-- Template: `.env.example`
-- Local config: `.env.local` (gitignored)
-- Never commit credentials
+- Template: `.env.example` (committed)
+- Local config: `.env.local` (gitignored, never commit)
+- Critical vars: [List key variables and what they do]
+
+---
+
+## Key Resources
+
+**Documentation:**
+- [STATUS.md](./STATUS.md) - Current state, tasks, and Quick Reference
+- [DECISIONS.md](./DECISIONS.md) - Technical decisions and rationale
+- [SESSIONS.md](./SESSIONS.md) - Session history and mental models
+- [PRD.md](./PRD.md) - Product vision and requirements (if exists)
+- [CODE_MAP.md](./CODE_MAP.md) - Code location guide (if exists)
+
+**External Resources:**
+- [Framework Docs]: [URL]
+- [Key Dependency]: [URL]
+- [API Reference]: [URL if applicable]
+
+**Project URLs:**
+(Also available in STATUS.md Quick Reference)
+- **Production:** [URL or N/A]
+- **Staging:** [URL or N/A]
+- **Repository:** [GitHub/GitLab URL]
+
+---
+
+## Communication & Workflow Preferences
+
+> **📋 Source of Truth:** All preferences are defined in `context/.context-config.json`
+> The guidance below is derived from that configuration.
+
+**Communication Style:**
+- Direct, concise responses without preamble
+- High-level summaries of changes (e.g., "Changed X to Y in file.ts:123")
+- Honest assessment of confidence levels
+- Simple solutions over complex ones
+- No emojis unless explicitly requested
+
+**What to Avoid:**
+- Verbose explanations unless requested
+- Pushing to GitHub without explicit approval
+- Making assumptions about user intent
+- Temporary fixes instead of root cause solutions
+
+**Task Management:**
+- Use TodoWrite tool for tracking tasks
+- Create todo items that can be checked off during work
+- Mark complete as you go, one task at a time
+
+**Session Management:**
+- Use `/save` for quick session updates (2-3 min)
+- Use `/save-full` before breaks/handoffs (10-15 min)
+- See `.claude/commands/` for all available commands
+
+---
+
+## Important Context & Gotchas
 
 **Dependencies:**
-- [Note any critical dependencies]
-- [External services required]
+- [Critical dependency 1 and why it matters]
+- [External service requirements]
 
-**Special Considerations:**
-- [Any quirks or gotchas]
-- [Important context for developers]
+**Known Limitations:**
+- [Limitation 1 and workaround if any]
+- [Limitation 2]
 
-## Critical Path
+**Common Pitfalls:**
+- [Gotcha 1 that developers should know]
+- [Gotcha 2]
 
-**Current Status:** [One-sentence project status]
+**Performance Considerations:**
+- [If any critical performance constraints]
 
-**Completed in Session [N]:**
-- ✅ [Recent accomplishment 1]
-- ✅ [Recent accomplishment 2]
+**Security Notes:**
+- Never commit credentials (use .env.local)
+- [Any other security considerations]
 
-**Key Files Modified/Created:**
-- `path/to/file` - [What changed]
+---
 
-**Next Steps:**
-1. [Immediate next action]
-2. [Following action]
-3. [Third priority]
+## Project-Specific Notes
 
-## Project-Specific Overrides
+[Use this section for any project-specific context that doesn't fit above]
 
-[Use this section to override or extend general preferences for this specific project]
-
-**Custom Workflow:**
-- [Any project-specific workflow requirements]
-
-**Communication Adjustments:**
-- [Any project-specific communication preferences]
+**Custom Workflows:**
+- [Any unique workflow requirements]
 
 **Technical Constraints:**
-- [Any project-specific technical requirements or limitations]
+- [Any hard requirements or limitations]
+
+**Integration Points:**
+- [External systems this connects to]
+
+---
+
+## Current Work
+
+**For current tasks, status, and next steps:** See [STATUS.md](./STATUS.md)
+
+**For recent work and sessions:** See [SESSIONS.md](./SESSIONS.md)
+
+**For technical decisions:** See [DECISIONS.md](./DECISIONS.md)
+
+**For code locations:** See [CODE_MAP.md](./CODE_MAP.md) (if exists)
+
+---
+
+**This file provides orientation.** For what's happening now, always check STATUS.md first.

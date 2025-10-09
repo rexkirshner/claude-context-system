@@ -21,7 +21,7 @@
 
 **v1.9.0 Response: Two-Tier Workflow**
 - **Most sessions:** `/save` quick update (2-3 min)
-  - Updates STATUS.md + QUICK_REF.md
+  - Updates STATUS.md + Quick Reference section (in STATUS.md)
   - Minimal overhead, continuous work
 - **Occasional:** `/save-full` comprehensive (10-15 min)
   - Creates SESSIONS.md entry
@@ -146,7 +146,7 @@ The system provides **nine slash commands** available in every project:
 
 **`/init-context`** (v1.8.0+)
 - Creates **3 core files:** CONTEXT.md + STATUS.md + DECISIONS.md
-- Auto-generates QUICK_REF.md dashboard
+- Auto-generates Quick Reference section (in STATUS.md) dashboard
 - Analyzes existing project
 - Creates configuration file
 - Suggests optional files (PRD, ARCHITECTURE) when complexity demands
@@ -167,7 +167,7 @@ The system provides **nine slash commands** available in every project:
 - Updates STATUS.md (always)
 - Appends structured, comprehensive entry to SESSIONS.md (40-60 lines)
 - Updates DECISIONS.md when significant decisions made
-- Auto-generates QUICK_REF.md dashboard
+- Auto-generates Quick Reference section (in STATUS.md) dashboard
 - Suggests optional files when complexity demands
 - Use `--full` flag for comprehensive AI review preparation
 - **Low overhead for developer, rich context for AI agents**
@@ -217,7 +217,7 @@ The system provides **nine slash commands** available in every project:
 | STATUS.md | Current state (tasks/blockers/next) | Every session | Single source of truth | Current work state |
 | DECISIONS.md | Decision log (WHY choices made) | When decisions made | Append-only | Critical - understand rationale |
 | SESSIONS.md | History (structured, comprehensive) | Every session | Append-only | Mental models, problem-solving |
-| QUICK_REF.md | Dashboard (auto-generated) | Auto | Generated from STATUS.md | Fast orientation |
+| Quick Reference section (in STATUS.md) | Dashboard (auto-generated) | Auto | Generated from STATUS.md | Fast orientation |
 
 **Optional Files (created on-demand):**
 
@@ -503,7 +503,7 @@ Real-world usage revealed a critical insight we were missing:
 - **Structured BUT comprehensive:** SESSIONS.md has depth (40-60 lines with mental models)
 - **Single source of truth:** No duplication, but comprehensive depth where needed
 - **Smart `/save-context`:** Captures TodoWrite + mental models + decision rationale
-- **Auto-dashboard:** QUICK_REF.md for fast orientation
+- **Auto-dashboard:** Quick Reference section (in STATUS.md) for fast orientation
 
 **The Shift:**
 ```

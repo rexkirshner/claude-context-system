@@ -1,10 +1,21 @@
 {
-  "version": "2.0.0",
+  "version": "2.1.0",
   "owner": "[Your Name]",
   "project": {
     "name": "[Project Name]",
     "type": "[web-app|cli|library|api]",
-    "initialized": "[YYYY-MM-DD]"
+    "initialized": "[YYYY-MM-DD]",
+    "urls": {
+      "production": "[Production URL or N/A]",
+      "staging": "[Staging URL or N/A]",
+      "repository": "[GitHub/GitLab URL]"
+    },
+    "techStack": "[Brief comma-separated list, e.g., Next.js, TypeScript, PostgreSQL]",
+    "commands": {
+      "dev": "[npm run dev or equivalent]",
+      "test": "[npm test or equivalent]",
+      "build": "[npm run build or equivalent]"
+    }
   },
   "preferences": {
     "documentation": {
@@ -65,7 +76,10 @@
       "/code-review",
       "/validate-context",
       "/export-context",
-      "/update-context-system"
+      "/update-context-system",
+      "/update-templates",
+      "/add-ai-header",
+      "/session-summary"
     ],
     "aliases": {
       "/review": "/review-context",
@@ -78,11 +92,17 @@
       "CONTEXT.md",
       "STATUS.md",
       "DECISIONS.md",
-      "SESSIONS.md",
-      "QUICK_REF.md"
+      "SESSIONS.md"
+    ],
+    "aiHeaders": [
+      "claude.md"
     ],
     "optional": [
       "PRD.md",
+      "CODE_MAP.md",
+      "cursor.md",
+      "aider.md",
+      "codex.md",
       "ARCHITECTURE.md",
       "CODE_STYLE.md",
       "KNOWN_ISSUES.md",
@@ -100,9 +120,48 @@
   "git": {
     "autoCommit": false,
     "requireApprovalForPush": true,
+    "pushProtection": {
+      "enabled": true,
+      "requireExplicitApproval": true,
+      "approvalPhrases": [
+        "push",
+        "deploy",
+        "go ahead and push",
+        "yes push"
+      ]
+    },
     "commitMessageFormat": "standard",
     "includeCoAuthor": true,
     "branchStrategy": "[feature|main|custom]"
+  },
+  "validation": {
+    "stalenessThresholds": {
+      "STATUS.md": {
+        "green": 7,
+        "yellow": 14,
+        "red": 30
+      },
+      "SESSIONS.md": {
+        "green": 7,
+        "yellow": 14,
+        "red": 21
+      },
+      "CONTEXT.md": {
+        "green": 90,
+        "yellow": 180,
+        "red": 365
+      },
+      "DECISIONS.md": {
+        "appendOnly": true,
+        "noThreshold": true
+      },
+      "CODE_MAP.md": {
+        "green": 30,
+        "yellow": 60,
+        "red": 90,
+        "validateOnlyIfExists": true
+      }
+    }
   },
   "quality": {
     "codeStyle": {

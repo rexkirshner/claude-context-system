@@ -2,7 +2,7 @@
 
 # install.sh
 # Bootstrap installer for Claude Context System
-# v1.8.0 - One-command installation
+# v2.1.0 - File consolidation and platform neutrality
 #
 # Usage:
 #   curl -sL https://raw.githubusercontent.com/rexkirshner/claude-context-system/main/install.sh | bash
@@ -18,7 +18,7 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-VERSION="1.8.0"
+VERSION="2.1.0"
 REPO_URL="https://github.com/rexkirshner/claude-context-system"
 RAW_URL="https://raw.githubusercontent.com/rexkirshner/claude-context-system/main"
 
@@ -100,12 +100,17 @@ echo -e "${BLUE}⬇️  Downloading slash commands...${NC}"
 COMMANDS=(
   "init-context.md"
   "migrate-context.md"
+  "save.md"
+  "save-full.md"
   "save-context.md"
   "review-context.md"
   "code-review.md"
   "validate-context.md"
   "export-context.md"
   "update-context-system.md"
+  "update-templates.md"
+  "add-ai-header.md"
+  "session-summary.md"
 )
 
 FAILED_DOWNLOADS=0
@@ -129,14 +134,21 @@ echo ""
 echo -e "${BLUE}⬇️  Downloading templates...${NC}"
 
 TEMPLATES=(
+  "claude.md.template"
+  "cursor.md.template"
+  "aider.md.template"
+  "codex.md.template"
+  "generic-ai-header.template.md"
   "CONTEXT.template.md"
   "STATUS.template.md"
   "DECISIONS.template.md"
   "SESSIONS.template.md"
-  "QUICK_REF.template.md"
+  "CODE_MAP.template.md"
   "PRD.template.md"
   "ARCHITECTURE.template.md"
 )
+
+echo "   ℹ️  Note: QUICK_REF.template.md removed in v2.1 (Quick Reference now in STATUS.md)"
 
 for tmpl in "${TEMPLATES[@]}"; do
   echo -n "   Downloading $tmpl... "
@@ -236,10 +248,12 @@ echo -e "${BLUE}🔍 Verifying installation...${NC}"
 
 VERIFICATION_FAILED=0
 
-# Check critical files
+# Check critical files (v2.1.0)
 CRITICAL_FILES=(
   ".claude/commands/init-context.md"
-  ".claude/commands/save-context.md"
+  ".claude/commands/save.md"
+  ".claude/commands/save-full.md"
+  "templates/claude.md.template"
   "templates/CONTEXT.template.md"
   "templates/STATUS.template.md"
   "templates/DECISIONS.template.md"
@@ -272,19 +286,28 @@ if [ $FAILED_DOWNLOADS -eq 0 ] && [ $VERIFICATION_FAILED -eq 0 ]; then
   echo "   1. Run /init-context to initialize your project"
   echo "   2. Review context/CONTEXT.md for accuracy"
   echo "   3. Use TodoWrite during active work"
-  echo "   4. Run /save-context at session end"
-  echo "   5. Use /code-review for AI agent review"
+  echo "   4. Run /save frequently (2-3 min quick updates)"
+  echo "   5. Run /save-full before breaks (10-15 min comprehensive)"
+  echo "   6. Use /code-review for AI agent review"
   echo ""
   echo -e "${BLUE}Documentation:${NC}"
   echo "   - Command philosophy: .claude/docs/command-philosophy.md"
   echo "   - Save context guide: .claude/docs/save-context-guide.md"
   echo "   - GitHub: ${REPO_URL}"
   echo ""
+  echo -e "${BLUE}v2.1.0 Features:${NC}"
+  echo "   - File consolidation (Quick Reference now in STATUS.md)"
+  echo "   - Multi-AI support (claude.md, cursor.md, etc.)"
+  echo "   - Automated staleness detection"
+  echo "   - Template diff helper (/update-templates)"
+  echo ""
   echo -e "${BLUE}Helpful commands:${NC}"
-  echo "   /init-context        - Initialize context system"
-  echo "   /save-context        - Update context docs"
-  echo "   /validate-context    - Check documentation"
+  echo "   /init-context          - Initialize context system"
+  echo "   /save                  - Quick save (2-3 min)"
+  echo "   /save-full             - Comprehensive save (10-15 min)"
+  echo "   /validate-context      - Check documentation + staleness"
   echo "   /update-context-system - Update to latest version"
+  echo "   /update-templates      - Compare and update templates"
   echo ""
   exit 0
 else
